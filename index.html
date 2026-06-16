@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Malzeme ve Depo Hareket Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="dashboard-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Canli Operasyon Paneli</p>
+          <h1>Malzeme, Depo ve Depolar Arasi Hareket Dashboard</h1>
+          <p class="hero-copy">
+            Stok seviyeleri, depo doluluklari, giris/cikis trendleri ve transfer akislari tek
+            ekranda izlenir.
+          </p>
+        </div>
+
+        <div class="hero-actions" aria-label="Dashboard filtreleri">
+          <label for="warehouseFilter">Depo</label>
+          <select id="warehouseFilter">
+            <option value="all">Tum Depolar</option>
+            <option value="merkez">Merkez Depo</option>
+            <option value="uretim">Uretim Deposu</option>
+            <option value="saha">Saha Deposu</option>
+            <option value="iade">Iade Deposu</option>
+          </select>
+        </div>
+      </header>
+
+      <section class="kpi-grid" aria-label="Ozet gostergeler">
+        <article class="kpi-card">
+          <span class="kpi-label">Toplam Malzeme</span>
+          <strong id="totalMaterials">0</strong>
+          <small>Aktif stok kalemi</small>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Depo Doluluk</span>
+          <strong id="avgOccupancy">0%</strong>
+          <small>Ortalama kapasite kullanimi</small>
+        </article>
+        <article class="kpi-card">
+          <span class="kpi-label">Bugunku Hareket</span>
+          <strong id="todayMoves">0</strong>
+          <small>Giris, cikis ve transfer</small>
+        </article>
+        <article class="kpi-card alert-card">
+          <span class="kpi-label">Kritik Stok</span>
+          <strong id="criticalItems">0</strong>
+          <small>Minimum seviyenin altinda</small>
+        </article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel panel-wide warehouse-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Depo Izleme</p>
+              <h2>Depo Doluluk ve Kapasite</h2>
+            </div>
+            <span class="live-badge">LIVE</span>
+          </div>
+
+          <div class="warehouse-layout" id="warehouseCards"></div>
+        </article>
+
+        <article class="panel flow-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Transfer Agi</p>
+              <h2>Depolar Arasi Hareket</h2>
+            </div>
+          </div>
+
+          <div class="flow-map" aria-label="Depolar arasi transfer haritasi">
+            <div class="node node-main">Merkez</div>
+            <div class="node node-production">Uretim</div>
+            <div class="node node-field">Saha</div>
+            <div class="node node-return">Iade</div>
+            <svg viewBox="0 0 520 340" role="img" aria-label="Transfer akislari">
+              <defs>
+                <marker
+                  id="arrow"
+                  markerWidth="8"
+                  markerHeight="8"
+                  refX="7"
+                  refY="4"
+                  orient="auto"
+                  markerUnits="strokeWidth"
+                >
+                  <path d="M0,0 L8,4 L0,8 Z" fill="#00e5ff" />
+                </marker>
+              </defs>
+              <path class="flow-line flow-a" d="M110 170 C180 70, 300 70, 405 118" />
+              <path class="flow-line flow-b" d="M410 145 C300 210, 240 250, 145 245" />
+              <path class="flow-line flow-c" d="M120 190 C210 210, 300 220, 403 243" />
+              <path class="flow-line flow-d" d="M260 92 C220 135, 190 175, 137 220" />
+            </svg>
+          </div>
+
+          <ul class="transfer-list" id="transferList"></ul>
+        </article>
+
+        <article class="panel material-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Malzeme Stok</p>
+              <h2>Oncelikli Kalemler</h2>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Malzeme</th>
+                  <th>Depo</th>
+                  <th>Stok</th>
+                  <th>Min.</th>
+                  <th>Durum</th>
+                </tr>
+              </thead>
+              <tbody id="materialRows"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Hareket Analizi</p>
+              <h2>Haftalik Giris / Cikis</h2>
+            </div>
+          </div>
+          <div class="bar-chart" id="movementChart" aria-label="Haftalik hareket grafigi"></div>
+          <div class="chart-legend">
+            <span><i class="legend-in"></i>Giris</span>
+            <span><i class="legend-out"></i>Cikis</span>
+          </div>
+        </article>
+
+        <article class="panel panel-wide status-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Operasyon Durumu</p>
+              <h2>Anlik Sinyaller</h2>
+            </div>
+          </div>
+
+          <div class="signal-grid">
+            <div class="signal-card">
+              <span>Bekleyen Sevk</span>
+              <strong>18</strong>
+              <small>6 sevk yukleme rampasinda</small>
+            </div>
+            <div class="signal-card">
+              <span>Kalite Blokaj</span>
+              <strong>7</strong>
+              <small>3 kalem mal kabulde</small>
+            </div>
+            <div class="signal-card">
+              <span>Transfer SLA</span>
+              <strong>92%</strong>
+              <small>Hedefin 4 puan ustunde</small>
+            </div>
+            <div class="signal-card">
+              <span>Sayim Farki</span>
+              <strong>1.8%</strong>
+              <small>Son periyoda gore -0.6</small>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
