@@ -2,20 +2,45 @@
 
 YEDAŞ bölge dağıtım şirketi malzeme stok takip sistemi.
 
-## Veritabanı
+## Çalışan Uygulama (Web)
 
-`Database2.accdb` — Access referans veritabanı (il depoları, malzemeler, projeler, TEDAŞ kodları).
+**Hemen kullanmak için:** [BASLAT.md](BASLAT.md)
 
-## Stok Takip Implementasyonu
+```bash
+pip install -r requirements.txt
+# Database2.accdb dosyasını proje köküne koyun
+python run.py
+# Tarayıcı: http://localhost:5000
+```
 
-`database/` klasöründe stok hareketi, harcama ve nakil takibi için SQL, VBA ve sorgu dosyaları bulunur.
+### Özellikler
 
-Kurulum için: [database/KURULUM.md](database/KURULUM.md)
+- Malzeme girişi (il depo)
+- Depolar arası nakil
+- Proje bazlı harcama
+- İl/depo bakiye sorgulama
+- Harcama, nakil ve hareket raporları
 
-### Adımlar
+### Dosya Yapısı
 
-1. `01_tablolar.sql` — TB_Stok_Hareket, TB_Proje_Depo, TB_Hareket_Tipi tabloları
-2. `01b_mevcut_tablo_guncellemeleri.sql` — Mevcut tablolara ek alanlar
-3. `02_iliskiler.md` — İlişki diyagramı ve kurulum
-4. `03_formlar_vba.bas` — Giriş, nakil, harcama form VBA kodları
-5. `04_sorgular.sql` — Bakiye ve rapor sorguları
+```
+malzeme/
+├── run.py              ← Uygulamayı başlat
+├── BASLAT.md           ← Kurulum kılavuzu
+├── Database2.accdb     ← Access kaynak (siz eklersiniz)
+├── app/                ← Web uygulaması
+├── scripts/            ← Access → SQLite aktarım
+└── database/           ← Access SQL scriptleri (opsiyonel)
+```
+
+---
+
+## Access SQL Scriptleri (Opsiyonel)
+
+Access içinde doğrudan kurmak isterseniz: [database/KURULUM.md](database/KURULUM.md)
+
+1. `01_tablolar.sql` — Yeni tablolar
+2. `01b_mevcut_tablo_guncellemeleri.sql` — Ek alanlar
+3. `02_iliskiler.md` — İlişkiler
+4. `03_formlar_vba.bas` — VBA formları
+5. `04_sorgular.sql` — Rapor sorguları

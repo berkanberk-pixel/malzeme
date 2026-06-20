@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Veritabanı (yeniden oluşturulabilir)
+data/malzeme.db
+
+# Access dosyası (büyük, kullanıcı kendi ekler)
+Database2.accdb
+*.accdb
+
+# IDE
+.idea/
+.vscode/

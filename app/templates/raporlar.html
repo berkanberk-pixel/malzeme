@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Raporlar{% endblock %}
+{% block content %}
+<h2 class="mb-4">Raporlar</h2>
+
+<ul class="nav nav-tabs mb-3" role="tablist">
+  <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#harcama">Proje Harcama</button></li>
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#nakil">Nakil Özeti</button></li>
+  <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#hareket">Hareket Dökümü</button></li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="harcama">
+    <div class="card p-3">
+      <table class="table table-sm">
+        <thead><tr><th>Proje</th><th>İl</th><th>Malzeme</th><th>Toplam</th><th>İşlem</th></tr></thead>
+        <tbody>
+          {% for r in harcamalar %}
+          <tr>
+            <td>{{ r.proje_kod }}<br><small>{{ r.proje_adi[:50] }}</small></td>
+            <td>{{ r.il_adi or '-' }}</td>
+            <td>{{ r.malzeme_kodu }}<br>{{ r.malzeme_adi[:40] }}</td>
+            <td><strong>{{ r.toplam_harcama }}</strong> {{ r.birim }}</td>
+            <td>{{ r.hareket_sayisi }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="5" class="text-muted">Harcama kaydı yok</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="nakil">
+    <div class="card p-3">
+      <table class="table table-sm">
+        <thead><tr><th>Tarih</th><th>Kaynak</th><th>Hedef</th><th>Malzeme</th><th>Miktar</th><th>Belge</th></tr></thead>
+        <tbody>
+          {% for r in nakiller %}
+          <tr>
+            <td>{{ r.Tarih[:16] }}</td>
+            <td>{{ r.kaynak_il }}<br><small>{{ r.kaynak_depo }}</small></td>
+            <td>{{ r.hedef_il }}<br><small>{{ r.hedef_depo }}</small></td>
+            <td>{{ r.malzeme_adi[:35] }}</td>
+            <td>{{ r.Miktar }} {{ r.Birim }}</td>
+            <td>{{ r.Belge_No or '-' }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="6" class="text-muted">Nakil kaydı yok</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-pane fade" id="hareket">
+    <div class="card p-3">
+      <table class="table table-sm">
+        <thead><tr><th>ID</th><th>Tarih</th><th>Tip</th><th>Malzeme</th><th>Miktar</th><th>Kaynak</th><th>Hedef</th><th>Proje</th></tr></thead>
+        <tbody>
+          {% for h in hareketler %}
+          <tr>
+            <td>{{ h.HareketID }}</td>
+            <td>{{ h.Tarih[:16] }}</td>
+            <td><span class="badge bg-secondary">{{ h.Hareket_Tipi }}</span></td>
+            <td>{{ h.malzeme_adi[:30] if h.malzeme_adi else h.Malzeme_Kodu }}</td>
+            <td>{{ h.Miktar }} {{ h.Birim or '' }}</td>
+            <td><small>{{ h.kaynak_depo or '-' }}</small></td>
+            <td><small>{{ h.hedef_depo or '-' }}</small></td>
+            <td><small>{{ h.Proje_Kod or '-' }}</small></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

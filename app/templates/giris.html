@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Malzeme Girişi{% endblock %}
+{% block content %}
+<h2 class="mb-4">Malzeme Girişi</h2>
+<div class="card p-4">
+  <form method="post">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <label class="form-label">İl Filtresi</label>
+        <select class="form-select" onchange="location.href='?il='+this.value+'&q={{ q }}'">
+          <option value="">Tüm iller</option>
+          {% for il in iller %}
+          <option value="{{ il.Uretim_Yeri }}" {% if il_secili == il.Uretim_Yeri %}selected{% endif %}>
+            {{ il.Uretim_Yeri_Tanimi }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-8">
+        <label class="form-label">Hedef Depo *</label>
+        <select name="hedef_depo" class="form-select" required>
+          <option value="">Depo seçin</option>
+          {% for d in depolar %}
+          <option value="{{ d.ID }}">{{ d.ID }} - {{ d.Depo_Yeri_Tanimi }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-8">
+        <label class="form-label">Malzeme *</label>
+        <input type="text" class="form-control mb-2" placeholder="Malzeme ara..."
+               onkeydown="if(event.key==='Enter'){event.preventDefault();location.href='?il={{ il_secili }}&q='+this.value}">
+        <select name="malzeme_kodu" class="form-select" required size="6">
+          {% for m in malzemeler %}
+          <option value="{{ m.Malzeme_Kodu }}">{{ m.Malzeme_Kodu }} - {{ m.Malzmeme_Tanimi }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Miktar *</label>
+        <input type="number" name="miktar" class="form-control" step="0.01" min="0.01" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Birim</label>
+        <select name="birim" class="form-select">
+          {% for b in birimler %}
+          <option value="{{ b.Birim }}">{{ b.Birim }} ({{ b.Tanim }})</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Belge No</label>
+        <input type="text" name="belge_no" class="form-control">
+      </div>
+      <div class="col-md-8">
+        <label class="form-label">Açıklama</label>
+        <input type="text" name="aciklama" class="form-control">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-3">Giriş Kaydet</button>
+  </form>
+</div>
+{% endblock %}

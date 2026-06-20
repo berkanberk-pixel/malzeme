@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Nakil{% endblock %}
+{% block content %}
+<h2 class="mb-4">Depolar Arası Nakil</h2>
+<div class="card p-4">
+  <form method="post" id="nakilForm">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Kaynak İl</label>
+        <select class="form-select" id="kaynakIl" onchange="filterDepo('kaynak')">
+          <option value="">İl seçin</option>
+          {% for il in iller %}
+          <option value="{{ il.Uretim_Yeri }}">{{ il.Uretim_Yeri_Tanimi }}</option>
+          {% endfor %}
+        </select>
+        <label class="form-label mt-2">Kaynak Depo *</label>
+        <select name="kaynak_depo" id="kaynakDepo" class="form-select" required onchange="checkBakiye()">
+          <option value="">Depo seçin</option>
+          {% for d in kaynak_depolar %}
+          <option value="{{ d.ID }}">{{ d.ID }} - {{ d.Depo_Yeri_Tanimi }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Hedef İl</label>
+        <select class="form-select" id="hedefIl" onchange="filterDepo('hedef')">
+          <option value="">İl seçin</option>
+          {% for il in iller %}
+          <option value="{{ il.Uretim_Yeri }}">{{ il.Uretim_Yeri_Tanimi }}</option>
+          {% endfor %}
+        </select>
+        <label class="form-label mt-2">Hedef Depo *</label>
+        <select name="hedef_depo" id="hedefDepo" class="form-select" required>
+          <option value="">Depo seçin</option>
+          {% for d in hedef_depolar %}
+          <option value="{{ d.ID }}">{{ d.ID }} - {{ d.Depo_Yeri_Tanimi }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-8">
+        <label class="form-label">Malzeme *</label>
+        <select name="malzeme_kodu" id="malzeme" class="form-select" required onchange="checkBakiye()">
+          <option value="">Malzeme seçin</option>
+          {% for m in malzemeler %}
+          <option value="{{ m.Malzeme_Kodu }}">{{ m.Malzeme_Kodu }} - {{ m.Malzmeme_Tanimi }}</option>
+          {% endfor %}
+        </select>
+        {% if mevcut_bakiye is not none %}
+        <div class="alert alert-info mt-2 py-1">Mevcut bakiye: <strong>{{ mevcut_bakiye }}</strong></div>
+        {% endif %}
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Miktar *</label>
+        <input type="number" name="miktar" class="form-control" step="0.01" min="0.01" required>
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">Birim</label>
+        <select name="birim" class="form-select">
+          {% for b in birimler %}
+          <option value="{{ b.Birim }}">{{ b.Birim }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Belge No</label>
+        <input type="text" name="belge_no" class="form-control">
+      </div>
+      <div class="col-md-8">
+        <label class="form-label">Açıklama</label>
+        <input type="text" name="aciklama" class="form-control">
+      </div>
+    </div>
+    <button type="submit" class="btn btn-warning mt-3">Nakil Kaydet</button>
+  </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function filterDepo(tip) {
+  const il = document.getElementById(tip + 'Il').value;
+  location.href = '?kaynak_il=' + (tip==='kaynak'?il:document.getElementById('kaynakIl').value)
+    + '&hedef_il=' + (tip==='hedef'?il:document.getElementById('hedefIl').value);
+}
+function checkBakiye() {
+  const m = document.getElementById('malzeme').value;
+  const d = document.getElementById('kaynakDepo').value;
+  if (m && d) location.href = '?malzeme=' + m + '&kaynak=' + d
+    + '&kaynak_il=' + document.getElementById('kaynakIl').value
+    + '&hedef_il=' + document.getElementById('hedefIl').value;
+}
+</script>
+{% endblock %}

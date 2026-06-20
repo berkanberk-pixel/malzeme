@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Ana Sayfa - Stok Takip{% endblock %}
+{% block content %}
+<h2 class="mb-4">Ana Sayfa</h2>
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="card stat-card p-3"><small>Depo</small><h3>{{ stats.depo }}</h3></div></div>
+  <div class="col-md-3"><div class="card stat-card p-3"><small>Malzeme</small><h3>{{ stats.malzeme }}</h3></div></div>
+  <div class="col-md-3"><div class="card stat-card p-3"><small>Proje</small><h3>{{ stats.proje }}</h3></div></div>
+  <div class="col-md-3"><div class="card stat-card p-3"><small>Hareket</small><h3>{{ stats.hareket }}</h3></div></div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card p-3">
+      <h5>Güncel Bakiyeler</h5>
+      <table class="table table-sm">
+        <thead><tr><th>İl</th><th>Depo</th><th>Malzeme</th><th>Bakiye</th></tr></thead>
+        <tbody>
+          {% for r in bakiyeler %}
+          <tr>
+            <td>{{ r.il_adi or '-' }}</td>
+            <td>{{ r.depo_adi }}</td>
+            <td><small>{{ r.malzeme_kodu }}</small><br>{{ r.malzeme_adi[:40] }}</td>
+            <td><strong>{{ r.bakiye }}</strong> {{ r.birim }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="4" class="text-muted">Henüz hareket yok</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="/bakiye" class="btn btn-sm btn-outline-primary">Tüm Bakiyeler</a>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card p-3">
+      <h5>Son Hareketler</h5>
+      <table class="table table-sm">
+        <thead><tr><th>Tarih</th><th>Tip</th><th>Malzeme</th><th>Miktar</th></tr></thead>
+        <tbody>
+          {% for h in son_hareketler %}
+          <tr>
+            <td><small>{{ h.Tarih[:16] }}</small></td>
+            <td><span class="badge bg-secondary">{{ h.Hareket_Tipi }}</span></td>
+            <td>{{ h.malzeme_adi[:30] if h.malzeme_adi else h.Malzeme_Kodu }}</td>
+            <td>{{ h.Miktar }} {{ h.Birim or '' }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="/raporlar" class="btn btn-sm btn-outline-primary">Tüm Raporlar</a>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4">
+  <a href="/giris" class="btn btn-success me-2">+ Malzeme Girişi</a>
+  <a href="/nakil" class="btn btn-warning me-2">⇄ Nakil</a>
+  <a href="/harcama" class="btn btn-danger">Proje Harcaması</a>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Depo Bakiye{% endblock %}
+{% block content %}
+<h2 class="mb-4">Depo Bakiye</h2>
+<div class="card p-3 mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-3">
+      <label class="form-label">İl</label>
+      <select name="il" class="form-select" onchange="this.form.submit()">
+        <option value="">Tüm iller</option>
+        {% for il in iller %}
+        <option value="{{ il.Uretim_Yeri }}" {% if il_secili == il.Uretim_Yeri %}selected{% endif %}>
+          {{ il.Uretim_Yeri_Tanimi }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-5">
+      <label class="form-label">Depo</label>
+      <select name="depo" class="form-select">
+        <option value="">Tüm depolar</option>
+        {% for d in depolar %}
+        <option value="{{ d.ID }}" {% if depo_secili == d.ID %}selected{% endif %}>
+          {{ d.ID }} - {{ d.Depo_Yeri_Tanimi }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-primary w-100">Filtrele</button>
+    </div>
+  </form>
+</div>
+
+<div class="card p-3">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>İl</th><th>Depo</th><th>Malzeme Kodu</th><th>Malzeme</th><th>Bakiye</th><th>Birim</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rows %}
+      <tr>
+        <td>{{ r.il_adi or r.il_kodu }}</td>
+        <td>{{ r.depo_adi }}<br><small class="text-muted">{{ r.depo_id }}</small></td>
+        <td>{{ r.malzeme_kodu }}</td>
+        <td>{{ r.malzeme_adi }}</td>
+        <td><strong class="{% if r.bakiye < 0 %}text-danger{% else %}text-success{% endif %}">{{ "%.2f"|format(r.bakiye) }}</strong></td>
+        <td>{{ r.birim }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="text-muted text-center">Kayıt bulunamadı</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
