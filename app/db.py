@@ -2,10 +2,10 @@ import os
 import sqlite3
 from datetime import datetime
 
-DB_PATH = os.environ.get(
+DB_PATH = os.path.normpath(os.environ.get(
     "DB_PATH",
     os.path.join(os.path.dirname(__file__), "..", "data", "malzeme.db"),
-)
+))
 
 
 def get_db():

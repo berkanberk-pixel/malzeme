@@ -9,11 +9,11 @@ from access_parser import AccessParser
 
 ACCDB_PATH = os.environ.get(
     "ACCDB_PATH",
-    "/workspace/Database2.accdb",
+    os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "Database2.accdb")),
 )
 DB_PATH = os.environ.get(
     "DB_PATH",
-    os.path.join(os.path.dirname(__file__), "..", "data", "malzeme.db"),
+    os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "data", "malzeme.db")),
 )
 
 TABLES = [

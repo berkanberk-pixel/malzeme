@@ -131,9 +131,19 @@ python run.py
 | Sorun | Çözüm |
 |-------|-------|
 | `Database2.accdb bulunamadı` | Dosyayı proje köküne kopyalayın |
-| `pip install` hata | `python -m pip install -r requirements.txt` deneyin |
-| Port 5000 meşgul | `run.py` içinde portu değiştirin |
+| `Python bulunamadı` | Python 3 kurun, PATH'e ekleyin |
+| `Paket kurulumu başarısız` | `kurulum.bat` çalıştırın |
+| `Veri aktarımı başarısız` | `kurulum.log` dosyasını kontrol edin |
 | Sayfa açılmıyor | `http://127.0.0.1:5000` deneyin |
+| Port 5000 meşgul | Diğer programları kapatın |
+| Hiçbir şey olmuyor | **`test_sistem.bat`** çalıştırın |
+
+### Adım adım teşhis
+
+1. **`test_sistem.bat`** — Python, dosyalar ve paketleri kontrol eder
+2. **`kurulum.bat`** — Temiz kurulum yapar
+3. **`baslat.bat`** — Uygulamayı başlatır
+4. Hata devam ederse **`kurulum.log`** içeriğini paylaşın
 
 ---
 
