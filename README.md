@@ -6,6 +6,9 @@ YEDAŞ bölge dağıtım şirketi malzeme stok takip sistemi.
 
 **Hemen kullanmak için:** [BASLAT.md](BASLAT.md)
 
+**Windows:** `baslat.bat` dosyasına çift tıklayın.
+
+**Manuel:**
 ```bash
 pip install -r requirements.txt
 # Database2.accdb dosyasını proje köküne koyun

@@ -44,6 +44,10 @@ pip install -r requirements.txt
 
 ### 4. Uygulamayı başlatın
 
+**Kolay yol (Windows):** `baslat.bat` dosyasına çift tıklayın.
+
+**Manuel yol:**
+
 ```bash
 python run.py
 ```
@@ -55,6 +59,8 @@ python run.py
 ```
 http://localhost:5000
 ```
+
+(`baslat.bat` tarayıcıyı otomatik açar.)
 
 ---
 
@@ -90,6 +96,8 @@ http://localhost:5000
 
 ```
 malzeme/
+├── baslat.bat             # Windows: çift tıkla çalıştır
+├── kurulum.bat            # Windows: ilk kurulum
 ├── run.py                 # Uygulamayı başlat
 ├── requirements.txt       # Python bağımlılıkları
 ├── Database2.accdb        # Access kaynak (siz eklersiniz)

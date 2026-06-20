@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 .venv/
 venv/
+.venv
 
 # Veritabanı (yeniden oluşturulabilir)
 data/malzeme.db
