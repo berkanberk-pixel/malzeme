@@ -1,19 +1,14 @@
 @echo off
-setlocal EnableDelayedExpansion
+setlocal
 chcp 65001 >nul 2>&1
 title Malzeme Stok Takip Sistemi
 color 0A
 
-:: Proje klasoru (turkce karakter ve bosluk destekli)
 set "ROOT=%~dp0"
 cd /d "%ROOT%"
 
 set "VENV_PY=%ROOT%.venv\Scripts\python.exe"
-set "VENV_PIP=%ROOT%.venv\Scripts\pip.exe"
 set "LOG=%ROOT%kurulum.log"
-
-echo. > "%LOG%"
-echo [%date% %time%] Baslatiliyor >> "%LOG%"
 
 echo.
 echo  ============================================
@@ -23,116 +18,126 @@ echo    Klasor: %ROOT%
 echo  ============================================
 echo.
 
-:: ---- Python bul ----
-set "PY_CMD="
+echo Baslatiliyor > "%LOG%"
+
+REM --- Python bul ---
+set "USE_PY=0"
 where python >nul 2>&1
-if !errorlevel! equ 0 set "PY_CMD=python"
+if %errorlevel%==0 set "USE_PY=1"
 
-if not defined PY_CMD (
-    where py >nul 2>&1
-    if !errorlevel! equ 0 set "PY_CMD=py -3"
-)
+if "%USE_PY%"=="0" goto find_py_launcher
+echo  [OK] Python bulundu
+python --version
+echo python >> "%LOG%"
+goto python_found
 
-if not defined PY_CMD (
-    echo  [HATA] Python bulunamadi!
-    echo  Python 3 kurun: https://www.python.org/downloads/
-    echo  Kurulumda "Add Python to PATH" seceneginini isaretleyin.
-    echo  [HATA] Python bulunamadi >> "%LOG%"
-    pause
-    exit /b 1
-)
+:find_py_launcher
+where py >nul 2>&1
+if not %errorlevel%==0 goto no_python
+echo  [OK] Python bulundu
+py -3 --version
+echo py -3 >> "%LOG%"
+goto python_found
 
-echo  [OK] Python: %PY_CMD%
-%PY_CMD% --version
-echo  Python: %PY_CMD% >> "%LOG%"
+:no_python
+echo  [HATA] Python bulunamadi!
+echo  Python 3 kurun: https://www.python.org/downloads/
+echo  Kurulumda Add Python to PATH secenegini isaretleyin.
+echo Python yok >> "%LOG%"
+pause
+exit /b 1
 
-:: ---- Database2.accdb kontrol ----
-if not exist "%ROOT%Database2.accdb" (
-    echo.
-    echo  [HATA] Database2.accdb bulunamadi!
-    echo  Su klasore kopyalayin:
-    echo  %ROOT%
-    echo  [HATA] Database2.accdb yok >> "%LOG%"
-    pause
-    exit /b 1
-)
+:python_found
+
+REM --- Database2.accdb ---
+if exist "%ROOT%Database2.accdb" goto accdb_ok
+echo.
+echo  [HATA] Database2.accdb bulunamadi!
+echo  Su klasore kopyalayin:
+echo  %ROOT%
+echo accdb yok >> "%LOG%"
+pause
+exit /b 1
+
+:accdb_ok
 echo  [OK] Database2.accdb bulundu
 
-:: ---- data klasoru ----
-if not exist "%ROOT%data" mkdir "%ROOT%data"
+REM --- data klasoru ---
+if exist "%ROOT%data" goto data_ok
+mkdir "%ROOT%data"
+:data_ok
 
-:: ---- Sanal ortam ----
-if not exist "%VENV_PY%" (
-    echo.
-    echo  [..] Sanal ortam olusturuluyor...
-    %PY_CMD% -m venv "%ROOT%.venv"
-    if !errorlevel! neq 0 (
-        echo  [HATA] Sanal ortam olusturulamadi!
-        echo  [HATA] venv basarisiz >> "%LOG%"
-        pause
-        exit /b 1
-    )
-)
+REM --- Sanal ortam ---
+if exist "%VENV_PY%" goto venv_ok
+echo.
+echo  [..] Sanal ortam olusturuluyor...
+if "%USE_PY%"=="1" goto make_venv_python
+py -3 -m venv "%ROOT%.venv"
+goto venv_made
+:make_venv_python
+python -m venv "%ROOT%.venv"
+:venv_made
+if not exist "%VENV_PY%" goto venv_fail
+:venv_ok
 
-if not exist "%VENV_PY%" (
-    echo  [HATA] .venv\Scripts\python.exe bulunamadi!
-    pause
-    exit /b 1
-)
-
-:: ---- Paket kur ----
+REM --- Paketler ---
 echo  [..] Paketler kuruluyor...
 "%VENV_PY%" -m pip install --upgrade pip >> "%LOG%" 2>&1
 "%VENV_PY%" -m pip install -r "%ROOT%requirements.txt" >> "%LOG%" 2>&1
-if !errorlevel! neq 0 (
-    echo  [HATA] Paket kurulumu basarisiz!
-    echo  Detay: %LOG%
-    pause
-    exit /b 1
-)
+if not %errorlevel%==0 goto pip_fail
 echo  [OK] Paketler hazir
 
-:: ---- Veritabani aktar ----
-if not exist "%ROOT%data\malzeme.db" (
-    echo  [..] Access verisi aktariliyor (ilk kurulum)...
-    set "ACCDB_PATH=%ROOT%Database2.accdb"
-    set "DB_PATH=%ROOT%data\malzeme.db"
-    "%VENV_PY%" "%ROOT%scripts\import_access.py" >> "%LOG%" 2>&1
-    if !errorlevel! neq 0 (
-        echo  [HATA] Veri aktarimi basarisiz!
-        echo  Detay: %LOG%
-        pause
-        exit /b 1
-    )
-    echo  [OK] Veri aktarimi tamamlandi
-) else (
-    echo  [OK] Veritabani mevcut
-)
+REM --- Veritabani ---
+if exist "%ROOT%data\malzeme.db" goto db_ok
+echo  [..] Access verisi aktariliyor...
+set "ACCDB_PATH=%ROOT%Database2.accdb"
+set "DB_PATH=%ROOT%data\malzeme.db"
+"%VENV_PY%" "%ROOT%scripts\import_access.py" >> "%LOG%" 2>&1
+if not %errorlevel%==0 goto import_fail
+echo  [OK] Veri aktarimi tamamlandi
+goto db_ok
 
-:: ---- Uygulamayi baslat ----
+:import_fail
+echo  [HATA] Veri aktarimi basarisiz!
+echo  Detay: %LOG%
+pause
+exit /b 1
+
+:pip_fail
+echo  [HATA] Paket kurulumu basarisiz!
+echo  Detay: %LOG%
+pause
+exit /b 1
+
+:venv_fail
+echo  [HATA] Sanal ortam olusturulamadi!
+echo  Detay: %LOG%
+pause
+exit /b 1
+
+:db_ok
+if exist "%ROOT%data\malzeme.db" echo  [OK] Veritabani hazir
+
+REM --- Uygulama ---
 echo.
 echo  ============================================
 echo    Uygulama baslatiliyor...
 echo    Adres: http://127.0.0.1:5000
-echo.
 echo    Durdurmak icin bu pencereyi kapatin
 echo  ============================================
 echo.
 
 set "DB_PATH=%ROOT%data\malzeme.db"
-set "FLASK_APP=app"
-
-start "" /min cmd /c "timeout /t 3 /nobreak >nul && start http://127.0.0.1:5000"
+start "" cmd /c "ping -n 4 127.0.0.1 >nul && start http://127.0.0.1:5000"
 
 "%VENV_PY%" "%ROOT%run.py"
-set "EXIT_CODE=!errorlevel!"
+set "ERR=%errorlevel%"
 
-if !EXIT_CODE! neq 0 (
-    echo.
-    echo  [HATA] Uygulama kapandi (kod: !EXIT_CODE!)
-    echo  Detay icin: %LOG%
-    echo.
-)
+if "%ERR%"=="0" goto done
+echo.
+echo  [HATA] Uygulama kapandi. Kod: %ERR%
+echo  Detay: %LOG%
 
+:done
 pause
-exit /b !EXIT_CODE!
+exit /b %ERR%
