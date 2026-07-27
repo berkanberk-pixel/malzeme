@@ -1,0 +1,9 @@
+[2026-07-27 19:28:20] [INFO] === Mi Unlock hata sınıflandırma ===
+[2026-07-27 19:28:20] [INFO] Kullanıcı girdisi: ekran görüntüsü + '200'
+[2026-07-27 19:28:20] [OUT] TR: Kilidi açılamadı
+[2026-07-27 19:28:20] [OUT] EN: The place where the account is registered does not match the place where the phone is sold.
+[2026-07-27 19:28:20] [OUT] Kullanıcı kodu/ref: 200
+[2026-07-27 19:28:20] [INFO] Kategori: Hesap veya cihaz bölgesi uyuşmuyor
+[2026-07-27 19:28:20] [INFO] Kanıt: Mi Unlock metni hesap kayıt yeri ≠ telefon satış yeri diyor.
+[2026-07-27 19:28:20] [INFO] Bypass/exploit araştırılmadı ve önerilmedi.
+[2026-07-27 19:28:20] [INFO] === Sınıflandırma tamamlandı ===

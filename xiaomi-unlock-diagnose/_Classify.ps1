@@ -11,7 +11,8 @@ function Invoke-MiUnlockErrorClassify {
     if ($m -match 'not bound|not bind|eşleştir|eslestir|add account|account.*device|device.*account|86006|86012') {
         return [pscustomobject]@{ Category = "Hesap cihazla eşleştirilmemiş"; Reason = $Msg }
     }
-    if ($m -match 'region|bölge|bolge|country|ülke|ulke|locale|server.*mismatch|86005') {
+    if ($m -match 'region|bölge|bolge|country|ülke|ulke|locale|server.*mismatch|place where the account is registered|place where the phone is sold|does not match the place|kilidi açılamadı|86005|\b200\b') {
+        # Not: yalnız "200" belirsiz olabilir; ekran metniyle birlikte bölge uyuşmazlığı kabul edilir.
         return [pscustomobject]@{ Category = "Hesap veya cihaz bölgesi uyuşmuyor"; Reason = $Msg }
     }
     if ($m -match 'sim|mobile data|mobil veri|network|find device|couldn.?t verify|verify.*phone|86015|86016') {
