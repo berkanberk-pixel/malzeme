@@ -1,0 +1,17 @@
+[2026-07-27 19:12:43] [INFO] === Xiaomi Mi Max 2 güvenli teşhis başladı (uzak ajan ortamı) ===
+[2026-07-27 19:12:43] [INFO] Mod: salt okunur. Flash/erase/unlock/EDL yasak.
+[2026-07-27 19:12:43] [INFO] Ortam OS: Linux 6.12.94+
+[2026-07-27 19:12:43] [INFO] Host: cursor
+[2026-07-27 19:12:43] [CMD] which fastboot
+[2026-07-27 19:12:43] [ERROR] fastboot: command not found
+[2026-07-27 19:12:43] [WARN] Android Platform Tools bu uzak Linux ortamında kurulu değil.
+[2026-07-27 19:12:43] [CMD] which adb
+[2026-07-27 19:12:43] [ERROR] adb: command not found
+[2026-07-27 19:12:43] [INFO] Xiaomi USB sürücü kontrolü: Windows PnP API yok (Linux uzak ortam).
+[2026-07-27 19:12:43] [WARN] Fiziksel Xiaomi Mi Max 2 cihazı bu ortama USB ile bağlı değil.
+[2026-07-27 19:12:43] [INFO] İzinli komutlar (fastboot devices, getvar*, oem device-info) çalıştırılamadı — cihaz yok.
+[2026-07-27 19:12:43] [INFO] Yasaklı komutlar çalıştırılmadı.
+[2026-07-27 19:12:43] [INFO] Mi Unlock başlatılmadı (cihaz/Windows yok; onay da yok).
+[2026-07-27 19:12:43] [INFO] ROM bölgesi: cihazdan okunamadı — tahmin yok.
+[2026-07-27 19:12:43] [INFO] Seri/IMEI: okunmadı.
+[2026-07-27 19:12:43] [INFO] === Teşhis tamamlandı (uzak ön kontrol) ===

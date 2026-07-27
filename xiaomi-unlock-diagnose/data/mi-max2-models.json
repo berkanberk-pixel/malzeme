@@ -1,0 +1,17 @@
+{
+  "device_family": "Xiaomi Mi Max 2",
+  "codenames": ["oxygen"],
+  "known_product_codes": ["oxygen"],
+  "known_model_codes": [
+    "MDE40",
+    "MDT4",
+    "MDI40",
+    "MDE40 Global",
+    "oxygen"
+  ],
+  "notes": [
+    "Mi Max 2 resmi kod adı (codename) oxygen'dir.",
+    "fastboot getvar product çıktısı genelde oxygen olmalıdır.",
+    "product değeri oxygen değilse sonuç kesin kabul edilmez; tahmin yürütülmez."
+  ]
+}
