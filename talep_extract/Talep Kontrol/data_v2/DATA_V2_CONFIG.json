@@ -1,0 +1,63 @@
+{
+  "architecture_version": "2.0",
+  "freshness_hours": {
+    "ZMM098": 4,
+    "ZMM048": 24,
+    "MB51": 24,
+    "MB52": 24,
+    "TESIS": 24,
+    "KET": 24,
+    "BAKIM": 24,
+    "LED": 24
+  },
+  "warning_ratio": 0.8,
+  "retention": {
+    "MB51_ACTIVE": "1 year",
+    "MB52_ACTIVE": "30 days",
+    "ZMM098_ACTIVE": "90 days",
+    "ZMM048_ACTIVE": "1 year",
+    "STANDARD_HOT": "90 days",
+    "QUARANTINE": "1 year",
+    "RAW": "indefinite",
+    "AUDIT": "indefinite"
+  },
+  "backup": {
+    "daily": true,
+    "weekly_full": true,
+    "restore_test": "monthly"
+  },
+  "snapshot": {
+    "single_active_per_source": true,
+    "duplicate_by_hash": true,
+    "physical_delete": false
+  },
+  "roles": [
+    "NORMAL_USER",
+    "DATA_MANAGER",
+    "ADMIN"
+  ],
+  "ruleset_trace": {
+    "enabled": true,
+    "source": "CURRENT_RULES.json",
+    "store_with_control_record": true
+  },
+  "integrity": {
+    "active_engine": "daily",
+    "history": "weekly",
+    "archive": "monthly",
+    "hash": "SHA-256",
+    "atomic_active_pointer": true
+  },
+  "quality": {
+    "row_duplicates": true,
+    "orphan_references": true,
+    "domain_range_checks": true,
+    "critical_blocks_active_switch": true
+  },
+  "quarantine_reprocess": {
+    "preserve_original": true,
+    "new_inbox_entry": true,
+    "previous_quarantine_id": true
+  },
+  "implementation_hardening": "FIX5-integrity-health-freshness"
+}

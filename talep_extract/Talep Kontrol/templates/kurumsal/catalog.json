@@ -1,0 +1,47 @@
+{
+  "TESIS": {
+    "file": "TESIS_MALZEME_TALEP_F603_KURUMSAL.xlsx",
+    "title": "TESİS Malzeme Talep",
+    "sheet": "Tesis Malzeme Talep F.603",
+    "type": "TALEP",
+    "sha256": "07462f0de96965191680e8a2e8365dccf4b5f979bedc9b9636460bcd988ee8a7",
+    "bytes": 1293162,
+    "status": "REFERANS_ORIJINAL"
+  },
+  "KET_BAKIM": {
+    "file": "KET_BAKIM_MALZEME_TALEP_F603_KURUMSAL.xlsx",
+    "title": "KET–BAKIM Malzeme Talep",
+    "sheet": "Ket - Bakım Malzeme Talep F.603",
+    "type": "TALEP",
+    "sha256": "a20c5f82acb2f0b83939b794069e635153a3ac6a4c10c104b21a751bfb2e42f1",
+    "bytes": 552187,
+    "status": "REFERANS_ORIJINAL"
+  },
+  "LED": {
+    "file": "LED_MALZEME_TALEP_F603_KURUMSAL.xlsx",
+    "title": "LED Malzeme Talep",
+    "sheet": "F.603",
+    "type": "TALEP",
+    "sha256": "0f9b33064ec2cb92b7fe54b1d99be612e35b84a24c9cf7211446aa0549c6782e",
+    "bytes": 447434,
+    "status": "REFERANS_ORIJINAL"
+  },
+  "REVIZE": {
+    "file": "REVIZE_KESIF_KURUMSAL.xlsx",
+    "title": "Revize Keşif",
+    "sheet": "Revize Keşif Talep",
+    "type": "REVIZE",
+    "sha256": "2c981ae2f771e10fb825e4cab55a44ea8c6724ed7c1e63b6a31be09f2ecd563a",
+    "bytes": 9028891,
+    "status": "REFERANS_ORIJINAL"
+  },
+  "YENI_KESIF": {
+    "file": "YENI_KESIF_V06_ORNEK.xlsx",
+    "title": "Yeni Keşif (V0.6 taslak)",
+    "sheet": "PROJE_LISTESI + KESIF_GIRIS",
+    "type": "YENI_KESIF",
+    "sha256": "f3818103a5bfb7ff4ccf935924a84f7e253c4fb9589d30d52166e418ae8a046e",
+    "bytes": 328150,
+    "status": "V06_PILOT"
+  }
+}

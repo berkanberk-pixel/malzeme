@@ -1,0 +1,31 @@
+YEDAŞ Talep Kontrol V3.13.0 — CSV Kaynak Başlık Örnekleri
+
+DOSYA ADLARI SERBESTTİR. Aşağıdaki başlıklar içerik tanıma için kullanılır.
+CSV ayıracı ; , TAB veya | olabilir. UTF-8 önerilir; Windows Türkçe (cp1254) da okunur.
+
+ZMM048 / Rezervasyon
+Rezervasyon;Malzeme;Rezervasyon Miktarı;TESLİM EDEN ÜY;TESLİM EDEN DY;TESLİM ALAN ÜY;Teslim alan DY
+
+MB52 / Güncel stok ve fiyat
+Malzeme;Üretim yeri;Depo yeri;Tahditsiz klnb.;Toplam değer
+
+ZMM098 / Teminat
+Üretim yeri;Depo yeri;Güvence Teminat Tutarı
+
+MB51 / Hareket (raporlama kaynağı)
+Malzeme;İşlem türü;Miktar
+
+TANIMLAR / Depolar
+UY;Depo_Yeri;Depo_Turu;Is_Turu;Firma_Adi;Sozlesme_Adi;Aktif
+
+TANIMLAR / Projeler
+Proje_ID;Proje_Adi;Depo_Yeri;UY;Is_Turu;Aktif
+
+TANIMLAR / Malzemeler
+Malzeme_Kodu;Malzeme_Tanimi;Birim
+
+KESIFLER / Ortak zorunlu alanlar
+Depo Kodu;Malzeme Kodu;Teslim Edilen;Verilen Malzeme Toplamı;Teslim Edilen - Verilen Fark
+
+TESİS keşfinde ayrıca Proje / Proje Adı alanı bulunmalıdır.
+KET / BAKIM / LED için İş Türü alanı önerilir. Yoksa Depo Kodu, TANIMLAR depo iş türü üzerinden belirlenir.

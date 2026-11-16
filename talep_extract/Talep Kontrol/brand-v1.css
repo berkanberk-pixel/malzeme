@@ -1,0 +1,5 @@
+
+/* Talep Kontrol v3.13.0 kurumsal marka eki - sadece gorsel */
+.tk-splash-logo { display:block; width:min(440px,88%); max-height:195px; object-fit:contain; margin:0 auto 12px; border-radius:12px; }
+.tk-icon-brand { overflow:hidden; display:flex; align-items:center;justify-content:center; }
+.tk-icon-brand img { width:100%;height:100%;object-fit:cover;display:block; }

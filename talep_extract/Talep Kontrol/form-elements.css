@@ -1,0 +1,27 @@
+/* FIX28M – Metin girişleri temadan bağımsız, fark edilir ve erişilebilir. */
+body.tk-webgl-ui :is(input[type="text"],input[type="search"],input[type="number"],input[type="date"],input[type="datetime-local"],input[type="email"],input[type="password"],input:not([type]),textarea,select){
+  box-sizing:border-box;
+  background-color:#fff!important;
+  color:#19344d!important;
+  border:1.6px solid #93acbf!important;
+  border-radius:8px!important;
+  min-height:39px;
+  padding:8px 11px;
+  font-size:13px;
+  line-height:1.45;
+  box-shadow:0 1px 2px rgba(28,56,83,.08),inset 0 1px 1px rgba(23,54,74,.025);
+  transition:border-color .15s ease,box-shadow .15s ease,background-color .15s ease;
+}
+body.tk-webgl-ui :is(input[type="text"],input[type="search"],input[type="number"],input[type="date"],input[type="datetime-local"],input[type="email"],input[type="password"],input:not([type]),textarea,select):focus-visible{
+  outline:2px solid var(--tkgl-accent)!important;
+  outline-offset:1px;
+  border-color:var(--tkgl-accent)!important;
+  background-color:#fff!important;
+  box-shadow:0 0 0 4px rgba(0,140,168,.14)!important;
+}
+body.tk-webgl-ui :is(input,textarea)::placeholder{color:#6d8191!important;opacity:1}
+body.tk-webgl-ui :is(input,textarea,select):disabled{background-color:#eef2f5!important;border-color:#bdc8d1!important;color:#667789!important;box-shadow:none!important;cursor:not-allowed}
+body.tk-webgl-ui :is(input,textarea)[readonly]{background-color:#f1f5f8!important;border-color:#c0ced8!important;box-shadow:none!important;color:#526575!important}
+body.tk-webgl-ui :is(.field,.operations-filter-panel label,.user-resp-form label,.tesis-project-form label)>span:first-child{color:#273e55;font-weight:700}
+/* Never apply textbox styles to checkbox, radio, file, range or button controls. */
+@media(max-width:690px){body.tk-webgl-ui :is(input[type="text"],input[type="search"],input[type="number"],input[type="date"],input[type="email"],textarea,select){font-size:16px}}
