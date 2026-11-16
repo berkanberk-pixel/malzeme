@@ -1,0 +1,10 @@
+/* Fixed app status is a GUI warning. Never blocks interaction. */
+.tk-desktop-status[hidden]{display:none!important}
+.tk-desktop-status{position:fixed;right:22px;bottom:20px;z-index:1800;max-width:min(420px,calc(100vw - 24px));min-width:290px;background:rgba(12,30,52,.98);color:#f2f7fb;box-shadow:0 18px 46px rgba(3,15,27,.32);border:1px solid rgba(100,209,225,.32);border-radius:14px;display:flex;align-items:start;gap:12px;padding:15px 42px 15px 14px;font:13px/1.4 'Segoe UI',sans-serif}
+.tk-desktop-status>span{width:27px;height:27px;border-radius:8px;flex:0 0 auto;display:grid;place-items:center;font-size:19px;background:rgba(250,196,92,.18);color:#fbd66d}
+.tk-desktop-status[data-kind="error"]>span{background:rgba(250,90,90,.17);color:#ff8b8b}
+.tk-desktop-status[data-kind="success"]>span{background:rgba(74,210,160,.17);color:#6fe8ba}
+.tk-desktop-status strong{display:block;font-size:13px;font-weight:700;letter-spacing:.02em}
+.tk-desktop-status p{margin:4px 0 0;color:#c1d0df;font-size:12px}
+.tk-desktop-status button{position:absolute;right:9px;top:7px;border:0;background:transparent;color:#c1d0df;font-size:22px;cursor:pointer;padding:2px 6px}
+@media(max-width:600px){.tk-desktop-status{right:12px;left:12px;bottom:10px;max-width:none;min-width:0}}

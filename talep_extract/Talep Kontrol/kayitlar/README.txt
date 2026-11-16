@@ -1,0 +1,1 @@
+Bu klasör varsayılan kontrol kayıt köküdür. İlk kayıtta KONTROL_BASLIK, KONTROL_MALZEME ve KONTROL_PROJE klasörleri otomatik oluşturulur. Kalıcı/ortak kullanım için KAYIT_KLASORU.txt dosyasını ortak ağ klasörüne yönlendirin.

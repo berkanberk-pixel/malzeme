@@ -1,0 +1,419 @@
+{
+  "version": "FIX28I",
+  "locale": "tr-TR",
+  "categories": [
+    {
+      "id": "baslangic",
+      "name": "Başlangıç",
+      "icon": "✦"
+    },
+    {
+      "id": "kontrol",
+      "name": "Talep ve Karar Destek",
+      "icon": "✓"
+    },
+    {
+      "id": "excel",
+      "name": "Excel ve Keşif",
+      "icon": "▤"
+    },
+    {
+      "id": "veri",
+      "name": "Veri Merkezi",
+      "icon": "▦"
+    },
+    {
+      "id": "rapor",
+      "name": "Operasyon ve Raporlama",
+      "icon": "◫"
+    },
+    {
+      "id": "sorun",
+      "name": "Hata Çözümleri",
+      "icon": "?"
+    }
+  ],
+  "topics": [
+    {
+      "id": "ilk-adimlar",
+      "category": "baslangic",
+      "title": "Talep Kontrol ile ilk adımlar",
+      "summary": "Ana menü, çalışma ekranları ve veri güncelliğini anlama.",
+      "tags": [
+        "başlangıç",
+        "menü",
+        "ilk kullanım"
+      ],
+      "view": "decision",
+      "steps": [
+        "Sol menüden işlem yapmak istediğiniz bölümü seçin.",
+        "Karar Destek ekranından rezervasyon numarasıyla veya Excel/manuel listeyle kontrol başlatın.",
+        "Veri kaynağının güncelliğini görmek için Veri Merkezi bölümünü açın.",
+        "İhtiyacınız olduğunda sağ üstteki “Bu Ekranı Tanı” rehberini kullanın."
+      ],
+      "note": "Yardım içerikleri yerel uygulama paketinde bulunur; internet gerekmez."
+    },
+    {
+      "id": "rezervasyon",
+      "category": "kontrol",
+      "title": "Rezervasyon ile kontrol",
+      "summary": "Rezervasyon numarası, stok, keşif ve teminat kontrolü.",
+      "tags": [
+        "rezervasyon",
+        "zmm048",
+        "numara",
+        "stok"
+      ],
+      "view": "decision",
+      "steps": [
+        "Karar Destek → “Rezervasyon ile Kontrol” seçeneğine geçin.",
+        "Rezervasyon numarasını arama alanından seçin.",
+        "Bulunan malzeme kalemlerini ve teknik uyarıları inceleyin.",
+        "Kararları verdikten sonra sonucun özetini kontrol edin.",
+        "Kesin kayıt aşamasında rezervasyon numarası zorunludur."
+      ],
+      "note": "Sadece önizleme veya geçici hesaplama sırasında rezervasyon numarası zorunlu değildir. Bu işlem SAP üzerinde onay vermez."
+    },
+    {
+      "id": "manuel",
+      "category": "kontrol",
+      "title": "Excel veya manuel liste ile kontrol",
+      "summary": "Excel’den yapıştırılan malzemeleri önizleme ve düzenleme.",
+      "tags": [
+        "excelden yapıştır",
+        "manuel",
+        "malzeme listesi"
+      ],
+      "view": "decision",
+      "steps": [
+        "“Excel’den / Manuel Liste ile Kontrol” sekmesini açın.",
+        "Kurumsal Excel’den ilgili tabloyu kopyalayıp yapıştırın.",
+        "Malzeme kodlarını, toplamları ve varsa proje dağılımlarını gözden geçirin.",
+        "Listeyi hazırla ve kontrol et işlemiyle teknik karşılaştırmaya ilerleyin."
+      ],
+      "note": "Excel’den yapıştırma ile dört kurumsal .xlsx dosyasını import etme ayrı iş akışlarıdır."
+    },
+    {
+      "id": "karar-sonuc",
+      "category": "kontrol",
+      "title": "Kontrol sonucu ve uyarılı onay",
+      "summary": "UYGUN, HATA ve kullanıcı kararı sonucunu doğru yorumlama.",
+      "tags": [
+        "onayla",
+        "hata",
+        "uyarı",
+        "override",
+        "karar"
+      ],
+      "view": "decision",
+      "steps": [
+        "Her malzeme satırının keşif ve teminat sonucunu inceleyin.",
+        "Hatalı veya eksik verilerde sistemin verdiği açıklamaları kontrol edin.",
+        "İzin verilen durumlarda “ONAYLA” kararı uyarı ile kaydedilebilir; teknik hata sonucu değişmez.",
+        "Kesin kaydın numarasını ve geçmişini Kontrol Kayıtları bölümünden takip edin."
+      ],
+      "note": "Kritik veri hataları ve proje dağılımı hataları engelleyici olabilir. Uyarı ile onay, keşif/teminat verisini otomatik düzeltmez."
+    },
+    {
+      "id": "teminat",
+      "category": "kontrol",
+      "title": "Kalan teminat nasıl yorumlanır?",
+      "summary": "Talep bedeli ile kalan teminatın karşılaştırılması.",
+      "tags": [
+        "zmm098",
+        "kalan teminat",
+        "fiyat",
+        "bakiye"
+      ],
+      "view": "guarantee",
+      "steps": [
+        "Teminat Bilgileri ekranında ilgili depo/firmayı bulun.",
+        "Talep bedelini sistemin gösterdiği kalan teminat ile karşılaştırın.",
+        "Yetersizlik veya güncellik uyarısını inceleyin.",
+        "Teminat verisinin son yenilenme bilgisini Veri Merkezi’nden doğrulayın."
+      ],
+      "note": "Teminat kaynağı ZMM098 için hedef güncellik 4 saattir; gerçek son güncelleme zamanı ayrıca kontrol edilmelidir."
+    },
+    {
+      "id": "excel-formlari",
+      "category": "excel",
+      "title": "Kurumsal Excel formlarını indirme",
+      "summary": "Dört kurum formu ve Yeni Keşif V0.6 şablonunu bulma.",
+      "tags": [
+        "form indir",
+        "tesis",
+        "ket",
+        "bakım",
+        "led",
+        "revize keşif"
+      ],
+      "view": "formLibrary",
+      "steps": [
+        "Sol menüden Excel Formları bölümünü açın.",
+        "TESİS, KET–BAKIM, LED veya Revize Keşif formunun karşısındaki “Excel’i İndir”e basın.",
+        "İndirdiğiniz dosyada örnek veya önceden doldurulmuş üst bilgileri kontrol edin.",
+        "Dosyayı kurumun orijinal düzenini değiştirmeden doldurun."
+      ],
+      "note": "Dört kurumsal dosya gönderilen orijinal dosyaların birebir kopyalarıdır; henüz tamamen boş resmî şablon değildir."
+    },
+    {
+      "id": "excel-import",
+      "category": "excel",
+      "title": "Doldurulmuş kurumsal Excel import",
+      "summary": "Doğru sayfadan önizleme ve yerel import taslağı.",
+      "tags": [
+        "dosya yükle",
+        "import",
+        "f603",
+        "önizleme",
+        "taslak"
+      ],
+      "view": "data-center",
+      "steps": [
+        "Veri Merkezi → Veri Hazırla sekmesine geçin.",
+        "Excel form türünü seçerek doldurulmuş .xlsx dosyasını yükleyin.",
+        "“Excel’i Kontrol Et” ile önizleme ve hata uyarılarını inceleyin.",
+        "Uygunsa Yerel Import Taslağına Al işlemini kullanın."
+      ],
+      "note": "Pilot sürümde kesin ACTIVE/PUBLISHED kayıt otomatik oluşmaz. İçe alma kaynak Excel’i değiştirmez."
+    },
+    {
+      "id": "sheet-eslesme",
+      "category": "excel",
+      "title": "Importta okunan sayfalar",
+      "summary": "Dört form için kesinleştirilmiş çalışma sayfası eşleşmeleri.",
+      "tags": [
+        "tesis malzeme talep f.603",
+        "ket - bakım malzeme talep f.603",
+        "f.603",
+        "revize keşif talep"
+      ],
+      "view": "data-center",
+      "steps": [
+        "TESİS: Tesis Malzeme Talep F.603",
+        "KET–BAKIM: Ket - Bakım Malzeme Talep F.603",
+        "LED: F.603",
+        "Revize Keşif: Revize Keşif Talep",
+        "Her dosyada diğer sayfalar import verisi olarak okunmaz; kaynak şablonda aynen kalır."
+      ],
+      "note": "TESİS’te proje miktarları ayrı kaydedilir; J toplamı ek talep değildir."
+    },
+    {
+      "id": "yeni-kesif",
+      "category": "excel",
+      "title": "Yeni Keşif V0.6 çalışma düzeni",
+      "summary": "Depo seçimi, proje kodlarını topluca yapıştırma ve TEDAŞ pozları.",
+      "tags": [
+        "tedas",
+        "toplu proje",
+        "yeni depo",
+        "keşif miktarı"
+      ],
+      "view": "kesif",
+      "steps": [
+        "Keşifler Tablosu’ndan Yeni Keşif Excel Şablonu dosyasını indirin.",
+        "PROJE_LISTESI alanına proje kodlarını tek seferde yapıştırın.",
+        "Depo bilgileri ve eşleşen projeleri kontrol edin.",
+        "Her proje için ayrı miktar girin; TEDAŞ sıra ve kodlarını değiştirmeyin."
+      ],
+      "note": "V0.6 örnek şablondur: dinamik N proje sütunu üretimi ve merkezi import entegrasyonu henüz tamamlanmadı."
+    },
+    {
+      "id": "kesif-ekrani",
+      "category": "excel",
+      "title": "Keşifler Tablosu filtreleri",
+      "summary": "Pozitif/negatif kalan, tutarsızlık ve mükerrer kayıtları bulma.",
+      "tags": [
+        "keşif",
+        "negatif",
+        "mükerrer",
+        "filtre"
+      ],
+      "view": "kesif",
+      "steps": [
+        "TESİS, KET&YB, BAKIM veya LED sekmesini açın.",
+        "Depo, proje ve malzeme aramasını kullanın.",
+        "Durum filtresinden negatif kalan veya kontrol gereken kayıtları seçin.",
+        "İhtiyaç halinde filtrelenmiş listeyi CSV olarak dışa aktarın."
+      ],
+      "note": "Negatif keşif kalanları otomatik sıfırlanmaz; inceleme amacıyla gösterilir."
+    },
+    {
+      "id": "veri-merkezi",
+      "category": "veri",
+      "title": "Veri Merkezi ve kaynak sağlığı",
+      "summary": "Kaynak güncelliği, sistem durumu, snapshot ve veri kalitesi.",
+      "tags": [
+        "active",
+        "snapshot",
+        "güncellik",
+        "bütünlük",
+        "audit"
+      ],
+      "view": "data-center",
+      "steps": [
+        "Veri Merkezi → Sistem Sağlığı sekmesini açın.",
+        "Kaynak uyarılarını ve son doğrulanmış snapshot sürümünü inceleyin.",
+        "Kaynak Güncelliği sekmesinden yaş ve durum bilgilerini kontrol edin.",
+        "Yeni kaynak geldiğinde otomatik yayına değil, kontrol/onay akışına başvurun."
+      ],
+      "note": "Kaynak dosyaları ve doğrulanmış kayıtlar arasındaki sınır güvenlik için korunur; yardım ekranı yayın işlemi yapmaz."
+    },
+    {
+      "id": "operasyon-tesis",
+      "category": "rapor",
+      "title": "TESİS operasyon izleme",
+      "summary": "Depo, proje ve malzeme bazında dağılım, teminat ve keşif.",
+      "tags": [
+        "tesis",
+        "proje",
+        "depo",
+        "harcama"
+      ],
+      "view": "opsTesis",
+      "steps": [
+        "Operasyon İzleme → TESİS ekranını açın.",
+        "Önce depo, sonra proje filtresini seçin.",
+        "Keşif, kalan, teminat ve aylık harcama kartlarını karşılaştırın.",
+        "İşlem gerektiren kayıtların ayrıntısına proje tablosundan ulaşın."
+      ],
+      "note": "Proje bazında keşifler bağımsız izlenir; depo toplamı ayrı raporlanır."
+    },
+    {
+      "id": "operasyon-diger",
+      "category": "rapor",
+      "title": "BAKIM, KET&YB ve LED izleme",
+      "summary": "İş türüne özel depo ve malzeme görünümleri.",
+      "tags": [
+        "bakım",
+        "ket",
+        "yb",
+        "led",
+        "rapor"
+      ],
+      "view": "opsBakim",
+      "steps": [
+        "Operasyon İzleme menüsünden ilgili iş türünü seçin.",
+        "Üretim yeri, depo ve varsa proje filtresini ayarlayın.",
+        "Malzeme dağılımı ile keşif ve teminat sonuçlarını kontrol edin.",
+        "İlgili rapor sekmelerinden detay ve harcamaları inceleyin."
+      ],
+      "note": "İş türlerine göre bazı alanların kapsamı farklı olabilir."
+    },
+    {
+      "id": "stok-hareket",
+      "category": "rapor",
+      "title": "Stok ve hareket bilgileri",
+      "summary": "Stokları ve depo hareketlerini filtreleyerek görüntüleme.",
+      "tags": [
+        "stok",
+        "mb51",
+        "mb52",
+        "hareket"
+      ],
+      "view": "stocks",
+      "steps": [
+        "Stok Bilgileri veya Stok Hareketleri ekranını açın.",
+        "Malzeme kodu, depo ve ilgili filtreleri kullanın.",
+        "Görüntülenen kaydın kaynağına ve güncelliğine bakın."
+      ],
+      "note": "Bu ekranlar izleme amaçlıdır; SAP hareketi oluşturmaz."
+    },
+    {
+      "id": "dosya-hata",
+      "category": "sorun",
+      "title": "Excel dosyası okunamadı",
+      "summary": "Hatalı format, yanlış sayfa ve boş miktar uyarıları.",
+      "tags": [
+        "xlsx",
+        "yanlış sheet",
+        "boş miktar",
+        "hata"
+      ],
+      "view": "data-center",
+      "steps": [
+        "Dosyanın .xlsx biçiminde olduğunu kontrol edin.",
+        "Kullandığınız kurum formunun özgün sayfa adlarını değiştirmeyin.",
+        "Form türünün doğru seçildiğini ve miktar hücrelerinin dolu olduğunu kontrol edin.",
+        "Önizleme uyarısını inceleyip aynı orijinal dosya üzerinde gerekli kullanıcı girişlerini tamamlayın."
+      ],
+      "note": "Form düzenini değiştirmek yerine uygulamanın okuma kuralları kullanılmalıdır."
+    },
+    {
+      "id": "acilmiyor",
+      "category": "sorun",
+      "title": "Uygulama açılmıyorsa",
+      "summary": "BASLAT.bat ve TEST_ET.bat ile ilk kontrol.",
+      "tags": [
+        "başlatıcı",
+        "windows",
+        "port",
+        "servis",
+        "açılmıyor"
+      ],
+      "view": "help",
+      "steps": [
+        "ZIP arşivini tamamen yeni bir klasöre çıkarın.",
+        "Klasör içindeki BASLAT.bat ile çalıştırın.",
+        "Gerekirse http://127.0.0.1:8765 adresini tarayıcıda açın.",
+        "Sorun sürerse TEST_ET.bat dosyasını çalıştırıp başlangıç logunu inceleyin."
+      ],
+      "note": "Pilot testler Windows/UNC saha davranışlarının tamamını kanıtlamaz."
+    }
+  ],
+  "tips": {
+    "reservation": {
+      "title": "Rezervasyon numarası",
+      "text": "Kesin kontrol kaydında zorunludur. Önizleme ve geçici hesaplamada zorunlu değildir."
+    },
+    "manual": {
+      "title": "Manuel liste",
+      "text": "Excel’den kopyalanan malzeme satırlarını burada önizleyip düzenleyebilirsiniz. Kaynak Excel değişmez."
+    },
+    "source": {
+      "title": "Kaynak güncelliği",
+      "text": "ZMM098 teminat kaynağının hedef güncelliği 4 saattir. Diğer kaynaklar için ilgili ekrandaki son güncelleme zamanını kontrol edin."
+    },
+    "teminat": {
+      "title": "Kalan teminat",
+      "text": "Talep bedeli, kullanılabilir teminatla karşılaştırılır. Uyarı görmek kaynakta bir değişiklik yapmaz."
+    },
+    "kesif": {
+      "title": "Keşif kalan miktarı",
+      "text": "Keşif ile verilen/harcanan miktar karşılaştırılır. Negatif kalan kayıtları özellikle inceleyin."
+    },
+    "template": {
+      "title": "Excel Formları",
+      "text": "Dört kurumsal dosya orijinal biçimiyle indirilir. İçlerinde önceki örnek bilgiler olabilir; boş resmî şablon gibi değerlendirmeyin."
+    },
+    "import": {
+      "title": "Excel import",
+      "text": "Yalnızca onaylanan F.603 / Revize Keşif Talep sayfası okunur. Pilot, yerel taslağı oluşturur; kesin yayın yapmaz."
+    },
+    "newkesif": {
+      "title": "Yeni Keşif V0.6",
+      "text": "Bu Excel henüz örnek formdur. Proje listesi toplu yapıştırılabilir; dinamik sütun oluşturma ve canlı import entegrasyonu tamamlanmadı."
+    },
+    "override": {
+      "title": "Uyarı ile onay",
+      "text": "İzin verilen durumlarda kullanıcı ONAYLA diyebilir; keşif ve teminatın teknik HATA sonucu aynen korunur. Kritik bloklayıcılar geçilemez."
+    },
+    "project": {
+      "title": "Proje filtresi",
+      "text": "TESİS keşifleri proje bazında ayrı izlenir. Depo toplamı, projelerin tek kayda birleştirildiği anlamına gelmez."
+    },
+    "refresh": {
+      "title": "Verileri yenile",
+      "text": "Kaynakları tekrar tarar. Yeni/şüpheli veri için kontrol ve onay akışı gerekebilir."
+    },
+    "help": {
+      "title": "İçerik yardımı",
+      "text": "Soru işaretine imleç getirin, tıklayın veya klavyeyle odaklanın. Yardım Merkezi’nde ayrıntı vardır."
+    }
+  },
+  "limits": [
+    "Ekran rehberleri yardım amaçlıdır ve gerçek kayıt oluşturmaz.",
+    "İçe aktarılan kurumsal Excel kaynaklarının formatı değiştirilmez.",
+    "Kesin UNC yayını bu pilotta etkin değildir."
+  ]
+}

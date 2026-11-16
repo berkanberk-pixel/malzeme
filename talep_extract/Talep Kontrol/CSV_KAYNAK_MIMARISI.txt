@@ -1,0 +1,36 @@
+YEDAŞ TALEP KONTROL — V3.13.0 VERİ MİMARİSİ
+
+ANA AKIŞ
+CSV -> PARQUET -> YEREL İNDEKS -> SAYFALI/FİLTRELİ API -> EKRAN
+
+1) CSV kaynak dosyaları giriş verisidir.
+2) Operasyonel 8 kaynak için Parquet dosyaları parquet\ACTIVE altında tutulur.
+3) Hızlı çalışma indeksi cache\talep_index.sqlite dosyasıdır.
+4) Büyük tabloların tamamı JSON'a çevrilip tarayıcıya yüklenmez.
+5) JSON yalnız config/manifest ve küçük/sayfalı API cevaplarında kullanılır.
+6) 5 küçük master CSV doğrudan kaynak olarak korunur; SITE_MALZEMELER malzeme kodu/tanım/birim kataloğudur.
+7) Harici paket kurulumu gerekmez; standart Python 3 yeterlidir.
+
+OPERASYONEL PARQUET KAYNAKLARI
+- ZMM048.csv
+- ZMM098.csv
+- MB51.csv
+- MB52.csv
+- Tesis_Verileri.csv
+- KET_Verileri.csv
+- BAKIM_Verileri.csv
+- LED_Verileri.csv
+
+MASTER KAYNAKLAR
+- SITE_MALZEMELER.csv
+- TB_Depo_Kodlari.csv
+- SITE_PROJELER.csv
+- TB_Islem_Turu.csv
+- TB_Tedas_Kod.csv
+
+SAP SAYI KURALI
+- 1.106 = 1106
+- 1.848,700 = 1848,700
+- 14.203.300,00 = 14.203.300,00
+
+Kaynak CSV değişmediği sürece mevcut indeks kullanılır. Kullanıcı Verileri Güncelle dediğinde kaynak imzası kontrol edilir; değişiklik varsa yeni indeks/Parquet hazırlanır.

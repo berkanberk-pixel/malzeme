@@ -1,0 +1,20 @@
+/* FIX28P - faithful F.604 3-summary screen; BAKIM only. */
+.o28p-main-title{align-items:flex-start!important}
+.o28p-main-title p{max-width:800px}
+.o28p-preview-badge{background:#fff3d8!important;border-color:#f2d49c!important;color:#855512!important}
+.o28p-group-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;margin:16px 0 10px}
+.o28p-group-head h4{font-size:17px;color:#173b59;margin:0}
+.o28p-group-head small{font-size:12px;color:#627c8c}
+.o28p-types{display:flex;flex-wrap:wrap;gap:7px}
+.o28p-types button{border:1px solid #b7d9e2;background:#fff;color:#24526c;padding:10px 12px;border-radius:9px;font-size:12px;font-weight:750;cursor:pointer;min-height:39px}
+.o28p-types button:hover{border-color:#128f8b}
+.o28p-types button.selected{background:linear-gradient(120deg,#087f80,#0fb4a3);border-color:#078e86;color:#fff}
+.o28p-summary .o28-table{min-width:1760px}
+.o28p-summary .o28-table th{min-width:90px}
+.o28p-summary .o28-table th:first-child{position:sticky;left:0;z-index:3;min-width:160px}
+.o28p-summary .o28-table td:first-child{position:sticky;left:0;background:#fff;z-index:2;min-width:160px}
+.o28p-summary .o28-table tr:nth-child(even) td:first-child{background:#f7fafc}
+.o28p-summary .o28-table tr td:nth-child(n+8){font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.o28p-source{color:#5f7288;font-size:11px;margin:10px 0;line-height:1.5}
+.o28p-summary .o28-grid-scroll{max-height:440px}
+@media(max-width:900px){.o28p-types{width:100%}.o28p-types button{flex:1 1 44%}}

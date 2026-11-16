@@ -1,0 +1,33 @@
+/* Talep Kontrol - akışkan masaüstü yerleşimi. İş kurallarını değiştirmez. */
+html,body{width:100%;max-width:100%;min-height:100%;overflow-x:hidden}
+.app-shell,.main,.panel,.dashboard-card,.o28-panel,.o28-root,.o28-work,.work-report26{min-width:0}
+body.ui-reference-20260928 .app-shell{display:block;width:100%;min-width:0}
+/* Sidebar is fixed; its width must be reserved, never painted over the data panel. */
+body.ui-reference-20260928 .main{box-sizing:border-box;margin-left:252px;width:calc(100% - 252px);max-width:none;min-width:0;padding-left:clamp(10px,1.6vw,30px);padding-right:clamp(10px,1.6vw,30px)}
+@media(max-width:1100px){body.ui-reference-20260928 .main{margin-left:214px;width:calc(100% - 214px)}}
+.topbar,.section-title-row,.dashboard-head,.dashboard-card-head,.o28-section-title{min-width:0;max-width:100%}
+.topbar-brand-row,.topbar-title-block,.top-actions,.dashboard-controls{min-width:0}
+.o28-grid-scroll,.q28-given-detail-scroller,.q28-draft-scroll,.table-wrap,.source-table-wrap,.dashboard-table-wrap,.kesif-table-wrap,.planner-table-wrap{max-width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+.o28-grid-scroll>table,.source-table-wrap>table,.kesif-table-wrap>table,.planner-table-wrap>table{max-width:none}
+.o28-two,.dashboard-grid-main,.dashboard-grid-thirds,.dashboard-grid-halves,.settings-grid,.o28-kpis,.dashboard-kpis,.kesif-kpis{min-width:0}
+.o28-root .o28-table,.q28-res-material-table{width:100%}
+@media (max-width:1400px){
+ .o28-two,.dashboard-grid-main{grid-template-columns:minmax(0,1fr)!important}
+ .dashboard-grid-thirds{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .o28-kpis,.kesif-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dashboard-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:1050px){
+ body.ui-reference-20260928 .main{padding-left:12px;padding-right:12px}
+ .dashboard-grid-thirds,.dashboard-grid-halves,.settings-grid{grid-template-columns:minmax(0,1fr)}
+ .o28-months,.o28-root .o28-months{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .topbar,.dashboard-head,.o28-section-title{flex-wrap:wrap}
+ .dashboard-controls{justify-content:flex-start}
+}
+@media (max-width:760px){
+ body.ui-reference-20260928 .main{margin-left:0;width:100%;padding-left:9px;padding-right:9px}
+ .dashboard-kpis,.o28-kpis,.kesif-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dashboard-grid-thirds,.dashboard-grid-halves,.dashboard-grid-main{grid-template-columns:minmax(0,1fr)!important}
+ .o28-panel,.dashboard-card{padding:12px}
+}
+@media (max-width:520px){.dashboard-kpis,.o28-kpis,.kesif-kpis,.o28-root .o28-months{grid-template-columns:minmax(0,1fr)}}

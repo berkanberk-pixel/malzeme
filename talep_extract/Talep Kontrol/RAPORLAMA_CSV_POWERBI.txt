@@ -1,0 +1,39 @@
+YEDAŞ TALEP KONTROL - CSV KAYIT ARŞİVİ / POWER BI REHBERİ
+================================================================
+
+KAYIT KLASÖRÜ
+KAYIT_KLASORU.txt içindeki ilk dolu satır kayıt köküdür. Varsayılan: kayitlar
+Ortak kullanım örneği: \\SUNUCU\PAYLASIM\TALEP_KONTROL_KAYITLARI
+
+KLASÖRLER
+KONTROL_BASLIK   : Her kontrol için 1 satır.
+KONTROL_MALZEME : Her farklı malzeme için 1 satır.
+KONTROL_PROJE   : TESİS proje dağılım satırları.
+İlişki anahtarı: KontrolID
+
+CSV BİÇİMİ
+Kodlama: UTF-8 BOM
+Ayraç: ;
+QuoteStyle: standart CSV
+Tarih: yyyy-MM-dd HH:mm:ss
+Ondalık: virgül
+
+POWER BI
+Her tablo için Veri Al > Klasör ile ilgili klasörü seçin.
+CSV.Document ayarlarında Delimiter=";", Encoding=65001, QuoteStyle=QuoteStyle.Csv kullanın.
+Tür dönüştürürken Türkçe (tr-TR) yerel ayarı kullanılması önerilir.
+
+İLİŞKİLER
+KONTROL_BASLIK[KontrolID] 1 -> * KONTROL_MALZEME[KontrolID]
+KONTROL_BASLIK[KontrolID] 1 -> * KONTROL_PROJE[KontrolID]
+
+KAYIT MANTIĞI
+"Kontrolü Onayla ve Kaydet" SAP onayı değildir. Ekrandaki kontrol sonucunun snapshot'ını CSV arşivine yazar.
+Aynı rezervasyon daha sonra tekrar kontrol edilirse eski kayıt değiştirilmez; yeni KontrolID üretilir.
+
+V3.9.0 KEŞİF ALANLARI
+KONTROL_MALZEME ve KONTROL_PROJE kayıtlarına iki yeni snapshot alanı eklenmiştir:
+- DahaOnceVerilen   : Keşif kaynağındaki "Verilen Malzeme Toplamı"
+- MevcutKalanKesif : Kontrol anındaki "Teslim Edilen - Verilen Fark"
+ToplamKesif / ProjeKesfi alanı "Teslim Edilen" değeridir.
+Eski CSV kayıtları değiştirilmez; yeni kolonlar yalnız V3.9.0 ve sonrası kayıtlarında dolu olacaktır.

@@ -1,0 +1,1408 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Talep Kontrol</title>
+  <link rel="icon" href="assets/brand/talep-kontrol.ico.png" type="image/png" />
+  <link rel="stylesheet" href="styles.css?v=20261116" />
+  <link rel="stylesheet" href="help-ui.css?v=20261116" />
+  <link rel="stylesheet" href="ux28j.css?v=20261116" />
+  <link rel="stylesheet" href="webgl-themes28l.css?v=20261116" />
+  <link rel="stylesheet" href="form-elements.css?v=20261116" />
+  <link rel="stylesheet" href="operations-work.css?v=20261116">
+  <link rel="stylesheet" href="amount-analysis.css?v=20261116">
+  <link rel="stylesheet" href="operations-experience.css?v=20261116">
+  <link rel="stylesheet" href="brand-v1.css?v=20261116" />
+  <link rel="stylesheet" href="responsive.css?v=desktop-layout" />
+  <link rel="stylesheet" href="desktop-status.css?v=20261116" />
+</head>
+<body class="booting ui-reference-20260928">
+  <div id="loadingScreen" class="loading-screen loading-uiux-screen" role="status" aria-live="polite">
+    <div class="loading-uiux-bg" aria-hidden="true"></div>
+    <div class="loading-uiux-scrim" aria-hidden="true"></div>
+
+    <section id="loadingCard" class="loading-uiux-card" aria-busy="true">
+      <img class="tk-splash-logo" src="assets/brand/talep-kontrol-kurumsal.png" alt="Talep Kontrol" />
+      <h1>Veriler hazırlanıyor</h1>
+      <p class="loading-uiux-desc">Güncel rezervasyon, stok, teminat ve keşif bilgileri güvenli biçimde hazırlanıyor.</p>
+
+      <div class="loading-uiux-progress-row">
+        <div id="loadingTrack" class="loading-uiux-track" role="progressbar" aria-label="Yükleme ilerlemesi" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="loadingBar" class="loading-uiux-fill"></div>
+        </div>
+        <div id="loadingPercent" class="loading-uiux-percent">0%</div>
+      </div>
+
+      <div class="loading-uiux-status">
+        <div class="loading-uiux-status-left">
+          <span class="loading-uiux-pulse" aria-hidden="true"></span>
+          <span id="loadingMessage" class="loading-uiux-status-text">Kaynak dosyalar kontrol ediliyor</span>
+        </div>
+        <span id="loadingEta" class="loading-uiux-time">Hazırlanıyor</span>
+      </div>
+      <div id="loadingDetail" class="loading-uiux-detail">Yerel veri kaynakları kontrol ediliyor.</div>
+
+      <div class="loading-uiux-steps" aria-label="Yükleme aşamaları">
+        <div id="loadingStage1" class="loading-uiux-step active"><span class="loading-uiux-step-index">1</span><span>Kaynaklar</span></div>
+        <div id="loadingStage2" class="loading-uiux-step"><span class="loading-uiux-step-index">2</span><span>Rezervasyonlar</span></div>
+        <div id="loadingStage3" class="loading-uiux-step"><span class="loading-uiux-step-index">3</span><span>Stoklar</span></div>
+        <div id="loadingStage4" class="loading-uiux-step"><span class="loading-uiux-step-index">4</span><span>Arayüz</span></div>
+      </div>
+
+      <div id="loadingError" class="loading-error" hidden></div>
+      <button id="loadingRetry" class="btn btn-primary loading-retry" hidden>Yeniden Dene</button>
+    </section>
+
+    <div class="loading-uiux-footer">Güvenli • Kesintisiz • Kontrollü</div>
+  </div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark tk-icon-brand"><img src="assets/brand/talep-kontrol.ico.png" alt="" aria-hidden="true"></div>
+        <div>
+          <div class="brand-title">Talep Kontrol</div>
+          <div class="brand-sub">Karar Destek Sistemi</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav" aria-label="Ana menü">
+        <button class="nav-item active" data-view="decision" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+          <span>Karar Destek</span>
+        </button>
+        <div class="nav-section-label">OPERASYON İZLEME</div>
+        <button class="nav-item nav-item-child" data-view="opsBakim" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span><span>Bakım</span>
+        </button>
+        <button class="nav-item nav-item-child" data-view="opsKet" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14v14H5z"/><path d="M8 8l8 8M16 8l-8 8"/></svg></span><span>KET&amp;YB</span>
+        </button>
+        <button class="nav-item nav-item-child" data-view="opsLed" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M8 14a6 6 0 1 1 8 0c-1 1-1 2-1 2H9s0-1-1-2z"/></svg></span><span>LED</span>
+        </button>
+        <button class="nav-item nav-item-child" data-view="opsTesis" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 21h18M6 21V9l6-5 6 5v12"/><path d="M9 13h6M9 17h6"/></svg></span><span>TESİS</span>
+        </button>
+        <button class="nav-item nav-item-child" data-view="tesisHistory" type="button"><span class="nav-icon" aria-hidden="true">▤</span><span>TESİS Kontrol Geçmişi</span></button>
+        <div class="nav-section-label">VERİ GÖRÜNÜMLERİ</div>
+        <button class="nav-item" data-view="guarantee" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z"/><path d="M8 11h8M8 14h5"/></svg></span><span>Teminat Bilgileri</span>
+        </button>
+        <button class="nav-item" data-view="movements" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 8h13M13 4l4 4-4 4"/><path d="M20 16H7M11 12l-4 4 4 4"/></svg></span><span>Stok Hareketleri</span>
+        </button>
+        <button class="nav-item" data-view="stocks" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 10h16M9 10v8"/></svg></span><span>Stok Bilgileri</span>
+        </button>
+        <button class="nav-item" data-view="kesif" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg></span><span>Keşifler Tablosu</span>
+        </button>
+        <button class="nav-item" data-view="formLibrary" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5z"/><path d="M15 3v5h4"/><path d="M9 13h6M9 17h6"/></svg></span>
+          <span>Excel Formları</span>
+        </button>
+        <button class="nav-item" data-view="data-center" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v4H4z"/><path d="M4 11h16v8H4z"/><path d="M8 3v4M16 3v4"/></svg></span>
+          <span>Veri Merkezi</span>
+        </button>
+        <div class="nav-section-label">YARDIM VE DESTEK</div>
+        <button class="nav-item tk-help-nav" data-view="help" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.3 9a2.8 2.8 0 1 1 4.6 2.1c-1.1.8-1.9 1.3-1.9 2.6"/><path d="M12 17h.01"/></svg></span><span>Yardım ve Kılavuz</span>
+        </button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="nav-item nav-item-settings" data-view="settings" type="button">
+          <span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.01A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.01A1.65 1.65 0 0 0 20.91 10H21a2 2 0 1 1 0 4h-.09A1.65 1.65 0 0 0 19.4 15z"/></svg></span>
+          <span>Ayarlar</span>
+        </button>
+        <div class="sidebar-version">Talep Kontrol</div>
+      </div>
+    </aside>
+
+    <div id="sidebarBackdrop" class="sidebar-backdrop" hidden></div>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-brand-row">
+          <button id="appMenuButton" class="app-menu-button" type="button" aria-label="Menüyü aç"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+          <div class="topbar-title-block">
+            <h1>TALEP KONTROL VE KARAR DESTEK</h1>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button id="tkOpenHelp" class="tk-top-help" type="button" title="Yardım Merkezi'ni aç" aria-label="Yardım Merkezi'ni aç"><span aria-hidden="true">?</span> <span>Yardım</span></button>
+          <button id="tkStartViewTour" class="tk-top-guide" type="button" title="Aktif ekranın adım adım rehberi"><span aria-hidden="true">✦</span> <span>Bu Ekranı Tanı</span></button>
+          <button id="notificationButton" class="notification-button" type="button" title="Bildirim Merkezi" aria-label="Bildirim Merkezi"><span class="notification-bell">🔔</span><span id="notificationBadge" class="notification-count" hidden>0</span></button>
+          <button id="userSessionButton" class="user-session-card" type="button" title="Windows oturum kullanıcısı"><strong id="sessionUserName">Kullanıcı</strong><small id="sessionUserScope">Sorumlu iller: —</small></button>
+          <span id="sourceModeBadge" class="auto-source-badge">Yerel Kaynak</span>
+          <button id="packageCsvBackupBtn" class="btn btn-package-csv" type="button" title="Paket içindeki CSV yedek klasörünü aç">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11"/><path d="m8 10 4 4 4-4"/><path d="M5 18h14v3H5z"/></svg>
+            <span>Paket CSV Yedeği</span>
+          </button>
+          <button id="recordsViewBtn" class="btn btn-ghost btn-records-view" type="button" title="Kaydedilmiş kontrol kayıtlarını görüntüle">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+            <span>Kontrol Kayıtları</span>
+          </button>
+          <button class="tk-help-trigger tk-top-inline-tip" type="button" data-help-key="refresh" aria-label="Verileri yenileme hakkında bilgi">?</button>
+          <button id="refreshBtn" class="btn btn-primary btn-refresh-ui" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6v5h-5"/><path d="M4 18v-5h5"/><path d="M6.1 9A7 7 0 0 1 18.4 6.4L20 8"/><path d="M17.9 15A7 7 0 0 1 5.6 17.6L4 16"/></svg>
+            <span>Veriyi Yenile</span>
+          </button>
+        </div>
+      </header>
+
+      <section id="decisionView" class="view active">
+        <div class="panel reservation-lookup-panel">
+          <div class="control-mode-switch" role="tablist" aria-label="Kontrol yöntemi">
+            <button id="reservationModeBtn" class="control-mode-btn active" type="button" role="tab" aria-selected="true" data-control-mode="reservation"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg><span>Rezervasyon ile Kontrol</span></button>
+            <button id="manualModeBtn" class="control-mode-btn" type="button" role="tab" aria-selected="false" data-control-mode="manual"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h5"/><path d="M10 12h6M10 16h6"/></svg><span>Excel’den / Manuel Liste ile Kontrol</span></button>
+          </div>
+
+          <div id="reservationModePanel" class="control-mode-panel">
+            <div class="reservation-search-row">
+              <div class="field grow reservation-search-field">
+                <label for="reservationLookup">Rezervasyon Numarası</label><button class="tk-help-trigger" type="button" data-help-key="reservation" aria-label="Rezervasyon numarası hakkında bilgi" title="Bilgi">?</button>
+                <div class="reservation-search-control">
+                  <input id="reservationLookup"
+                         inputmode="search"
+                         placeholder="Rezervasyon no, depo veya yüklenici ara..."
+                         autocomplete="off"
+                         role="combobox"
+                         aria-autocomplete="list"
+                         aria-controls="reservationSearchResults"
+                         aria-expanded="false" />
+                  <button id="reservationSearchToggle" type="button" class="reservation-search-toggle" aria-label="Rezervasyon listesini aç" title="Rezervasyon listesini aç">▾</button>
+                  <div id="reservationSearchResults"
+                       class="reservation-search-results"
+                       role="listbox"
+                       aria-label="Rezervasyon arama sonuçları"
+                       hidden></div>
+                </div>
+              </div>
+              <button id="reservationHistoryQuickBtn" class="btn btn-ghost large" type="button" title="TESİS rezervasyon / MB51 kontrol geçmişine git">TESİS Geçmişi</button>
+              <button id="reservationLookupBtn" class="btn btn-primary large reservation-get-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg><span>Rezervasyonu Getir</span></button>
+              <button id="clearReservationBtn" class="btn btn-ghost large reservation-clear-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13"/></svg><span>Temizle</span></button>
+            </div>
+            <div id="reservationSummary" class="reservation-summary muted">Rezervasyon numarası girildiğinde ZMM048'deki satırlar, depo tanımları ve kontrol verileri getirilecektir.</div>
+          </div>
+
+          <div id="manualModePanel" class="control-mode-panel" hidden>
+            <div class="field manual-reservation-no-field" style="max-width:390px;margin-bottom:14px">
+              <label for="manualReservationNo">Rezervasyon No <span class="muted small">(kesin kayıt için zorunlu)</span></label>
+              <input id="manualReservationNo" type="text" autocomplete="off" maxlength="64" placeholder="Rezervasyon numarasını girin" />
+              <span class="muted small">Numara olmadan kontrol ve Excel/PDF dışa aktarma yapılabilir; nihai kayıt oluşturulamaz.</span>
+            </div>
+            <div class="manual-depot-grid">
+              <div class="field manual-depot-search-field" data-depot-kind="source">
+                <label for="manualSourceDepotLookup">Talep Edilen Depo</label>
+                <div class="manual-depot-search-control">
+                  <input id="manualSourceDepotLookup" type="text" autocomplete="off" placeholder="UY, depo kodu veya depo tanımı ara..." role="combobox" aria-autocomplete="list" aria-controls="manualSourceDepotResults" aria-expanded="false" />
+                  <div id="manualSourceDepotResults" class="manual-depot-results" role="listbox" aria-label="Talep edilen depo sonuçları" hidden></div>
+                </div>
+                <div id="manualSourceDepotSelected" class="manual-depot-selected muted">Depo seçilmedi.</div>
+              </div>
+              <div class="field manual-depot-search-field" data-depot-kind="target">
+                <label for="manualTargetDepotLookup">Talep Eden Depo</label>
+                <div class="manual-depot-search-control">
+                  <input id="manualTargetDepotLookup" type="text" autocomplete="off" placeholder="Depo, firma, sözleşme veya iş türü ara..." role="combobox" aria-autocomplete="list" aria-controls="manualTargetDepotResults" aria-expanded="false" />
+                  <div id="manualTargetDepotResults" class="manual-depot-results" role="listbox" aria-label="Talep eden depo sonuçları" hidden></div>
+                </div>
+                <div id="manualTargetDepotSelected" class="manual-depot-selected muted">Depo seçilmedi.</div>
+              </div>
+            </div>
+            <div class="manual-material-picker">
+              <div class="manual-material-picker-grid">
+                <div class="field manual-material-search-field">
+                  <label for="manualMaterialLookup">Malzeme Kodu / Tanımı</label>
+                  <div class="manual-material-search-control">
+                    <input id="manualMaterialLookup" type="text" autocomplete="off" placeholder="Malzeme kodu / tanımı ara veya listeden seç..." role="combobox" aria-autocomplete="list" aria-controls="manualMaterialResults" aria-expanded="false" />
+                    <button id="manualMaterialToggleBtn" class="manual-material-toggle" type="button" aria-label="Malzeme listesini aç" aria-controls="manualMaterialResults" aria-expanded="false" title="Malzeme listesini aç">▾</button>
+                    <div id="manualMaterialResults" class="manual-material-results" role="listbox" aria-label="Malzeme arama sonuçları" hidden></div>
+                  </div>
+                  <div id="manualMaterialSelected" class="manual-material-selected muted">Malzeme seçilmedi.</div>
+                </div>
+                <div class="field manual-material-qty-field">
+                  <label for="manualMaterialQty">Miktar</label>
+                  <input id="manualMaterialQty" type="text" inputmode="decimal" autocomplete="off" placeholder="Örn. 10" />
+                </div>
+                <div class="manual-material-add-wrap">
+                  <button id="manualMaterialAddBtn" class="btn btn-secondary large" type="button">Listeye Ekle</button>
+                </div>
+              </div>
+            </div>
+            <div class="manual-paste-block excel-parser-panel">
+              <div class="excel-parser-titlebar">
+                <div class="excel-parser-title">
+                  <span class="excel-parser-icon" aria-hidden="true">X</span>
+                  <div>
+                    <strong>Excel Talep Formu Ayrıştırma</strong>
+                    <span>Excel talep formunu olduğu gibi yapıştırın. Sistem yalnızca malzeme kodu, toplam miktar ve proje dağılımlarını ayırır.</span>
+                  </div>
+                </div>
+                <div class="excel-parser-title-actions">
+                  <button id="manualPasteFocusBtn" class="btn btn-primary" type="button">Excel'den Yapıştır</button>
+                  <button id="manualSampleBtn" class="btn btn-ghost" type="button">Örnek Göster</button>
+                </div>
+              </div>
+
+              <div class="excel-paste-zone">
+                <textarea id="manualPasteArea" class="manual-paste-area excel-form-paste" spellcheck="false" placeholder="Excel talep formunun tamamını kopyalayıp buraya yapıştırın (Ctrl+V)…"></textarea>
+              </div>
+
+              <div id="manualPasteFeedback" class="excel-parser-feedback neutral">
+                <span class="excel-feedback-dot">i</span>
+                <strong>Excel verisi bekleniyor.</strong>
+                <span>Tablo yapıştırıldığında proje isimleri otomatik olarak sütun başlığına dönüştürülür.</span>
+              </div>
+
+              <div class="excel-parser-metrics" aria-label="Ayrıştırma özeti">
+                <div class="excel-metric"><span class="metric-symbol">▣</span><div><strong id="manualMetricMaterials">0</strong><small>Malzeme</small></div></div>
+                <div class="excel-metric"><span class="metric-symbol">▤</span><div><strong id="manualMetricProjects">0</strong><small>Proje</small></div></div>
+                <div class="excel-metric"><span class="metric-symbol">Σ</span><div><strong id="manualMetricQty">0</strong><small>Toplam Miktar</small></div></div>
+                <div class="excel-metric error"><span class="metric-symbol">!</span><div><strong id="manualMetricErrors">0</strong><small>Hata</small></div></div>
+              </div>
+
+              <div class="excel-preview-card manual-editor-shell">
+                <div class="manual-editor-layout">
+                  <div class="manual-editor-main">
+                    <div class="excel-preview-head">
+                      <strong>Yapıştırılmış Veri Ön İzleme</strong>
+                      <span>Malzeme kodu, toplam miktar ve proje dağılımları düzenlenebilir. Sağ tık ile hızlı işlemler açılır.</span>
+                    </div>
+                    <div id="manualExcelPreviewEmpty" class="excel-preview-empty">Excel formunu yapıştırdığınızda sadeleştirilmiş tablo burada görünecek.</div>
+                    <div id="manualExcelPreviewScroll" class="excel-preview-scroll" hidden>
+                      <table id="manualExcelPreviewTable" class="excel-preview-table manual-edit-table" aria-label="Excel talep formu ön izlemesi">
+                        <thead id="manualExcelPreviewHead"></thead>
+                        <tbody id="manualExcelPreviewBody"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <aside class="manual-editor-summary">
+                    <div class="manual-summary-card"><strong id="manualSummaryMaterials">0</strong><span>Malzeme</span></div>
+                    <div class="manual-summary-card"><strong id="manualSummaryQty">0</strong><span>Toplam Miktar</span></div>
+                    <div class="manual-summary-chart">
+                      <div class="summary-donut"><span id="manualSummaryProjects">0</span><small>Proje</small></div>
+                      <ul id="manualSummaryProjectList" class="summary-project-list"><li>Proje verisi bekleniyor</li></ul>
+                    </div>
+                    <button id="manualPrepareBtn" class="manual-editor-cta" type="button">Listeyi Hazırla ve Kontrol Et</button>
+                  </aside>
+                </div>
+              </div>
+
+              <div class="manual-paste-actions excel-parser-actions">
+                <button id="manualClearBtn" class="btn btn-ghost large" type="button">Temizle</button>
+              </div>
+              <div id="manualPasteStatus" class="manual-paste-status muted"></div>
+              <div id="manualContextMenu" class="manual-context-menu" hidden>
+                <button type="button" data-action="add-below">Satır Ekle (Altına)</button>
+                <button type="button" data-action="add-above">Satır Ekle (Üstüne)</button>
+                <button type="button" data-action="delete-row">Seçili Satırı Sil</button>
+                <button type="button" data-action="delete-selected">Seçilenleri Sil</button>
+                <button type="button" data-action="copy-row">Kopyala</button>
+                <button type="button" data-action="paste-row">Yapıştır</button>
+                <button type="button" data-action="clear-all">Tüm Listeyi Temizle</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel source-status-panel" aria-label="Kaynak durumu">
+          <div class="section-title-row">
+            <div>
+              <h2>Kaynak Durumu</h2>
+              <p class="muted">Öncelikli klasör, paket CSV yedeği, kaynak kartları ve tanılama özeti.</p>
+            </div>
+          </div>
+          <div id="fixedRoots" class="fixed-roots"></div>
+          <div id="sourceCards" class="source-grid"></div>
+          <div id="dataHealth" class="data-health"></div>
+          <div id="diagnostics" class="diagnostics"></div>
+        </div>
+
+        <div id="reservationWorkspace" hidden>
+          <div id="reservationAlerts" class="alert-stack"></div>
+          <div class="panel control-summary-panel">
+            <div class="section-title-row summary-title-row">
+              <div class="summary-title-group">
+                <div class="summary-title-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7z"/><path d="M15 3v5h5"/><path d="M10 12h6M10 16h6"/></svg></div>
+                <div>
+                  <h2 id="controlSummaryTitle">Rezervasyon Kontrol Özeti</h2>
+                  <p id="controlSummaryDescription" class="muted">Talep edilen depo, talep eden depo ve teminat bilgileri birlikte gösterilir.</p>
+                </div>
+              </div>
+              <div id="overallSummaryStatus"><span class="badge neutral">Kontrol bekliyor</span></div>
+            </div>
+            <div id="controlSummaryStack" class="control-summary-stack"></div>
+            <div id="guaranteeCoverage" class="guarantee-coverage guarantee-analysis">
+              <div class="guarantee-analysis-heading">
+                <div class="analysis-title-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V5m6 14v-7m4 7V3"/></svg>
+                </div>
+                <div>
+                  <span class="coverage-title">Teminat Analizi</span>
+                  <small>Rezervasyonun teminat etkisi ve kullanılabilir limit durumu</small>
+                </div>
+              </div>
+              <div class="guarantee-analysis-grid">
+                <section class="guarantee-gauge-card">
+                  <div class="guarantee-card-title">Teminat Kullanım Oranı <span class="mini-info" title="Toplam teminata göre kullanım oranı">i</span></div>
+                  <div class="gauge-layout">
+                    <div id="coverageGauge" class="coverage-donut" style="--coverage-deg:0deg">
+                      <div class="coverage-donut-inner">
+                        <strong id="coveragePercent">—</strong>
+                        <span>Kullanım Oranı</span>
+                      </div>
+                    </div>
+                    <div class="gauge-legend">
+                      <div><i class="legend-dot used"></i><span>Kullanılmış Teminat</span><strong id="guaranteeUsed">—</strong></div>
+                      <div><i class="legend-dot total"></i><span>Toplam Teminat</span><strong id="guaranteeTotal">—</strong></div>
+                      <div><i class="legend-dot available"></i><span>Kullanılabilir (Açık Rez. Dahil)</span><strong id="guaranteeAvailable">—</strong></div>
+                    </div>
+                  </div>
+                </section>
+                <section class="guarantee-metrics-area">
+                  <div class="guarantee-kpi-row">
+                    <article class="guarantee-kpi total"><span>Toplam Teminat</span><strong id="guaranteeKpiTotal">—</strong><small>Tanımlı teminat</small></article>
+                    <article class="guarantee-kpi available"><span>Kullanılabilir Teminat</span><strong id="guaranteeKpiAvailable">—</strong><small>Açık rezervasyonlar dahil</small></article>
+                    <article class="guarantee-kpi effect"><span>Rezervasyon Parasal Etkisi</span><strong id="guaranteeKpiEffect">—</strong><small>Bilgi amaçlı rezervasyon tutarı</small></article>
+                  </div>
+                  <div class="guarantee-current-card guarantee-trend-card">
+                    <div class="guarantee-current-head"><strong>Teminat Kullanım Trendi <span class="mini-info" title="Aylık geçmiş seri tanımlı değilse mevcut kullanım oranı referans olarak gösterilir.">i</span></strong><span id="guaranteeCurrentPercent">—</span></div>
+                    <div class="trend-reference-chart" aria-label="Teminat kullanım oranı görsel referansı">
+                      <div class="trend-y-labels"><span>%100</span><span>%80</span><span>%60</span><span>%40</span><span>%20</span><span>%0</span></div>
+                      <div class="trend-plot">
+                        <div class="trend-grid-lines"></div>
+                        <div id="trendCurrentLine" class="trend-current-line"><span class="trend-point"></span></div>
+                        <div id="trendCurrentMonth" class="trend-current-month">Mevcut oran</div>
+                      </div>
+                    </div>
+                    <div class="trend-months"><span>Oca</span><span>Şub</span><span>Mar</span><span>Nis</span><span>May</span><span>Haz</span><span>Tem</span><span>Ağu</span><span>Eyl</span><span>Eki</span><span>Kas</span><span>Ara</span></div>
+                    <div class="coverage-track trend-hidden-track" aria-hidden="true">
+                      <div id="coverageFill" class="coverage-fill"></div>
+                      <span class="coverage-threshold" title="%100 teminat limiti"></span>
+                    </div>
+                    <div class="coverage-scale trend-hidden-scale"><span>0%</span><span>Kullanılan / Kalan</span><span id="coverageMaxLabel">100%</span></div>
+                    <div id="coverageDetail" class="coverage-detail muted"></div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+
+          <div id="materialPlanPanel" class="panel material-plan-panel" tabindex="-1">
+            <div class="section-title-row">
+              <div>
+                <h2>Malzeme ve Keşif Kontrolü</h2>
+                <p id="materialPlanDescription" class="muted">Keşif ve teminat teknik sonuçları burada gösterilir. Kalem bazlı Onayla / Onaylama / Beklet kararı, Kontrol Et işleminden sonra Karar Destek Sonucu penceresinde verilir.</p>
+              </div>
+              <div class="material-check-actions">
+                <div id="materialStatus"><span class="badge neutral">Kontrol bekliyor</span></div>
+                <button id="runCheckBtn" class="btn btn-primary large" disabled>Kontrol Et</button>
+              </div>
+            </div>
+            <div class="table-wrap planner-table-wrap">
+              <table class="planner-table">
+                <thead>
+                  <tr>
+                    <th>Rez. Kalem</th>
+                    <th>Malzeme</th>
+                    <th>Malzeme Tanımı</th>
+                    <th id="requestQtyHeader">Talep Miktarı</th>
+                    <th>Birim</th>
+                    <th>Keşif / Teslim Edilen</th>
+                    <th>Daha Önce Verilen</th>
+                    <th>Mevcut Kalan Keşif</th>
+                    <th>Keşif Durumu</th>
+                    <th>Teminat Durumu</th>
+                    <th>Proje</th>
+                    <th>Dağıtım Miktarı</th>
+                    <th>Dağıtım Kalanı</th>
+                    <th>İşlem</th>
+                  </tr>
+                </thead>
+                <tbody id="materialBody"></tbody>
+              </table>
+            </div>
+            <div id="selectedMaterialDetail" class="selection-status muted">Bir malzeme satırına tıklayarak detayını görüntüleyebilirsiniz.</div>
+          </div>
+        </div>
+
+        <div id="noReservationPlaceholder" class="panel empty-state">
+          <div class="empty-icon">✓</div>
+          <h2 id="emptyStateTitle">Rezervasyon numarasıyla başlayın</h2>
+          <p id="emptyStateText">Uygulama onay işlemi yapmaz. SAP'de karar vermeden önce gerekli kontrolleri tek ekranda sunar.</p>
+        </div>
+      </section>
+
+
+      <section id="recordsView" class="view control-records-view">
+        <div class="panel records-head-panel">
+          <div class="records-head-copy">
+            <span class="dashboard-eyebrow">KONTROL ARŞİVİ</span>
+            <h2>Kaydedilmiş Kontroller</h2>
+            <p class="muted">Kontrol Et ve Kaydet ile oluşturulan rezervasyon ve manuel kontrol kayıtlarını tek ekranda görüntüleyin.</p>
+          </div>
+          <div class="records-head-actions">
+            <button id="recordsBackBtn" class="btn btn-ghost" type="button">← Karar Desteğe Dön</button>
+            <button id="recordsRefreshBtn" class="btn btn-primary" type="button">Listeyi Yenile</button>
+          </div>
+        </div>
+
+        <div class="panel records-filter-panel">
+          <div class="records-filter-grid">
+            <label class="field records-search-field"><span>Ara</span><input id="recordsSearch" type="search" autocomplete="off" placeholder="Rezervasyon no, kontrol ID, firma, depo veya sözleşme ara..."></label>
+            <label class="field"><span>Kontrol Türü</span><select id="recordsTypeFilter"><option value="">Tümü</option><option value="REZERVASYON">Rezervasyon</option><option value="MANUEL">Manuel / Excel</option></select></label>
+            <label class="field"><span>Genel Sonuç</span><select id="recordsResultFilter"><option value="">Tümü</option><option value="KARAR VERILEBILIR">Tam Onay / Karar Verilebilir</option><option value="KISMI ONAY">Kısmi Onay</option><option value="ONAY YOK">Onay Yok</option><option value="INCELEME GEREKLI">İnceleme Gerekli</option></select></label>
+          </div>
+          <div class="records-kpi-row">
+            <div><span>Toplam Kayıt</span><strong id="recordsTotalCount">0</strong></div>
+            <div><span>Sayfa</span><strong id="recordsPageInfo">1 / 1</strong></div>
+            <div><span>Kayıt Klasörü</span><strong id="recordsRootInfo">—</strong></div>
+          </div>
+        </div>
+
+        <div class="panel records-table-panel">
+          <div class="table-wrap records-table-wrap">
+            <table class="records-table">
+              <thead><tr><th>Kontrol Zamanı</th><th>Rezervasyon</th><th>Revizyon</th><th>Kontrol ID</th><th>Firma</th><th>Hedef Depo</th><th>İş Türü</th><th>Teminat</th><th>Keşif</th><th>Proje</th><th>Genel Sonuç</th><th>İşlem</th></tr></thead>
+              <tbody id="recordsTableBody"><tr><td colspan="12" class="dashboard-no-data">Kontrol kayıtları yükleniyor…</td></tr></tbody>
+            </table>
+          </div>
+          <div class="records-pagination">
+            <button id="recordsPrevBtn" class="btn btn-ghost" type="button">Önceki</button>
+            <span id="recordsPaginationText" class="muted small">Sayfa 1 / 1</span>
+            <button id="recordsNextBtn" class="btn btn-ghost" type="button">Sonraki</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="kesifView" class="view">
+        <div class="panel kesif-head">
+          <div>
+            <span class="dashboard-eyebrow">KEŞİF VERİ YÖNETİMİ</span>
+            <h2>Keşifler Tablosu <button class="tk-help-trigger" type="button" data-help-key="kesif" aria-label="Keşif kalan miktarı hakkında bilgi">?</button></h2>
+            <p class="muted">TESİS, KET&amp;YB, BAKIM ve LED keşiflerini kontrol edin; negatif kalan, hesap tutarsızlığı ve mükerrer kayıtları hızla bulun.</p>
+          </div>
+          <div class="kesif-head-actions">
+            <button id="kesifOpenFolderBtn" class="btn btn-ghost" type="button">Kaynak Klasörünü Aç</button>
+            <button class="tk-help-trigger" type="button" data-help-key="newkesif" aria-label="Yeni Keşif şablonu hakkında bilgi">?</button>
+            <button id="kesifNewTemplateBtn" class="btn btn-ghost" type="button" title="V0.6 taslak: Projeleri toplu yapıştırma örneği; henüz canlı UNC ve import bağlantısı yoktur.">Yeni Keşif Excel Şablonu</button>
+            <button id="kesifExportBtn" class="btn btn-ghost" type="button">Filtreleneni CSV Aktar</button>
+            <button id="kesifRefreshBtn" class="btn btn-primary" type="button">Keşif Verisini Yenile</button>
+          </div>
+        </div>
+
+        <div id="kesifSourceInfo" class="kesif-source-info panel">Keşif kaynağı hazırlanıyor…</div>
+
+        <div class="kesif-kpis">
+          <article class="dashboard-kpi"><span>Malzeme Satırı</span><strong id="kesifKpiRows">0</strong><small id="kesifKpiProjects">0 proje</small></article>
+          <article class="dashboard-kpi good"><span>Pozitif Kalan</span><strong id="kesifKpiPositive">0</strong><small>Kullanılabilir keşif</small></article>
+          <article class="dashboard-kpi"><span>Sıfır Kalan</span><strong id="kesifKpiZero">0</strong><small>Keşfi tükenen satır</small></article>
+          <article class="dashboard-kpi warn"><span>Negatif Kalan</span><strong id="kesifKpiNegative">0</strong><small>Keşif aşımı</small></article>
+          <article class="dashboard-kpi warn"><span>Kontrol Gereken</span><strong id="kesifKpiIssues">0</strong><small id="kesifKpiIssueDetail">Tutarsız / mükerrer</small></article>
+        </div>
+
+        <div class="panel kesif-workspace">
+          <div id="kesifTabs" class="kesif-tabs" role="tablist" aria-label="Keşif iş türü">
+            <button class="kesif-tab active" data-kesif-sheet="Tesis_Verileri" type="button">TESİS <span id="kesifTabCountT">0</span></button>
+            <button class="kesif-tab" data-kesif-sheet="KET_Verileri" type="button">KET&amp;YB <span id="kesifTabCountK">0</span></button>
+            <button class="kesif-tab" data-kesif-sheet="BAKIM_Verileri" type="button">BAKIM <span id="kesifTabCountB">0</span></button>
+            <button class="kesif-tab" data-kesif-sheet="LED_Verileri" type="button">LED <span id="kesifTabCountL">0</span></button>
+          </div>
+
+          <div class="kesif-filters">
+            <label class="field"><span>Arama</span><input id="kesifSearch" type="search" placeholder="Depo, proje, yüklenici, malzeme kodu veya tanımı…" autocomplete="off" /></label>
+            <label class="field"><span>Depo</span><select id="kesifDepotFilter"><option value="">Tüm Depolar</option></select></label>
+            <label class="field"><span>Durum</span><select id="kesifStatusFilter">
+              <option value="">Tüm Kayıtlar</option>
+              <option value="issues">Kontrol Gerekenler</option>
+              <option value="negative">Negatif Kalan</option>
+              <option value="mismatch">Hesap Tutarsızlığı</option>
+              <option value="duplicate">Mükerrer Kayıt</option>
+              <option value="unknown">Tanımsız Depo / Malzeme</option>
+              <option value="positive">Pozitif Kalan</option>
+              <option value="zero">Sıfır Kalan</option>
+            </select></label>
+            <label class="field kesif-page-size"><span>Satır</span><select id="kesifPageSize"><option>50</option><option selected>100</option><option>250</option><option>500</option></select></label>
+            <button id="kesifClearFiltersBtn" class="btn btn-ghost kesif-clear" type="button">Filtreyi Temizle</button>
+          </div>
+
+          <div id="kesifControlSummary" class="kesif-control-summary"></div>
+
+          <div class="table-wrap kesif-table-wrap">
+            <table class="kesif-table">
+              <thead><tr>
+                <th>No</th><th>Satır</th><th>Depo</th><th>Grup No</th><th>Yüklenici</th><th>Proje</th><th>Malzeme</th><th>Malzeme Tanımı</th>
+                <th class="num">Teslim Edilen</th><th class="num">Daha Önce Verilen</th><th class="num">Kalan Keşif</th><th>Kontrol</th>
+              </tr></thead>
+              <tbody id="kesifTableBody"></tbody>
+            </table>
+          </div>
+
+          <div class="kesif-pagination">
+            <div><strong id="kesifFilteredCount">0</strong> kayıt gösterim kapsamında <span id="kesifPageInfo"></span></div>
+            <div>
+              <button id="kesifPrevBtn" class="btn btn-ghost" type="button">Önceki</button>
+              <button id="kesifNextBtn" class="btn btn-ghost" type="button">Sonraki</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="guaranteeView" class="view source-table-view">
+        <div class="panel source-table-head">
+          <div><span class="dashboard-eyebrow">ZMM098</span><h2>Teminat Bilgileri</h2><p class="muted">Yüklenici depo bazında tanımlı teminat bilgilerini görüntüleyin.</p></div>
+          <div class="source-table-actions"><input id="guaranteeSearch" class="source-table-search" type="search" placeholder="ÜY, depo veya tanım ara…" /><button id="guaranteeRefreshBtn" class="btn btn-primary" type="button">Yenile</button></div>
+        </div>
+        <div class="panel source-table-panel">
+          <div id="guaranteeSourceInfo" class="source-table-info"></div>
+          <div class="table-wrap source-table-wrap"><table class="source-data-table"><thead><tr><th>ÜY</th><th>Depo</th><th>Depo Tanımı</th><th class="num">Ana Teminat</th><th class="num">Nakdi / Ek</th><th class="num">Manuel Artış</th><th class="num">Toplam Teminat</th><th class="num">Kullanılabilir</th></tr></thead><tbody id="guaranteeTableBody"></tbody></table></div>
+          <div class="source-grid-footer"><div id="guaranteeCount" class="source-table-count"></div><div class="source-grid-pager"><button id="guaranteePrevBtn" class="btn btn-ghost" type="button">Önceki</button><button id="guaranteeNextBtn" class="btn btn-ghost" type="button">Sonraki</button></div></div>
+        </div>
+      </section>
+
+      <section id="movementsView" class="view source-table-view">
+        <div class="panel source-table-head">
+          <div><span class="dashboard-eyebrow">SAP VERİSİ</span><h2>Stok Hareketleri</h2><p class="muted">Malzeme hareketlerinin operasyon için gerekli temel alanlarını görüntüleyin. Veriler bu menü açıldığında yüklenir.</p></div>
+          <div class="source-table-actions"><input id="movementsSearch" class="source-table-search" type="search" placeholder="Malzeme, belge, rezervasyon veya depo ara…" /><button id="movementsRefreshBtn" class="btn btn-primary" type="button">Yenile</button></div>
+        </div>
+        <div class="panel source-table-panel">
+          <div id="movementsSourceInfo" class="source-table-info"></div>
+          <div class="table-wrap source-table-wrap"><table class="source-data-table"><thead><tr><th>Belge</th><th>Belge Tarihi</th><th>İşlem</th><th>Malzeme</th><th>Malzeme Tanımı</th><th class="num">Miktar</th><th>Birim</th><th>ÜY</th><th>Depo</th><th>Rezervasyon</th></tr></thead><tbody id="movementsTableBody"></tbody></table></div>
+          <div class="source-grid-footer"><div id="movementsCount" class="source-table-count"></div><div class="source-grid-pager"><button id="movementsPrevBtn" class="btn btn-ghost" type="button">Önceki</button><button id="movementsNextBtn" class="btn btn-ghost" type="button">Sonraki</button></div></div>
+        </div>
+      </section>
+
+      <section id="stocksView" class="view source-table-view">
+        <div class="panel source-table-head">
+          <div><span class="dashboard-eyebrow">SAP VERİSİ</span><h2>Stok Bilgileri</h2><p class="muted">Varsayılan olarak hareket görülen depo + mal gruplarına ait güncel stokları görüntüleyin.</p></div>
+          <div class="source-table-actions stocks-actions"><select id="stocksScope" class="source-table-filter" title="Depo stok kapsamı"><option value="mb51_group" selected>Hareket Görülen Depo + Mal Grubu</option><option value="mb51_depot">Hareket Görülen Depolar / Tüm Mal Grupları</option><option value="all">Tüm Stoklar</option></select><input id="stocksSearch" class="source-table-search" type="search" placeholder="Depo, mal grubu veya malzeme ara…" /><button id="stocksRefreshBtn" class="btn btn-primary" type="button">Yenile</button></div>
+        </div>
+        <div class="panel source-table-panel">
+          <div id="stocksSourceInfo" class="source-table-info"></div>
+          <div class="table-wrap source-table-wrap"><table class="source-data-table"><thead><tr><th>ÜY</th><th>Depo</th><th>Depo Tanımı</th><th>Mal Grubu</th><th>Mal Grubu Tanımı</th><th>Malzeme</th><th>Malzeme Tanımı</th><th class="num">Stok</th><th>Birim</th><th class="num">Toplam Değer</th><th>Değerleme Türü</th></tr></thead><tbody id="stocksTableBody"></tbody></table></div>
+          <div class="source-grid-footer"><div id="stocksCount" class="source-table-count"></div><div class="source-grid-pager"><button id="stocksPrevBtn" class="btn btn-ghost" type="button">Önceki</button><button id="stocksNextBtn" class="btn btn-ghost" type="button">Sonraki</button></div></div>
+        </div>
+      </section>
+
+
+      <section id="tesisHistoryView" class="view tesis-history-view">
+        <div class="panel history26-head">
+          <div class="dashboard-card-head"><div><h2>TESİS — Kesin Rezervasyon ve MB51 Kontrol Geçmişi</h2><p class="muted">Uygulama onayı, ZMM048 rezervasyon kaydı ve MB51 fiili stok hareketi birbirinden bağımsız izlenir. ZMM048 tek başına kesinleşme kanıtı değildir.</p></div><button class="btn btn-primary" id="tesisHistoryRefresh" type="button">Yenile</button></div>
+          <div class="history26-filter-grid"><label>Rezervasyon / Malzeme / Kontrol ID<input id="tesisHistorySearch" type="search" placeholder="Rezervasyon, malzeme, yüklenici veya kontrol ID ara..." autocomplete="off" /></label><label>Depo<input id="tesisHistoryDepot" type="search" placeholder="Depo kodu (isteğe bağlı)" /></label><label>MB51 Durumu<select id="tesisHistoryStatus"><option value="">Tüm durumlar</option><option value="MUTABIK">Mutabık</option><option value="FIILI_MIKTAR_FARKI">Fiili miktar farkı</option><option value="MB51_BEKLENIYOR">MB51 bekleniyor</option></select></label></div>
+          <div id="tesisHistoryAlert" class="dashboard-alert" hidden></div>
+          <div id="tesisHistoryMetrics" class="history26-metrics"></div>
+        </div>
+        <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Kontrol Kayıtları</h3><p class="muted" id="tesisHistoryCount">Veriler hazırlanıyor...</p></div></div>
+        <div class="table-wrap history26-table-wrap"><table class="dashboard-table"><thead><tr><th>Tarih</th><th>Rezervasyon</th><th>Malzeme</th><th>Depo</th><th>Uygulama Kararı</th><th>ZMM048 / Kesinleşme</th><th>Onay</th><th>MB51 Net</th><th>MB51 Durumu</th><th>İşlem</th></tr></thead><tbody id="tesisHistoryBody"></tbody></table></div>
+        <div class="history26-pager"><button id="tesisHistoryPrev" class="btn btn-ghost" type="button">Önceki</button><span id="tesisHistoryPage"></span><button id="tesisHistoryNext" class="btn btn-ghost" type="button">Sonraki</button></div>
+        </article>
+        <article class="panel dashboard-card" id="tesisHistoryDetailPanel" hidden>
+          <div class="dashboard-card-head"><div><h3 id="tesisHistoryDetailTitle">Kontrol Ayrıntısı</h3><p id="tesisHistoryDetailInfo" class="muted"></p></div></div>
+          <div class="history26-tabs" id="tesisHistoryDetailTabs"><button class="btn btn-primary" data-history-tab="movements" type="button">SAP Hareketleri</button><button class="btn btn-ghost" data-history-tab="projects" type="button">Proje Dağılımı</button><button class="btn btn-ghost" data-history-tab="revisions" type="button">İşlem Geçmişi</button><button class="btn btn-ghost" data-history-tab="sources" type="button">Veri Kaynakları</button></div>
+          <div id="tesisHistoryDetailContent" class="history26-detail-content"></div>
+        </article>
+      </section>
+
+      <section id="opsBakimView" class="view work-operations-view" data-work-code="B">
+        <div class="panel work-ops-head">
+          <div><span class="dashboard-eyebrow">OPERASYON İZLEME • BAKIM</span><h2>BAKIM Operasyon İzleme</h2><p class="muted">Bakım depolarını malzeme dağılımı, teminat, keşif ve aylık harcama bilgileriyle birlikte izleyin.</p></div>
+          <div class="work-ops-controls">
+            <label><span>Üretim Yeri</span><select data-role="plant-filter"><option value="">Tüm Üretim Yerleri</option></select></label>
+            <label><span>Depo</span><select data-role="depot-filter"><option value="">Tüm Depolar</option></select></label>
+            
+            <label class="work-ops-search"><span>Ara</span><input data-role="search" type="search" placeholder="Depo, malzeme ara…"></label>
+            <button class="btn btn-ghost" data-role="clear" type="button">Temizle</button>
+            <button class="btn btn-primary" data-role="refresh" type="button">Yenile</button>
+          </div>
+        </div>
+        <div class="work-ops-overview">
+          <section class="panel work-ops-identity"><h3>Yüklenici / Sözleşme Bilgileri</h3><div class="work-ops-contractor-card"></div></section>
+          <section class="panel work-ops-guarantee-panel">
+            <div class="dashboard-card-head"><div><h3>Teminat Bilgileri</h3><p class="muted">ZMM098 · filtrelenen üretim yeri ve depo bazında.</p></div></div>
+            <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>ÜY</th><th>Depo</th><th>Tanım</th><th class="num">Toplam Teminat</th><th class="num">Stok</th><th class="num">Kullanılabilir</th></tr></thead><tbody data-role="guarantee-body"></tbody></table></div>
+          </section>
+        </div>
+        <article class="panel dashboard-card work-report26" data-report-code="B">
+          <div class="history26-tabs work-report26-tabs" aria-label="Rapor sayfaları">
+            <button type="button" class="btn btn-primary" data-report-tab="money" aria-pressed="true"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="8" cy="5" rx="5" ry="2.5"/><path d="M3 5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V5M3 9v4c0 1.4 2.2 2.5 5 2.5 1.9-.2 2.7-.6"/><ellipse cx="16.5" cy="15.5" rx="5" ry="2.5"/><path d="M11.5 15.5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/></svg><span class="work-report26-tab-text">Parasal İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="material" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 9-4 9 4-9 4-9-4Zm0 0v10l9 4 9-4V7M12 11v10M7 5.2l9 4"/></svg><span class="work-report26-tab-text">Malzeme İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="diff" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9h4v12M10 21V3h4v18M17 21v-9h4v9M1 21h22"/></svg><span class="work-report26-tab-text">Fark Listesi</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="given" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v11H2zM14 10h4l4 4v3h-8M2 17h2M10 17h4M18 17h4"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><span class="work-report26-tab-text">Verilen Malzeme Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="consumption" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="17" rx="2"/><path d="M8 3v4M16 3v4M4 10h16m-12 6 2.5 2.5L16 13"/></svg><span class="work-report26-tab-text">Tüketim Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="discovery" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5zM15 3v5h4M9 12h6M9 16h6"/></svg><span class="work-report26-tab-text">Keşif</span></button>
+          </div>
+          <div class="dashboard-card-head"><div><h3 data-report-title>Parasal İcmal</h3><p class="muted">Keşif icmalleri ve MB51 verilen/tüketim hareketleri — mevcut operasyon ekranları altta korunmuştur.</p></div><button class="btn btn-ghost" data-report-refresh type="button">Raporu Yenile</button></div>
+          <div class="work-report26-info muted" data-report-info>Rapor sekmesini seçiniz.</div>
+          <div class="work-report26-monthly" data-report-monthly hidden></div>
+          <div class="work-report26-revision-plan" data-report-revision-plan hidden>
+            <strong>Keşif Revizyon Planı</strong><p>Yeni kalem / miktar revizyonu → gerekçe ve kullanıcı kaydı → kontrol → yetkili onay → yeni yayımlanmış keşif sürümü → yeniden değerlendirme. Önceki keşif ve karar sürümleri saklanır.</p>
+            <p><strong>Güvenlik:</strong> Bu sürümde keşif sekmesi görüntüleme amaçlıdır. Revizyon oluşturma ve onaylı keşfi karar motoruna yayımlama henüz açılmamıştır; kaynak CSV değişmez.</p>
+          </div>
+          <div class="table-wrap"><table class="dashboard-table"><thead data-report-head></thead><tbody data-report-body></tbody></table></div>
+          <div class="history26-pager"><button class="btn btn-ghost" type="button" data-report-prev>Önceki</button><span data-report-page></span><button class="btn btn-ghost" type="button" data-report-next>Sonraki</button></div>
+        </article>
+        <div class="dashboard-alert" data-role="alert" hidden></div>
+        <div class="work-ops-kpis">
+          <article class="dashboard-kpi"><span>Depo</span><strong data-kpi="depots">0</strong><small>BAKIM</small></article>
+          <article class="dashboard-kpi"><span>Malzeme Çeşidi</span><strong data-kpi="materialTypes">0</strong><small>Dağılım</small></article>
+          <article class="dashboard-kpi"><span>Keşif Kalemi</span><strong data-kpi="discoveryRows">0</strong><small>Malzeme bazlı</small></article>
+          <article class="dashboard-kpi"><span>Pozitif Kalan</span><strong data-kpi="positiveRows">0</strong><small>Kalem</small></article>
+          <article class="dashboard-kpi"><span>Sorunlu Keşif</span><strong data-kpi="issueRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi warn"><span>Negatif Satır</span><strong data-kpi="negativeRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi money"><span>Kullanılabilir Teminat</span><strong data-kpi="guaranteeAvailable">₺0</strong><small>ZMM098</small></article>
+          <article class="dashboard-kpi"><span>Son Ay Harcama</span><strong data-kpi="lastMonthSpend">₺0</strong><small data-kpi="lastMonth">—</small></article>
+        </div>
+        
+        <div class="dashboard-footnote muted" data-role="note"></div>
+      </section>
+
+      <section id="opsKetView" class="view work-operations-view" data-work-code="K">
+        <div class="panel work-ops-head">
+          <div><span class="dashboard-eyebrow">OPERASYON İZLEME • KET&YB</span><h2>KET&YB Operasyon İzleme</h2><p class="muted">KET ve Yapı Bağlantı depolarını malzeme dağılımı, teminat, keşif ve aylık harcama bilgileriyle birlikte izleyin.</p></div>
+          <div class="work-ops-controls">
+            <label><span>Üretim Yeri</span><select data-role="plant-filter"><option value="">Tüm Üretim Yerleri</option></select></label>
+            <label><span>Depo</span><select data-role="depot-filter"><option value="">Tüm Depolar</option></select></label>
+            
+            <label class="work-ops-search"><span>Ara</span><input data-role="search" type="search" placeholder="Depo, malzeme ara…"></label>
+            <button class="btn btn-ghost" data-role="clear" type="button">Temizle</button>
+            <button class="btn btn-primary" data-role="refresh" type="button">Yenile</button>
+          </div>
+        </div>
+        <div class="work-ops-overview">
+          <section class="panel work-ops-identity"><h3>Yüklenici / Sözleşme Bilgileri</h3><div class="work-ops-contractor-card"></div></section>
+          <section class="panel work-ops-guarantee-panel">
+            <div class="dashboard-card-head"><div><h3>Teminat Bilgileri</h3><p class="muted">ZMM098 · filtrelenen üretim yeri ve depo bazında.</p></div></div>
+            <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>ÜY</th><th>Depo</th><th>Tanım</th><th class="num">Toplam Teminat</th><th class="num">Stok</th><th class="num">Kullanılabilir</th></tr></thead><tbody data-role="guarantee-body"></tbody></table></div>
+          </section>
+        </div>
+        <article class="panel dashboard-card work-report26" data-report-code="K">
+          <div class="history26-tabs work-report26-tabs" aria-label="Rapor sayfaları">
+            <button type="button" class="btn btn-primary" data-report-tab="money" aria-pressed="true"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="8" cy="5" rx="5" ry="2.5"/><path d="M3 5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V5M3 9v4c0 1.4 2.2 2.5 5 2.5 1.9-.2 2.7-.6"/><ellipse cx="16.5" cy="15.5" rx="5" ry="2.5"/><path d="M11.5 15.5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/></svg><span class="work-report26-tab-text">Parasal İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="material" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 9-4 9 4-9 4-9-4Zm0 0v10l9 4 9-4V7M12 11v10M7 5.2l9 4"/></svg><span class="work-report26-tab-text">Malzeme İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="diff" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9h4v12M10 21V3h4v18M17 21v-9h4v9M1 21h22"/></svg><span class="work-report26-tab-text">Fark Listesi</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="given" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v11H2zM14 10h4l4 4v3h-8M2 17h2M10 17h4M18 17h4"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><span class="work-report26-tab-text">Verilen Malzeme Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="consumption" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="17" rx="2"/><path d="M8 3v4M16 3v4M4 10h16m-12 6 2.5 2.5L16 13"/></svg><span class="work-report26-tab-text">Tüketim Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="discovery" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5zM15 3v5h4M9 12h6M9 16h6"/></svg><span class="work-report26-tab-text">Keşif</span></button>
+          </div>
+          <div class="dashboard-card-head"><div><h3 data-report-title>Parasal İcmal</h3><p class="muted">Keşif icmalleri ve MB51 verilen/tüketim hareketleri — mevcut operasyon ekranları altta korunmuştur.</p></div><button class="btn btn-ghost" data-report-refresh type="button">Raporu Yenile</button></div>
+          <div class="work-report26-info muted" data-report-info>Rapor sekmesini seçiniz.</div>
+          <div class="work-report26-monthly" data-report-monthly hidden></div>
+          <div class="work-report26-revision-plan" data-report-revision-plan hidden>
+            <strong>Keşif Revizyon Planı</strong><p>Yeni kalem / miktar revizyonu → gerekçe ve kullanıcı kaydı → kontrol → yetkili onay → yeni yayımlanmış keşif sürümü → yeniden değerlendirme. Önceki keşif ve karar sürümleri saklanır.</p>
+            <p><strong>Güvenlik:</strong> Bu sürümde keşif sekmesi görüntüleme amaçlıdır. Revizyon oluşturma ve onaylı keşfi karar motoruna yayımlama henüz açılmamıştır; kaynak CSV değişmez.</p>
+          </div>
+          <div class="table-wrap"><table class="dashboard-table"><thead data-report-head></thead><tbody data-report-body></tbody></table></div>
+          <div class="history26-pager"><button class="btn btn-ghost" type="button" data-report-prev>Önceki</button><span data-report-page></span><button class="btn btn-ghost" type="button" data-report-next>Sonraki</button></div>
+        </article>
+        <div class="dashboard-alert" data-role="alert" hidden></div>
+        <div class="work-ops-kpis">
+          <article class="dashboard-kpi"><span>Depo</span><strong data-kpi="depots">0</strong><small>KET&YB</small></article>
+          <article class="dashboard-kpi"><span>Malzeme Çeşidi</span><strong data-kpi="materialTypes">0</strong><small>Dağılım</small></article>
+          <article class="dashboard-kpi"><span>Keşif Kalemi</span><strong data-kpi="discoveryRows">0</strong><small>Malzeme bazlı</small></article>
+          <article class="dashboard-kpi"><span>Pozitif Kalan</span><strong data-kpi="positiveRows">0</strong><small>Kalem</small></article>
+          <article class="dashboard-kpi"><span>Sorunlu Keşif</span><strong data-kpi="issueRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi warn"><span>Negatif Satır</span><strong data-kpi="negativeRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi money"><span>Kullanılabilir Teminat</span><strong data-kpi="guaranteeAvailable">₺0</strong><small>ZMM098</small></article>
+          <article class="dashboard-kpi"><span>Son Ay Harcama</span><strong data-kpi="lastMonthSpend">₺0</strong><small data-kpi="lastMonth">—</small></article>
+        </div>
+        
+        <div class="dashboard-footnote muted" data-role="note"></div>
+      </section>
+
+      <section id="opsLedView" class="view work-operations-view" data-work-code="L">
+        <div class="panel work-ops-head">
+          <div><span class="dashboard-eyebrow">OPERASYON İZLEME • LED</span><h2>LED Operasyon İzleme</h2><p class="muted">LED dönüşüm depolarını malzeme dağılımı, teminat, keşif ve aylık harcama bilgileriyle birlikte izleyin.</p></div>
+          <div class="work-ops-controls">
+            <label><span>Üretim Yeri</span><select data-role="plant-filter"><option value="">Tüm Üretim Yerleri</option></select></label>
+            <label><span>Depo</span><select data-role="depot-filter"><option value="">Tüm Depolar</option></select></label>
+            
+            <label class="work-ops-search"><span>Ara</span><input data-role="search" type="search" placeholder="Depo, malzeme ara…"></label>
+            <button class="btn btn-ghost" data-role="clear" type="button">Temizle</button>
+            <button class="btn btn-primary" data-role="refresh" type="button">Yenile</button>
+          </div>
+        </div>
+        <div class="work-ops-overview">
+          <section class="panel work-ops-identity"><h3>Yüklenici / Sözleşme Bilgileri</h3><div class="work-ops-contractor-card"></div></section>
+          <section class="panel work-ops-guarantee-panel">
+            <div class="dashboard-card-head"><div><h3>Teminat Bilgileri</h3><p class="muted">ZMM098 · filtrelenen üretim yeri ve depo bazında.</p></div></div>
+            <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>ÜY</th><th>Depo</th><th>Tanım</th><th class="num">Toplam Teminat</th><th class="num">Stok</th><th class="num">Kullanılabilir</th></tr></thead><tbody data-role="guarantee-body"></tbody></table></div>
+          </section>
+        </div>
+        <article class="panel dashboard-card work-report26" data-report-code="L">
+          <div class="history26-tabs work-report26-tabs" aria-label="Rapor sayfaları">
+            <button type="button" class="btn btn-primary" data-report-tab="money" aria-pressed="true"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="8" cy="5" rx="5" ry="2.5"/><path d="M3 5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V5M3 9v4c0 1.4 2.2 2.5 5 2.5 1.9-.2 2.7-.6"/><ellipse cx="16.5" cy="15.5" rx="5" ry="2.5"/><path d="M11.5 15.5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/></svg><span class="work-report26-tab-text">Parasal İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="material" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 9-4 9 4-9 4-9-4Zm0 0v10l9 4 9-4V7M12 11v10M7 5.2l9 4"/></svg><span class="work-report26-tab-text">Malzeme İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="diff" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9h4v12M10 21V3h4v18M17 21v-9h4v9M1 21h22"/></svg><span class="work-report26-tab-text">Fark Listesi</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="given" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v11H2zM14 10h4l4 4v3h-8M2 17h2M10 17h4M18 17h4"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><span class="work-report26-tab-text">Verilen Malzeme Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="consumption" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="17" rx="2"/><path d="M8 3v4M16 3v4M4 10h16m-12 6 2.5 2.5L16 13"/></svg><span class="work-report26-tab-text">Tüketim Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="discovery" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5zM15 3v5h4M9 12h6M9 16h6"/></svg><span class="work-report26-tab-text">Keşif</span></button>
+          </div>
+          <div class="dashboard-card-head"><div><h3 data-report-title>Parasal İcmal</h3><p class="muted">Keşif icmalleri ve MB51 verilen/tüketim hareketleri — mevcut operasyon ekranları altta korunmuştur.</p></div><button class="btn btn-ghost" data-report-refresh type="button">Raporu Yenile</button></div>
+          <div class="work-report26-info muted" data-report-info>Rapor sekmesini seçiniz.</div>
+          <div class="work-report26-monthly" data-report-monthly hidden></div>
+          <div class="work-report26-revision-plan" data-report-revision-plan hidden>
+            <strong>Keşif Revizyon Planı</strong><p>Yeni kalem / miktar revizyonu → gerekçe ve kullanıcı kaydı → kontrol → yetkili onay → yeni yayımlanmış keşif sürümü → yeniden değerlendirme. Önceki keşif ve karar sürümleri saklanır.</p>
+            <p><strong>Güvenlik:</strong> Bu sürümde keşif sekmesi görüntüleme amaçlıdır. Revizyon oluşturma ve onaylı keşfi karar motoruna yayımlama henüz açılmamıştır; kaynak CSV değişmez.</p>
+          </div>
+          <div class="table-wrap"><table class="dashboard-table"><thead data-report-head></thead><tbody data-report-body></tbody></table></div>
+          <div class="history26-pager"><button class="btn btn-ghost" type="button" data-report-prev>Önceki</button><span data-report-page></span><button class="btn btn-ghost" type="button" data-report-next>Sonraki</button></div>
+        </article>
+        <div class="dashboard-alert" data-role="alert" hidden></div>
+        <div class="work-ops-kpis">
+          <article class="dashboard-kpi"><span>Depo</span><strong data-kpi="depots">0</strong><small>LED</small></article>
+          <article class="dashboard-kpi"><span>Malzeme Çeşidi</span><strong data-kpi="materialTypes">0</strong><small>Dağılım</small></article>
+          <article class="dashboard-kpi"><span>Keşif Kalemi</span><strong data-kpi="discoveryRows">0</strong><small>Malzeme bazlı</small></article>
+          <article class="dashboard-kpi"><span>Pozitif Kalan</span><strong data-kpi="positiveRows">0</strong><small>Kalem</small></article>
+          <article class="dashboard-kpi"><span>Sorunlu Keşif</span><strong data-kpi="issueRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi warn"><span>Negatif Satır</span><strong data-kpi="negativeRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi money"><span>Kullanılabilir Teminat</span><strong data-kpi="guaranteeAvailable">₺0</strong><small>ZMM098</small></article>
+          <article class="dashboard-kpi"><span>Son Ay Harcama</span><strong data-kpi="lastMonthSpend">₺0</strong><small data-kpi="lastMonth">—</small></article>
+        </div>
+        
+        <div class="dashboard-footnote muted" data-role="note"></div>
+      </section>
+
+      <section id="opsTesisView" class="view work-operations-view" data-work-code="T">
+        <div class="panel work-ops-head">
+          <div><span class="dashboard-eyebrow">OPERASYON İZLEME • TESİS</span><h2>TESİS Operasyon İzleme <button class="tk-help-trigger" type="button" data-help-key="project" aria-label="TESİS proje filtresi hakkında bilgi">?</button></h2><p class="muted">TESİS depolarını proje proje; malzeme dağılımı, teminat, keşif ve aylık harcama bilgileriyle birlikte izleyin.</p></div>
+          <div class="work-ops-controls">
+            <label><span>Depo</span><select data-role="depot-filter"><option value="">Tüm Depolar</option></select></label>
+            <label><span>Proje</span><select data-role="project-filter"><option value="">Tüm Projeler</option></select></label>
+            <label class="work-ops-search"><span>Ara</span><input data-role="search" type="search" placeholder="Depo, malzeme, proje ara…"></label>
+            <button class="btn btn-ghost" data-role="clear" type="button">Temizle</button>
+            <button class="btn btn-primary" data-role="refresh" type="button">Yenile</button>
+          </div>
+        </div>
+<article class="panel dashboard-card work-report26" data-report-code="T">
+          <div class="history26-tabs work-report26-tabs" aria-label="Rapor sayfaları">
+            <button type="button" class="btn btn-primary" data-report-tab="money" aria-pressed="true"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="8" cy="5" rx="5" ry="2.5"/><path d="M3 5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V5M3 9v4c0 1.4 2.2 2.5 5 2.5 1.9-.2 2.7-.6"/><ellipse cx="16.5" cy="15.5" rx="5" ry="2.5"/><path d="M11.5 15.5v4c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5v-4"/></svg><span class="work-report26-tab-text">Parasal İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="material" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 9-4 9 4-9 4-9-4Zm0 0v10l9 4 9-4V7M12 11v10M7 5.2l9 4"/></svg><span class="work-report26-tab-text">Malzeme İcmal</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="diff" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21V9h4v12M10 21V3h4v18M17 21v-9h4v9M1 21h22"/></svg><span class="work-report26-tab-text">Fark Listesi</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="given" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h12v11H2zM14 10h4l4 4v3h-8M2 17h2M10 17h4M18 17h4"/><circle cx="7" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg><span class="work-report26-tab-text">Verilen Malzeme Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="consumption" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="17" rx="2"/><path d="M8 3v4M16 3v4M4 10h16m-12 6 2.5 2.5L16 13"/></svg><span class="work-report26-tab-text">Tüketim Detayı</span></button>
+            <button type="button" class="btn btn-ghost" data-report-tab="discovery" aria-pressed="false"><svg class="work-report26-tab-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h10l4 4v14H5zM15 3v5h4M9 12h6M9 16h6"/></svg><span class="work-report26-tab-text">Keşif</span></button>
+          </div>
+          <div class="dashboard-card-head"><div><h3 data-report-title>Parasal İcmal</h3><p class="muted">TESİS keşifleri proje bazında; MB51 verilen ve tüketim hareketleri doğrulanabilen depo kapsamındadır. Diğer operasyon kartları altta korunmuştur.</p></div><button class="btn btn-ghost" data-report-refresh type="button">Raporu Yenile</button></div>
+          <div class="work-report26-info muted" data-report-info>Sekmeler proje ve depo filtrelerini izler. Projeye özgü MB51 hareketi kanıtlanamıyorsa proje bazında tahmini dağıtım yapılmaz.</div>
+          <div class="work-report26-monthly" data-report-monthly hidden></div>
+          <div class="work-report26-revision-plan" data-report-revision-plan hidden>
+            <strong>Keşif Revizyon Planı</strong><p>Yeni kalem / miktar revizyonu → gerekçe ve kullanıcı kaydı → kontrol → yetkili onay → yeni yayımlanmış keşif sürümü → yeniden değerlendirme. Önceki keşif ve karar sürümleri saklanır.</p>
+            <p><strong>Güvenlik:</strong> Bu sürümde keşif sekmesi görüntüleme amaçlıdır. Revizyon oluşturma ve onaylı keşfi karar motoruna yayımlama henüz açılmamıştır; kaynak CSV değişmez.</p>
+          </div>
+          <div class="table-wrap"><table class="dashboard-table"><thead data-report-head></thead><tbody data-report-body></tbody></table></div>
+          <div class="history26-pager"><button class="btn btn-ghost" type="button" data-report-prev>Önceki</button><span data-report-page></span><button class="btn btn-ghost" type="button" data-report-next>Sonraki</button></div>
+        </article>
+                <div class="dashboard-alert" data-role="alert" hidden></div>
+        <div class="work-ops-kpis">
+          <article class="dashboard-kpi"><span>Depo</span><strong data-kpi="depots">0</strong><small>TESİS</small></article>
+          <article class="dashboard-kpi"><span>Malzeme Çeşidi</span><strong data-kpi="materialTypes">0</strong><small>Dağılım</small></article>
+          <article class="dashboard-kpi"><span>Keşif Kalemi</span><strong data-kpi="discoveryRows">0</strong><small>Malzeme bazlı</small></article>
+          <article class="dashboard-kpi"><span>Pozitif Kalan</span><strong data-kpi="positiveRows">0</strong><small>Kalem</small></article>
+          <article class="dashboard-kpi"><span>Sorunlu Keşif</span><strong data-kpi="issueRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi warn"><span>Negatif Satır</span><strong data-kpi="negativeRows">0</strong><small>Kontrol gerekli</small></article>
+          <article class="dashboard-kpi money"><span>Kullanılabilir Teminat</span><strong data-kpi="guaranteeAvailable">₺0</strong><small>ZMM098</small></article>
+          <article class="dashboard-kpi"><span>Son Ay Harcama</span><strong data-kpi="lastMonthSpend">₺0</strong><small data-kpi="lastMonth">—</small></article>
+        </div>
+        
+        <article class="panel dashboard-card work-ops-projects">
+          <div class="dashboard-card-head"><div><h3>Proje Bazlı İzleme</h3><p class="muted">TESİS keşifleri depo ve proje bazında ayrı izlenir; proje durumları revizyon geçmişi korunarak yönetilir.</p></div></div>
+          <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>Depo</th><th>Proje</th><th>Durum</th><th class="num">Malzeme</th><th class="num">Pozitif</th><th class="num">Sıfır</th><th class="num">Negatif</th><th class="num">Sorun</th><th>İşlem</th></tr></thead><tbody data-role="project-body"></tbody></table></div>
+        </article>
+        <div class="dashboard-grid dashboard-grid-halves work-ops-grid">
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head"><div><h3>Depo Bazlı Malzeme Dağılımı</h3><p class="muted">Keşif kaynağındaki verilen ve kalan miktarlar; negatif değerler gizlenmez.</p></div></div>
+            <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>Depo</th><th>Proje</th><th>Malzeme</th><th>Tanım</th><th>Birim</th><th class="num">Keşif</th><th class="num">Verilen</th><th class="num">Kalan</th></tr></thead><tbody data-role="material-body"></tbody></table></div>
+          </article>
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head"><div><h3>Teminat</h3><p class="muted">Yalnız bu iş türündeki depoların ZMM098 teminat bilgileri.</p></div></div>
+            <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>ÜY</th><th>Depo</th><th>Tanım</th><th class="num">Toplam Teminat</th><th class="num">Stok</th><th class="num">Kullanılabilir</th></tr></thead><tbody data-role="guarantee-body"></tbody></table></div>
+          </article>
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head"><div><h3>Keşif</h3><p class="muted">TESİS projelerinde keşif kayıtlarının kalan ve veri kalite durumu.</p></div></div>
+            <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>Depo</th><th>Proje</th><th class="num">Malzeme</th><th class="num">Pozitif</th><th class="num">Sıfır</th><th class="num">Negatif</th><th class="num">Sorun</th></tr></thead><tbody data-role="discovery-body"></tbody></table></div>
+          </article>
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head"><div><h3>Aylık Harcamalar</h3><p class="muted">MB51 Kayıt Tarihi • 221 / 222 / Z22 net parasal hareketleri. Grafik tasarımı daha sonra planlanacaktır.</p></div></div>
+            <div class="table-wrap work-ops-scroll"><table class="dashboard-table"><thead><tr><th>Ay</th><th>Depo</th><th class="num">221</th><th class="num">222</th><th class="num">Z22</th><th class="num">Net Harcama</th><th class="num">Hareket</th></tr></thead><tbody data-role="spend-body"></tbody></table></div>
+          </article>
+        </div>
+        <div class="dashboard-footnote muted" data-role="note"></div>
+      </section>
+
+      <section id="dashboardView" class="view">
+        <div class="dashboard-head panel">
+          <div>
+            <span class="dashboard-eyebrow">OPERASYON İZLEME</span>
+            <h2>Depo, Proje, Teminat ve Harcama İzleme</h2>
+            <p class="muted">Talep Kontrol kayıtları ile MB51 / ZMM098 verilerini depo ve proje bağlamında birlikte izleyin. Stok devir hızı hesaplanmaz.</p>
+          </div>
+          <div class="dashboard-controls dashboard-controls-v383">
+            <label class="dashboard-range-label" for="dashboardRange">Dönem
+              <select id="dashboardRange">
+                <option value="7">Son 7 Gün</option>
+                <option value="30" selected>Son 30 Gün</option>
+                <option value="90">Son 90 Gün</option>
+                <option value="365">Son 1 Yıl</option>
+                <option value="0">Tüm Kayıtlar</option>
+              </select>
+            </label>
+            <div class="dashboard-filter-combo" id="dashboardCompanyCombo">
+              <span>Yüklenici</span>
+              <div class="dashboard-filter-control">
+                <input id="dashboardCompanyInput" type="search" placeholder="Tüm yükleniciler" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="dashboardCompanyResults" />
+                <button id="dashboardCompanyToggle" class="dashboard-filter-toggle" type="button" title="Yüklenici listesini aç">⌄</button>
+                <div id="dashboardCompanyResults" class="dashboard-filter-results" role="listbox" hidden></div>
+              </div>
+            </div>
+            <div class="dashboard-filter-combo" id="dashboardDepotCombo">
+              <span>Depo</span>
+              <div class="dashboard-filter-control">
+                <input id="dashboardDepotInput" type="search" placeholder="Tüm depolar" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="dashboardDepotResults" />
+                <button id="dashboardDepotToggle" class="dashboard-filter-toggle" type="button" title="Depo listesini aç">⌄</button>
+                <div id="dashboardDepotResults" class="dashboard-filter-results dashboard-depot-results" role="listbox" hidden></div>
+              </div>
+            </div>
+            <label class="dashboard-range-label" for="dashboardWorkType">İş Türü
+              <select id="dashboardWorkType"><option value="">Tüm İş Türleri</option></select>
+            </label>
+            <button id="dashboardClearFiltersBtn" class="btn btn-ghost" type="button">Filtreyi Temizle</button>
+            <button id="dashboardExportExcelBtn" class="btn btn-export-excel" type="button" title="Dışa aktarım için önce depo seçin." disabled>Excel</button>
+            <button id="dashboardExportPdfBtn" class="btn btn-export-pdf" type="button" title="Dışa aktarım için önce depo seçin." disabled>PDF</button>
+            <button id="dashboardExportJpgBtn" class="btn btn-export-jpg" type="button" title="Dışa aktarım için önce depo seçin." disabled>JPG</button>
+            <button id="dashboardOpenArchiveBtn" class="btn btn-ghost" type="button">CSV Arşivini Aç</button>
+            <button id="dashboardRefreshBtn" class="btn btn-primary" type="button">Dashboard Yenile</button>
+          </div>
+        </div>
+        <div id="dashboardAlert" class="dashboard-alert" hidden></div>
+        <div id="dashboardScopeBanner" class="dashboard-scope-banner"><strong>Genel görünüm</strong><span>Yüklenici ve depo seçerek operasyon görünümünü daraltabilirsiniz. Excel / PDF / JPG dışa aktarımı için depo seçimi zorunludur.</span></div>
+
+        <div id="dashboardPrioritySections" class="dashboard-priority-sections">
+          <article class="panel dashboard-card dashboard-detail-card">
+            <div class="dashboard-card-head dashboard-table-head">
+              <div><h3>Yüklenici / Malzeme Dağılımı <span id="dashContractorMaterialsCount" class="dashboard-count-badge">0</span></h3><p class="muted">Kaydedilmiş kontrol sonuçlarına göre hangi yükleniciye hangi malzemeden ne kadar talep/onay kaydı oluştuğu.</p></div>
+              <input id="dashContractorMaterialSearch" class="dashboard-table-search" type="search" placeholder="Firma, depo, malzeme ara…" autocomplete="off" />
+            </div>
+            <div class="table-wrap dashboard-detail-scroll"><table class="dashboard-table dashboard-detail-table"><thead><tr><th>Yüklenici</th><th>Hedef Depo</th><th>Malzeme Kodu</th><th>Malzeme Tanımı</th><th class="num">Toplam Miktar</th><th>Birim</th><th class="num">Toplam Tutar</th><th>İşaret</th><th class="num">Kontrol</th><th>Son Kontrol</th></tr></thead><tbody id="dashContractorMaterialsBody"></tbody></table></div>
+          </article>
+
+          <article class="panel dashboard-card dashboard-detail-card">
+            <div class="dashboard-card-head dashboard-table-head">
+              <div><h3>Proje Dağılımları <span id="dashProjectDistributionCount" class="dashboard-count-badge">0</span></h3><p class="muted">TESİS kontrollerinde kayıt altına alınan proje–malzeme dağılımları.</p></div>
+              <input id="dashProjectSearch" class="dashboard-table-search" type="search" placeholder="Firma, proje, malzeme ara…" autocomplete="off" />
+            </div>
+            <div class="table-wrap dashboard-detail-scroll"><table class="dashboard-table dashboard-detail-table"><thead><tr><th>Yüklenici</th><th>Rezervasyon</th><th>Proje</th><th>Malzeme</th><th class="num">Proje Keşfi</th><th class="num">Dağıtılan</th><th class="num">Proje Kalanı</th><th>İşaret</th><th>Durum</th></tr></thead><tbody id="dashProjectDistributionBody"></tbody></table></div>
+          </article>
+
+        </div>
+
+        <div id="operationsContent" class="operations-content">
+          <div class="operations-kpis">
+            <article class="dashboard-kpi"><span>Kayıtlı Kontrol</span><strong id="opsControlCount">0</strong><small>Seçili kapsam</small></article>
+            <article class="dashboard-kpi"><span>Proje</span><strong id="opsProjectCount">0</strong><small id="opsProjectRows">0 proje/malzeme satırı</small></article>
+            <article class="dashboard-kpi money"><span>Efektif Kullanılabilir Teminat</span><strong id="opsGuaranteeAvailable">₺0</strong><small id="opsGuaranteeMeta">ZMM098</small></article>
+            <article class="dashboard-kpi good"><span>Son Veri Ayı Net Harcama</span><strong id="opsLatestSpend">₺0</strong><small id="opsLatestSpendMonth">—</small></article>
+          </div>
+
+          <div class="dashboard-grid dashboard-grid-halves operations-grid operations-guarantee-spend-grid">
+            <article class="panel dashboard-card">
+              <div class="dashboard-card-head operations-head-actions"><div><h3>Teminat Bilgileri</h3><p class="muted">ZMM098 depo bazlı güncel teminat görünümü. Depo koduna tıklayarak sağdaki harcamayı filtreleyin.</p></div><button id="opsGuaranteeFilterToggle" class="btn btn-ghost" type="button">Filtreler</button></div>
+              <div id="opsGuaranteeFilters" class="operations-filter-panel" hidden>
+                <label><span>Arama</span><input id="opsGuaranteeSearch" type="search" placeholder="ÜY, depo veya tanım ara…"></label>
+                <label><span>Teminat Durumu</span><select id="opsGuaranteeStatus"><option value="">Tümü</option><option value="positive">Kullanılabilir &gt; 0</option><option value="nonpositive">Sıfır / Negatif</option></select></label>
+                <button id="opsGuaranteeClear" class="btn btn-ghost" type="button">Temizle</button>
+              </div>
+              <div class="operations-guarantee-summary"><div><span>Toplam Teminat</span><strong id="opsGuaranteeTotal">₺0</strong></div><div><span>Depo Stok Tutarı</span><strong id="opsGuaranteeStock">₺0</strong></div><div><span>Rez. Dahil Kullanılabilir</span><strong id="opsGuaranteeAvail2">₺0</strong></div></div>
+              <div class="table-wrap operations-table-scroll"><table class="dashboard-table"><thead><tr><th>ÜY</th><th>Depo</th><th>Tanım</th><th class="num">Toplam Teminat</th><th class="num">Stok</th><th class="num">Kullanılabilir</th></tr></thead><tbody id="opsGuaranteeBody"></tbody></table></div>
+            </article>
+            <article class="panel dashboard-card">
+              <div class="dashboard-card-head operations-head-actions"><div><h3>Aylık Net Harcamalar</h3><p class="muted">MB51 Kayıt Tarihi • 221 − 222 − Z22 net parasal etki. Grafik tasarımı daha sonra kesinleştirilecek.</p></div><button id="opsSpendGeneralBtn" class="btn btn-ghost" type="button">Genel Görünüm</button></div>
+              <div id="opsSpendScope" class="operations-selected-scope"><strong>Genel</strong><span>Tüm depolar</span></div>
+              <div id="opsSpendChart" class="operations-spend-chart"></div>
+            </article>
+          </div>
+
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head"><div><h3>Malzeme Hareket Akışı</h3><p class="muted">Hareket sayılarını ayrı izler; stok devir hızı veya ortalama stok hesabı yapılmaz.</p></div></div>
+            <div class="operations-flow-grid">
+              <div class="operations-flow-card"><span>Ana Depo ↔ Yüklenici</span><strong id="opsFlowMain">0</strong><small>301 / 302 / 311 / 312</small></div>
+              <div class="operations-flow-card"><span>Yükleniciler Arası</span><strong id="opsFlowTransfer">0</strong><small>411 / 412</small></div>
+              <div class="operations-flow-card"><span>Yüklenici ↔ PYP</span><strong id="opsFlowPyp">0</strong><small>415 / 416</small></div>
+              <div class="operations-flow-card"><span>Harcama / Ters / Dönüş</span><strong id="opsFlowExpense">0</strong><small>221 / 222 / Z22</small></div>
+              <div class="operations-flow-card"><span>İade</span><strong id="opsFlowReturn">0</strong><small>980 / 990</small></div>
+            </div>
+          </article>
+
+          <div class="dashboard-grid dashboard-grid-halves operations-grid">
+            <article class="panel dashboard-card">
+              <div class="dashboard-card-head operations-head-actions"><div><h3>Depo Bazlı Aylık Harcamalar</h3><p id="opsDepotSpendSubtitle" class="muted">Ay ve depo bazında 221 / 222 / Z22 net etkisi.</p></div><button id="opsSpendFilterToggle" class="btn btn-ghost" type="button">Filtreler</button></div>
+              <div id="opsSpendFilters" class="operations-filter-panel" hidden>
+                <label><span>Ay</span><select id="opsSpendMonth"><option value="">Tüm Aylar</option></select></label>
+                <label><span>Depo</span><input id="opsSpendDepotSearch" type="search" placeholder="Depo kodu ara…"></label>
+                <label><span>Net Sonuç</span><select id="opsSpendSign"><option value="">Tümü</option><option value="positive">Pozitif</option><option value="negative">Negatif</option></select></label>
+                <button id="opsSpendClear" class="btn btn-ghost" type="button">Temizle</button>
+              </div>
+              <div class="table-wrap operations-table-scroll operations-monthly-table"><table class="dashboard-table"><thead><tr><th>Ay</th><th>Depo</th><th class="num">Brüt 221</th><th class="num">222 Tersi</th><th class="num">Z22 Dönüş</th><th class="num">Net Harcama</th><th class="num">Hareket</th></tr></thead><tbody id="opsDepotSpendBody"></tbody></table></div>
+            </article>
+            <article class="panel dashboard-card">
+              <div class="dashboard-card-head"><div><h3>Depo / Proje Kontrol Takibi</h3><p class="muted">TESİS proje dağılımı kayıtlarından kontrol ve malzeme satırı özeti.</p></div></div>
+              <div class="table-wrap operations-table-scroll"><table class="dashboard-table"><thead><tr><th>Depo</th><th>Proje</th><th>Proje Durumu</th><th class="num">Kontrol</th><th class="num">Malzeme Satırı</th><th>Son Kontrol</th></tr></thead><tbody id="opsProjectBody"></tbody></table></div>
+            </article>
+          </div>
+          <article class="panel dashboard-card operations-project-management">
+            <div class="dashboard-card-head operations-head-actions"><div><h3>TESİS Proje Durum Yönetimi</h3><p class="muted">İptal, tamamlanan ve revize edilen projeler geçmişi korunarak yönetilir.</p></div><button id="opsProjectFilterToggle" class="btn btn-ghost" type="button">Filtreler</button></div>
+            <div id="opsProjectFilters" class="operations-filter-panel" hidden><label><span>Depo / Proje</span><input id="opsProjectManageSearch" type="search" placeholder="Depo, proje kodu veya adı…"></label><label><span>Durum</span><select id="opsProjectManageStatus"><option value="">Tümü</option><option value="AKTIF">Aktif</option><option value="TAMAMLANDI">Tamamlandı</option><option value="IPTAL">İptal</option><option value="REVIZE">Revize</option></select></label></div>
+            <div class="table-wrap operations-table-scroll"><table class="dashboard-table"><thead><tr><th>Depo</th><th>Proje</th><th>Durum</th><th>Revizyon</th><th>Son Değişiklik</th><th>İşlem</th></tr></thead><tbody id="opsProjectManageBody"></tbody></table></div>
+          </article>
+          <div id="opsNote" class="dashboard-footnote muted"></div>
+        </div>
+
+        <div id="dashboardEmpty" class="panel dashboard-empty" hidden>
+          <div class="dashboard-empty-icon">▥</div>
+          <h3>Henüz kayıtlı kontrol bulunmuyor</h3>
+          <p>Karar Destek ekranında bir kontrolü tamamlayıp <strong>Kontrolü Onayla ve Kaydet</strong> dediğinizde dashboard otomatik olarak oluşmaya başlayacak.</p>
+          <code id="dashboardEmptyPath">—</code>
+        </div>
+        <div id="dashboardContent" hidden>
+          <div class="dashboard-kpis">
+            <article class="dashboard-kpi"><span>Toplam Kontrol</span><strong id="dashTotalControls">0</strong><small id="dashTodayControls">Bugün 0</small></article>
+            <article class="dashboard-kpi good"><span>Karar Verilebilir</span><strong id="dashDecisionReady">0</strong><small id="dashDecisionReadyPct">%0</small></article>
+            <article class="dashboard-kpi warn"><span>İnceleme Gerekli</span><strong id="dashReviewRequired">0</strong><small id="dashReviewPct">%0</small></article>
+            <article class="dashboard-kpi money"><span>Toplam Talep Değeri</span><strong id="dashDemandValue">₺0</strong><small>Kaydedilmiş talepler</small></article>
+            <article class="dashboard-kpi"><span>Ort. Teminat Kullanımı</span><strong id="dashAvgGuarantee">%0</strong><small>Kontrol anı snapshot</small></article>
+            <article class="dashboard-kpi"><span>Firma Sayısı</span><strong id="dashUniqueFirms">0</strong><small id="dashMaterialRows">0 malzeme satırı</small></article>
+          </div>
+          <div class="dashboard-grid dashboard-grid-main">
+            <article class="panel dashboard-card dashboard-trend-card">
+              <div class="dashboard-card-head"><div><h3>Kontrol Aktivitesi</h3><p class="muted">Günlük kaydedilen kontrol sayısı</p></div><span id="dashGeneratedAt" class="dashboard-generated">—</span></div>
+              <div id="dashTrendChart" class="dashboard-trend-chart"></div>
+            </article>
+            <article class="panel dashboard-card">
+              <div class="dashboard-card-head"><div><h3>Karar Dağılımı</h3><p class="muted">Genel kontrol sonucu</p></div></div>
+              <div class="dashboard-donut-wrap"><div id="dashDecisionDonut" class="dashboard-donut"><div><strong id="dashDonutTotal">0</strong><span>Kontrol</span></div></div>
+                <div class="dashboard-legend"><div><i class="legend-dot ready"></i><span>Karar Verilebilir</span><strong id="dashLegendReady">0</strong></div><div><i class="legend-dot review"></i><span>İnceleme Gerekli</span><strong id="dashLegendReview">0</strong></div></div>
+              </div>
+            </article>
+          </div>
+          <div class="dashboard-grid dashboard-grid-halves">
+            <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Firmalar</h3><p class="muted">Kontrol sayısına göre ilk firmalar</p></div></div><div id="dashFirms" class="dashboard-rank-list"></div></article>
+            <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>En Yüksek Talep Değerli Malzemeler</h3><p class="muted">Malzeme bazında kayıtlı talep tutarı</p></div></div><div id="dashMaterials" class="dashboard-material-list"></div></article>
+          </div>
+          <article class="panel dashboard-card dashboard-latest-card">
+            <div class="dashboard-card-head"><div><h3>Son Kontroller</h3><p class="muted">En son kaydedilen kontrol sonuçları</p></div></div>
+            <div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Tarih</th><th>Kontrol</th><th>Rezervasyon</th><th>Hedef Depo</th><th>Firma</th><th class="num">Talep Değeri</th><th>Sonuç</th></tr></thead><tbody id="dashLatestBody"></tbody></table></div>
+          </article>
+
+          <div id="dashboardFootnote" class="dashboard-footnote muted"></div>
+        </div>
+      </section>
+
+      <section id="notesView" class="view">
+        <div class="panel">
+          <div class="section-title-row"><div><h2>Değerlendirme &amp; Notlar</h2><p class="muted">Kullanıcıların karar ekranıyla ilgili kısa notlarını yerel olarak saklar.</p></div></div>
+          <textarea id="notesText" class="notes-area" placeholder="Notunuzu yazın..."></textarea>
+          <div class="notes-actions"><button id="saveNoteBtn" class="btn btn-primary">Notu Kaydet</button><span id="noteSaved" class="muted small"></span></div>
+        </div>
+      </section>
+
+
+      <section id="dataCenterView" class="view data-center-view">
+        <div class="panel dc-hero">
+          <div><span class="dashboard-eyebrow">VERİ MİMARİSİ v2.0</span><h2>Veri Merkezi <button class="tk-help-trigger" type="button" data-help-key="source" aria-label="Kaynak güncelliği hakkında bilgi">?</button></h2><p class="muted">Sistem sağlığı, kaynak güncelliği, snapshot geçmişi, arşiv ve yönetişim görünümü.</p></div>
+          <div class="dc-actions"><button id="dcRefreshBtn" class="btn btn-primary" type="button">Veri Merkezini Yenile</button></div>
+        </div>
+        <div class="dc-tabs" role="tablist">
+          <button class="dc-tab active" data-dc-tab="health" type="button">Sistem Sağlığı</button>
+          <button class="dc-tab" data-dc-tab="freshness" type="button">Kaynak Güncelliği</button>
+          <button class="dc-tab" data-dc-tab="dataPrep" type="button">Veri Hazırla</button>
+          <button class="dc-tab" data-dc-tab="snapshots" type="button">Snapshot Geçmişi</button>
+          <button class="dc-tab" data-dc-tab="archive" type="button">Arşiv / Geçmiş Veri</button>
+          <button class="dc-tab" data-dc-tab="actions" type="button">Aksiyon Takibi</button>
+          <button class="dc-tab" data-dc-tab="users" type="button">Kullanıcı &amp; Yetki</button>
+          <button class="dc-tab" data-dc-tab="reports" type="button">Raporlar</button>
+        </div>
+        <div id="dcAlert" class="settings-alert" hidden></div>
+        <div id="dcHealthPane" class="dc-pane active">
+          <div class="dc-kpis">
+            <article class="dashboard-kpi"><span>Genel Sistem Durumu</span><strong id="dcOverall">—</strong><small>En kötü kaynak seviyesi</small></article>
+            <article class="dashboard-kpi good"><span>Sağlıklı Kaynak</span><strong id="dcHealthy">0</strong><small>Güncel ACTIVE snapshot</small></article>
+            <article class="dashboard-kpi warn"><span>WARNING</span><strong id="dcWarning">0</strong><small>Yakında güncelliğini yitirecek</small></article>
+            <article class="dashboard-kpi"><span>CRITICAL</span><strong id="dcCritical">0</strong><small>Güncel değil / kritik</small></article>
+            <article class="dashboard-kpi"><span>Son Başarılı Yedek</span><strong id="dcLastBackup">—</strong><small id="dcRestoreTest">Geri yükleme testi: —</small></article>
+            <article class="dashboard-kpi"><span>Aktif İndeks</span><strong id="dcIndexStatus">—</strong><small id="dcIndexBuild">Build: —</small></article>
+            <article class="dashboard-kpi"><span>Veri Bütünlüğü</span><strong id="dcIntegrityStatus">—</strong><small id="dcIntegrityTime">Son kontrol: —</small></article>
+            <article class="dashboard-kpi"><span>Veri Kalitesi</span><strong id="dcQualityStatus">—</strong><small id="dcQualityCount">Bulgu: —</small></article>
+          </div>
+          <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Kaynak Sağlığı</h3><p class="muted">Kaynak snapshot güncelliği; kullanılan indeks sürümünden ayrı izlenir.</p></div></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Kaynak</th><th>Kaynak Snapshot</th><th>Veri Yaşı</th><th>Normal</th><th>Uyarı</th><th>Kritik</th><th>Yeni Veri</th><th>İşlem</th></tr></thead><tbody id="dcHealthBody"></tbody></table></div></article>
+          <article class="panel dashboard-card"><div class="dashboard-card-head dashboard-table-head"><div><h3>Kaynak → İndeks İzlenebilirliği</h3><p class="muted">Yeni kaynak hazırlanırken son sağlıklı indeks kullanılmaya devam eder; ACTIVE geçiş pointer ile atomiktir.</p></div><button id="dcIntegrityRunBtn" class="btn btn-ghost" type="button">Bütünlük Kontrolünü Çalıştır</button></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Kaynak İmzası</th><th>Aktif Build</th><th>İndeks İmzası</th><th>Durum</th><th>Ruleset</th><th>Eşleşme</th></tr></thead><tbody id="dcLineageBody"></tbody></table></div></article>
+          <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Veri Kalitesi Bulguları</h3><p class="muted">Satır bazlı mükerrerlik, referans/orphan ve alan/domain kontrolleri.</p></div></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Seviye</th><th>Kaynak</th><th>Kod</th><th>Adet</th><th>Açıklama</th></tr></thead><tbody id="dcQualityBody"></tbody></table></div></article>
+        </div>
+        <div id="dcFreshnessPane" class="dc-pane"><article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Kaynak Güncelliği</h3><p class="muted">ZMM098 4 saat; ZMM048, MB51, MB52 ve keşif kaynakları 24 saat.</p></div></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Kaynak</th><th>Son Güncelleme</th><th>Veri Yaşı</th><th>Güncellik Limiti</th><th>Durum</th><th>Zaman Referansı</th></tr></thead><tbody id="dcFreshnessBody"></tbody></table></div></article></div>
+        <div id="dcDataPrepPane" class="dc-pane">
+          <article class="panel dashboard-card" id="tkExcelFormsPanel">
+            <div class="dashboard-card-head"><div><h3>Kurumsal Excel Formları · İndir / İçe Aktar</h3>
+              <p class="muted">Dört kurumsal formda yalnız seçili F.603 / Revize Keşif Talep sayfası okunur. Orijinal kurumsal Excel dosyaları Excel Formları alanından indirilebilir.</p></div></div>
+            <div class="data-prep-actions" style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin:14px 0">
+              <label style="min-width:280px"><span>Form türü</span>
+                <select id="tkFormKind" style="width:100%">
+                  <option value="TESIS">TESİS Malzeme Talep</option>
+                  <option value="KET_BAKIM">KET–BAKIM Malzeme Talep</option>
+                  <option value="LED">LED Malzeme Talep</option>
+                  <option value="REVIZE">Revize Keşif</option>
+                </select></label>
+              <button id="tkFormDownloadBtn" class="btn btn-ghost" type="button">Kurumsal Excel Dosyasını İndir</button>
+              <label><span>Doldurulmuş Excel (.xlsx)</span><input id="tkFormExcelFile" type="file" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label>
+              <button id="tkFormPreviewBtn" class="btn btn-primary" type="button">Excel’i Kontrol Et</button>
+              <button id="tkFormStageBtn" class="btn btn-ghost" type="button" disabled>Yerel Import Taslağına Al</button>
+            </div>
+            <div id="tkFormImportStatus" class="data-prep-rule" role="status">Önce yerel kontrol, ardından isteğe bağlı yerel taslak kayıt. Kesin merkezi kayıt, güvenlik doğrulaması tamamlanana kadar kapalıdır.</div>
+            <div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Excel satırı</th><th>TEDAŞ Pozu</th><th>SAP kodu</th><th>Tanım</th><th>Proje / İş / Revizyon</th><th>Miktar</th></tr></thead><tbody id="tkFormImportRows"><tr><td colspan="6">İncelemek için doldurulmuş Excel dosyasını seçin.</td></tr></tbody></table></div>
+            <p class="muted" style="margin-top:10px">Önizleme dışında veri yayınlanmaz. TEDAŞ/SAP eşleştirmesi, proje–depo ilişkisi, revizyon tarihi ve onaylar kesin kayıt öncesinde ayrıca doğrulanacaktır.</p>
+          </article>
+          <article class="panel dashboard-card data-prep-intro">
+            <div class="dashboard-card-head operations-head-actions">
+              <div><h3>Excel → Kaynak CSV Hazırlama</h3><p class="muted">Seçilen Excel sayfasını mevcut Talep Kontrol kaynak CSV şablonunun kolon adı, sırası ve ayraç standardıyla üretir.</p></div>
+              <div class="data-prep-actions"><button id="dcDataPrepSelectBtn" class="btn btn-primary" type="button">Excel Dosyalarını Seç</button><button id="dcDataPrepOpenFolderBtn" class="btn btn-ghost" type="button">Çıktı Klasörünü Aç</button></div>
+            </div>
+            <div class="data-prep-rule"><strong>Çıktı standardı:</strong> UTF-8 BOM + noktalı virgül (;) + seçilen kaynağın mevcut CSV kolon adları ve sırası. Excel dosyasına dokunulmaz.</div>
+            <div class="data-prep-path"><span>Çıktı klasörü</span><code id="dcDataPrepOutputRoot">—</code></div>
+          </article>
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head operations-head-actions"><div><h3>Seçilen Excel Dosyaları</h3><p class="muted">Sheet ve kaynak CSV şablonunu kontrol edin. Sistem başlıklara göre otomatik öneri yapar.</p></div><button id="dcDataPrepConvertBtn" class="btn btn-primary" type="button" disabled>CSV Oluştur</button></div>
+            <div class="table-wrap"><table class="dashboard-table data-prep-table"><thead><tr><th>Excel Dosyası</th><th>Sheet</th><th>Kaynak CSV Şablonu</th><th>Tahmini Satır</th><th>Başlık Satırı</th><th>Uyum</th><th>İşlem</th></tr></thead><tbody id="dcDataPrepInputBody"><tr><td colspan="7">Henüz Excel dosyası seçilmedi.</td></tr></tbody></table></div>
+          </article>
+          <article id="dcDataPrepPreviewCard" class="panel dashboard-card" hidden>
+            <div class="dashboard-card-head"><div><h3 id="dcDataPrepPreviewTitle">Excel Önizleme</h3><p class="muted">İlk satırlar kontrol amaçlı gösterilir; CSV üretiminde seçilen kaynak şablonu esas alınır.</p></div></div>
+            <div id="dcDataPrepPreview" class="table-wrap data-prep-preview"></div>
+          </article>
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head"><div><h3>Hazırlanan CSV Dosyaları</h3><p class="muted">Uyum doğrulamasından geçen operasyonel kaynaklar istenirse mevcut kaynak güncelleme onay sürecine gönderilebilir.</p></div></div>
+            <div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Kaynak</th><th>Çıktı</th><th class="num">Satır</th><th>Kolon Eşleşmesi</th><th>Eksik Kolon</th><th>Doğrulama</th><th>İşlem</th></tr></thead><tbody id="dcDataPrepOutputBody"><tr><td colspan="7">Henüz CSV oluşturulmadı.</td></tr></tbody></table></div>
+          </article>
+          <article class="panel dashboard-card">
+            <div class="dashboard-card-head"><div><h3>Son Dönüşümler</h3><p class="muted">Veri hazırlama geçmişi AUDIT ile birlikte saklanır.</p></div><button id="dcDataPrepReloadBtn" class="btn btn-ghost" type="button">Yenile</button></div>
+            <div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Tarih</th><th>Kullanıcı</th><th>Batch</th><th>Dosya</th><th>Kaynak</th><th class="num">Satır</th><th>Durum</th></tr></thead><tbody id="dcDataPrepHistoryBody"><tr><td colspan="7">Geçmiş yükleniyor…</td></tr></tbody></table></div>
+          </article>
+        </div>
+        <div id="dcSnapshotsPane" class="dc-pane"><article class="panel dashboard-card"><div class="dashboard-card-head dashboard-table-head"><div><h3>Snapshot Geçmişi</h3><p class="muted">Her kaynak için tek ACTIVE snapshot; geçmiş kayıtlar fiziksel olarak silinmez.</p></div><select id="dcSnapshotSource"><option value="">Tüm Kaynaklar</option><option>MB51</option><option>MB52</option><option>ZMM048</option><option>ZMM098</option><option>KESIFLER</option><option>TANIMLAR</option><option>TESIS</option><option>KET</option><option>BAKIM</option><option>LED</option></select></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Snapshot ID</th><th>Kaynak</th><th>Rapor Zamanı</th><th>Durum</th><th>Katman</th><th>Hash</th><th>Dosya</th></tr></thead><tbody id="dcSnapshotsBody"></tbody></table></div></article></div>
+        <div id="dcArchivePane" class="dc-pane"><div class="panel dc-placeholder"><h3>Arşiv / Geçmiş Veri</h3><p>Operasyon, teminat, harcama, dağılım ve proje durum geçmişi salt okunur izlenir. HISTORY ve ARCHIVE kayıtları fiziksel olarak silinmez.</p><div id="dcRetention" class="dc-retention"></div></div>
+          <article class="panel dashboard-card"><div class="dashboard-card-head operations-head-actions"><div><h3>Operasyon Arşivi – Aylık Harcamalar</h3><p class="muted">Depo bazlı aylık harcama geçmişi. Grafik tasarımı daha sonra kesinleştirilecektir.</p></div><div class="dc-archive-head-buttons"><button id="dcArchiveSpendFilterToggle" class="btn btn-ghost" type="button">Filtreler</button><button id="dcArchiveReloadBtn" class="btn btn-ghost" type="button">Arşivi Yenile</button></div></div><div id="dcArchiveSpendFilters" class="operations-filter-panel" hidden><label><span>Ay</span><select id="dcArchiveSpendMonth"><option value="">Tüm Aylar</option></select></label><label><span>Depo</span><input id="dcArchiveSpendDepot" type="search" placeholder="Depo kodu ara…"></label><label><span>Net Sonuç</span><select id="dcArchiveSpendSign"><option value="">Tümü</option><option value="positive">Pozitif</option><option value="negative">Negatif</option></select></label></div><div class="table-wrap operations-table-scroll"><table class="dashboard-table"><thead><tr><th>Ay / Depo</th><th class="num">Net Harcama</th><th class="num">221</th><th class="num">Ters/Dönüş</th></tr></thead><tbody id="dcArchiveSpendBody"></tbody></table></div></article>
+          <article class="panel dashboard-card"><div class="dashboard-card-head operations-head-actions"><div><h3>TESİS Proje Durum / Revizyon Geçmişi</h3><p class="muted">İptal, tamamlandı ve revize olayları önceki durum ve gerekçeleriyle saklanır.</p></div><button id="dcArchiveProjectFilterToggle" class="btn btn-ghost" type="button">Filtreler</button></div><div id="dcArchiveProjectFilters" class="operations-filter-panel" hidden><label><span>Depo / Proje</span><input id="dcArchiveProjectSearch" type="search" placeholder="Depo, proje kodu veya adı…"></label><label><span>Yeni Durum</span><select id="dcArchiveProjectStatus"><option value="">Tümü</option><option value="AKTIF">Aktif</option><option value="TAMAMLANDI">Tamamlandı</option><option value="IPTAL">İptal</option><option value="REVIZE">Revize</option></select></label></div><div class="table-wrap operations-table-scroll"><table class="dashboard-table"><thead><tr><th>Tarih</th><th>Depo</th><th>Proje</th><th>Önceki</th><th>Yeni</th><th>Revizyon</th><th>Gerekçe</th></tr></thead><tbody id="dcArchiveProjectBody"></tbody></table></div></article>
+          <article class="panel dashboard-card"><div class="dashboard-card-head operations-head-actions"><div><h3>Kontrol Kayıt Geçmişi</h3><p class="muted">Depo/proje karar kayıtları geçmişten salt okunur izlenir.</p></div><button id="dcArchiveControlFilterToggle" class="btn btn-ghost" type="button">Filtreler</button></div><div id="dcArchiveControlFilters" class="operations-filter-panel" hidden><label><span>Ara</span><input id="dcArchiveControlSearch" type="search" placeholder="Kontrol ID, depo, firma, sonuç…"></label></div><div class="table-wrap operations-table-scroll"><table class="dashboard-table"><thead><tr><th>Tarih</th><th>Kontrol ID</th><th>Depo</th><th>Firma</th><th>Sonuç</th><th>Kalem Kararları</th><th>İşlem</th></tr></thead><tbody id="dcArchiveControlBody"></tbody></table></div></article>
+          <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>QUARANTINE Yeniden İşleme</h3><p class="muted">Karantina kaydı silinmez; yeniden işleme yeni INBOX girdisi ve Önceki Quarantine ID bağlantısı oluşturur.</p></div></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>ID</th><th>Kaynak</th><th>Durum</th><th>Neden</th><th>Tarih</th><th>İşlem</th></tr></thead><tbody id="dcQuarantineBody"></tbody></table></div></article></div>
+        <div id="dcActionsPane" class="dc-pane"><article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Aksiyon Takibi</h3><p class="muted">Açık → İşlemde → Çözüldü → Kapatıldı; gerekçeli İptal Edildi desteklenir.</p></div></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Aksiyon</th><th>Kaynak</th><th>Sorumlu</th><th>Durum</th><th>Risk</th><th>Orijinal Hedef</th><th>Güncel Hedef</th><th>Uzatım</th></tr></thead><tbody id="dcActionsBody"></tbody></table></div></article></div>
+        <div id="dcUsersPane" class="dc-pane">
+          <div class="dashboard-grid dashboard-grid-halves">
+            <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Aktif Windows Oturumu</h3><p class="muted">Uygulamayı açan Windows kullanıcısı, bilgisayar ve oturum bilgisi AUDIT'e kaydedilir.</p></div></div><div id="dcSessionCard" class="session-detail-card">Yükleniyor…</div></article>
+            <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Kullanıcı Sorumluluğu Tanımla</h3><p class="muted">Birincil/yedek il, iş türü ve depo sorumlulukları bildirim ve varsayılan filtrelerde kullanılır.</p></div></div>
+              <div class="user-resp-form"><label><span>DOMAIN\Kullanıcı</span><input id="dcUserLogin" type="text" placeholder="DOMAIN\kullanici"></label><label><span>Rol</span><select id="dcUserRole"><option value="NORMAL_USER">Normal Kullanıcı</option><option value="DATA_MANAGER">Veri Yöneticisi</option><option value="ADMIN">Admin</option></select></label><label><span>Birincil İller</span><input id="dcUserPrimary" type="text" placeholder="İzmir, Manisa"></label><label><span>Yedek İller</span><input id="dcUserBackup" type="text" placeholder="Aydın"></label><label><span>İş Türleri</span><input id="dcUserWorkTypes" type="text" placeholder="T,K,B,L"></label><label><span>Depolar</span><input id="dcUserDepots" type="text" placeholder="Y207, B205"></label><button id="dcUserSaveBtn" class="btn btn-primary" type="button">Kullanıcıyı Kaydet / Güncelle</button></div>
+            </article>
+          </div>
+          <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Kullanıcı Sorumlulukları</h3><p class="muted">Windows oturum kullanıcıları ve sorumluluk kapsamları.</p></div><button id="dcUsersReloadBtn" class="btn btn-ghost" type="button">Yenile</button></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Kullanıcı</th><th>Rol</th><th>Birincil İller</th><th>Yedek İller</th><th>İş Türleri</th><th>Depolar</th><th>İşlem</th></tr></thead><tbody id="dcUsersBody"></tbody></table></div></article>
+          <article class="panel dashboard-card"><div class="dashboard-card-head"><div><h3>Oturum / İşlem Geçmişi</h3><p class="muted">Kullanıcı oturumları ve işlemler AUDIT kayıtlarında süresiz izlenir.</p></div><button id="dcAuditReloadBtn" class="btn btn-ghost" type="button">Yenile</button></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Tarih</th><th>Kullanıcı</th><th>Kategori</th><th>İşlem</th><th>Nesne</th><th>ID</th></tr></thead><tbody id="dcAuditBody"><tr><td colspan="6">AUDIT yükleniyor…</td></tr></tbody></table></div></article>
+        </div>
+        <div id="dcReportsPane" class="dc-pane"><div class="dc-report-grid"><article class="panel dc-report-card"><h3>Kaynak Güncellik Performansı</h3><p>Zamanında güncelleme oranı, gecikme ve başarısız yükleme trendleri.</p></article><article class="panel dc-report-card"><h3>Snapshot / Veri Kalitesi</h3><p>Snapshot durumları, WARNING/CRITICAL ve bütünlük kontrolleri.</p></article><article class="panel dc-report-card"><h3>Aksiyon Performansı</h3><p>Gecikme, kapanış ve süre uzatımı KPI'ları.</p></article><article class="panel dc-report-card"><h3>Override / İstisna</h3><p>Risk seviyesi, onay zinciri ve override geçmişi.</p></article></div></div>
+      </section>
+
+      <section id="formLibraryView" class="view template-library-view">
+        <div class="section-title-row template-library-title"><div><h2>Excel Formları <button class="tk-help-trigger" type="button" data-help-key="template" aria-label="Kurumsal Excel şablonları hakkında bilgi">?</button></h2>
+          <p class="muted">Kurumsal malzeme talep ve keşif dosyalarını uygulamadan indirin. İndirme işlemi kayıtları değiştirmez.</p></div>
+          <span class="template-library-label">5 Excel dosyası</span></div>
+        <div class="panel template-library-alert"><strong>Kurumsal format aynen korunur.</strong>
+          <p>TESİS, KET–BAKIM, LED ve Revize Keşif dosyaları gönderilen özgün Excel dosyalarının birebir kopyalarıdır. Tüm sekmeler, formüller ve biçimler korunur. <strong>Örnek veya doldurulmuş üst bilgiler bulunabilir:</strong> tamamen boş resmî şablonlarla değiştirilene kadar indirmeden sonra bu alanları kontrol edin.</p>
+          <p>Yeni Keşif V0.6 ise ayrı uygulama taslağıdır. Dosyayı doldurmak merkezde otomatik kesin kayıt oluşturmaz.</p></div>
+        <div class="template-library-list">
+          <article class="panel template-library-item">
+            <div class="template-library-file-icon" aria-hidden="true">XLSX</div>
+            <div class="template-library-item-detail"><h3>TESİS Malzeme Talep</h3><p>Orijinal kurum dosyası · Import: yalnız Tesis Malzeme Talep F.603 sayfası okunur</p><small>1.23 MB · Kaynak sürümü kontrol edilir</small></div>
+            <a class="btn btn-primary template-library-download" href="/api/form-library/download?key=TESIS" download="TESIS_MALZEME_TALEP_F603_KURUMSAL.xlsx">Excel'i İndir</a>
+          </article>
+          <article class="panel template-library-item">
+            <div class="template-library-file-icon" aria-hidden="true">XLSX</div>
+            <div class="template-library-item-detail"><h3>KET–BAKIM Malzeme Talep</h3><p>Orijinal kurum dosyası · Import: yalnız Ket - Bakım Malzeme Talep F.603 sayfası okunur</p><small>0.53 MB · Kaynak sürümü kontrol edilir</small></div>
+            <a class="btn btn-primary template-library-download" href="/api/form-library/download?key=KET_BAKIM" download="KET_BAKIM_MALZEME_TALEP_F603_KURUMSAL.xlsx">Excel'i İndir</a>
+          </article>
+          <article class="panel template-library-item">
+            <div class="template-library-file-icon" aria-hidden="true">XLSX</div>
+            <div class="template-library-item-detail"><h3>LED Malzeme Talep</h3><p>Orijinal kurum dosyası · Import: yalnız F.603 sayfası okunur</p><small>0.43 MB · Kaynak sürümü kontrol edilir</small></div>
+            <a class="btn btn-primary template-library-download" href="/api/form-library/download?key=LED" download="LED_MALZEME_TALEP_F603_KURUMSAL.xlsx">Excel'i İndir</a>
+          </article>
+          <article class="panel template-library-item">
+            <div class="template-library-file-icon" aria-hidden="true">XLSX</div>
+            <div class="template-library-item-detail"><h3>Revize Keşif</h3><p>Orijinal kurum dosyası · Import: yalnız Revize Keşif Talep sayfası okunur</p><small>8.61 MB · Kaynak sürümü kontrol edilir</small></div>
+            <a class="btn btn-primary template-library-download" href="/api/form-library/download?key=REVIZE" download="REVIZE_KESIF_KURUMSAL.xlsx">Excel'i İndir</a>
+          </article>
+          <article class="panel template-library-item">
+            <div class="template-library-file-icon" aria-hidden="true">XLSX</div>
+            <div class="template-library-item-detail"><h3>Yeni Keşif (V0.6 taslak)</h3><p>Taslak / Şirket standardı değil · Proje listesi ve miktar girişi (V0.6 örnek, dinamik üretim henüz yok)</p><small>0.31 MB · Kaynak sürümü kontrol edilir</small></div>
+            <a class="btn btn-primary template-library-download" href="/api/form-library/download?key=YENI_KESIF" download="YENI_KESIF_V06_ORNEK.xlsx">Excel'i İndir</a>
+          </article>
+        </div>
+        <div class="panel template-library-foot"><strong>İçe aktarmak mı istiyorsun?</strong><p>Veri Merkezi → Veri Hazırla ekranındaki Excel Import ile doldurulmuş kurumsal formları kontrol edebilirsin. Kesin ACTIVE yayın, merkezi yetkilendirme tamamlanana kadar kapalıdır.</p>
+          <button class="tk-help-trigger" type="button" data-help-key="import" aria-label="Excel import hakkında bilgi">?</button>
+          <button id="formLibraryImportNav" class="btn btn-ghost" type="button">Veri Merkezi'ne Git</button></div>
+      </section>
+
+
+      <section id="helpView" class="view tk-help-view" aria-label="Yardım ve Kullanım Kılavuzu">
+        <div class="panel tk-help-hero">
+          <div class="tk-help-hero-copy">
+            <span class="dashboard-eyebrow">YEREL • ÇEVRİMDIŞI • REHBER</span>
+            <h2>Yardım ve Kullanım Kılavuzu</h2>
+            <p>Talep Kontrol işlemlerini öğrenin, bir konuyu arayın veya ilgili ekranı adım adım tanıyın.</p>
+            <div class="tk-help-meta"><span>15+ konu başlığı</span><span>Alan bazlı ipuçları</span><span>5 ekran rehberi</span></div>
+          </div>
+          <button id="tkHelpTourStart" class="btn btn-primary" type="button">Bu ekranı tanı</button>
+        </div>
+        <div class="panel tk-help-search-panel">
+          <label for="tkHelpSearch">Ne hakkında yardım almak istiyorsunuz?</label>
+          <div class="tk-help-search-row"><input id="tkHelpSearch" type="search" autocomplete="off" placeholder="Örnek: rezervasyon, Excel import, keşif, teminat…" />
+          <button id="tkHelpSearchClear" type="button" class="btn btn-ghost">Temizle</button></div>
+        </div>
+        <div class="tk-help-layout">
+          <aside class="panel tk-help-filters" aria-label="Kılavuz kategorileri"><strong>Kategoriler</strong><nav id="tkHelpCategories"></nav></aside>
+          <div class="tk-help-body"><div class="tk-help-results-header"><h3 id="tkHelpResultsTitle">Tüm yardım konuları</h3><span id="tkHelpCount">İçerik hazırlanıyor…</span></div>
+            <div id="tkHelpArticles" class="tk-help-articles" aria-live="polite"></div>
+            <div class="tk-help-disclaimer">Yardım içeriği süreçleri açıklar; SAP onayı veya merkezi yayımlama işlemi gerçekleştirmez.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="settingsView" class="view">
+        <div class="panel settings-panel">
+          <div class="section-title-row settings-title-row">
+            <div>
+              <h2>Ayarlar</h2>
+              <p class="muted">Klasör yolları yalnızca görüntülenir. Yol değişikliği veya klasör açma işlemi ilgili butonlardan yapılır.</p>
+            </div>
+            <button id="settingsReloadBtn" class="btn btn-ghost" type="button">Bilgileri Yenile</button>
+          </div>
+
+          <div id="settingsAlert" class="settings-alert" hidden></div>
+
+          <div class="settings-grid">
+            <article class="settings-card">
+              <div class="settings-card-head">
+                <div class="settings-icon">↙</div>
+                <div><h3>Veri Kaynak Klasörü</h3><p>CSV veri dosyalarının taranacağı klasördür. Dosya adı önemli değildir; kaynak türü sütun başlıkları ve içerik yapısından otomatik tanınır.</p></div>
+              </div>
+              <div class="settings-path-block">
+                <span class="settings-path-label">Tanımlı Klasör Yolu</span>
+                <code id="settingsDataRoot" class="settings-path-value">—</code>
+                <div class="settings-path-buttons">
+                  <button id="settingsDataChangeBtn" class="btn btn-primary" type="button">Klasörü Değiştir</button>
+                  <button id="settingsDataOpenBtn" class="btn btn-ghost" type="button">Klasörü Aç</button>
+                </div>
+              </div>
+              <div class="settings-meta-row"><span>Çözümlenen yol</span><strong id="settingsDataResolved">—</strong></div>
+              <div class="settings-meta-row"><span>Durum</span><span id="settingsDataStatus" class="settings-status neutral">Kontrol edilmedi</span></div>
+              <p id="settingsBundledFallbackHelp" class="settings-help">Bu klasörde uygun CSV bulunmazsa uygulama paket içindeki <strong>csv</strong> klasöründe içerik eşleşmesi arar. Tanınamayan dosyalar otomatik bağlanmaz.</p>
+            </article>
+
+            <article class="settings-card">
+              <div class="settings-card-head">
+                <div class="settings-icon">CSV</div>
+                <div><h3>CSV Kayıt Arşivi</h3><p>“Kontrolü Onayla ve Kaydet” ile oluşan Power BI / Excel uyumlu CSV dosyalarının ana klasörüdür.</p></div>
+              </div>
+              <div class="settings-path-block">
+                <span class="settings-path-label">Tanımlı Klasör Yolu</span>
+                <code id="settingsRecordRoot" class="settings-path-value">—</code>
+                <div class="settings-path-buttons">
+                  <button id="settingsRecordChangeBtn" class="btn btn-primary" type="button">Klasörü Değiştir</button>
+                  <button id="settingsRecordOpenBtn" class="btn btn-ghost" type="button">Klasörü Aç</button>
+                </div>
+              </div>
+              <div class="settings-meta-row"><span>Çözümlenen yol</span><strong id="settingsRecordResolved">—</strong></div>
+              <div class="settings-meta-row"><span>Durum</span><span id="settingsRecordStatus" class="settings-status neutral">Kontrol edilmedi</span></div>
+              <div class="settings-folder-list">
+                <div><span>KONTROL_BASLIK</span><code id="settingsHeaderFolder">—</code><button class="settings-mini-open" type="button" data-settings-open-folder="header">Aç</button></div>
+                <div><span>KONTROL_MALZEME</span><code id="settingsMaterialFolder">—</code><button class="settings-mini-open" type="button" data-settings-open-folder="materials">Aç</button></div>
+                <div><span>KONTROL_PROJE</span><code id="settingsProjectFolder">—</code><button class="settings-mini-open" type="button" data-settings-open-folder="projects">Aç</button></div>
+              </div>
+            </article>
+          </div>
+
+          <article class="settings-card exemption-settings-card">
+            <div class="settings-card-head exemption-card-head">
+              <div class="settings-icon exemption-icon">MUAF</div>
+              <div>
+                <h3>Keşif / Teminat Muaf Listesi</h3>
+                <p>Muaf tutulan malzemeler keşif ve/veya teminat kontrolünde hata üretmez. TESİS proje dağılımı muafiyetten etkilenmez ve normal şekilde kontrol edilir.</p>
+              </div>
+              <button id="exemptionReloadBtn" class="btn btn-ghost" type="button">Listeyi Yenile</button>
+            </div>
+            <div class="exemption-editor-grid">
+              <label class="field"><span>Malzeme Kodu</span><input id="exemptionMaterialCode" type="text" inputmode="numeric" autocomplete="off" placeholder="Örn. 5100141672"></label>
+              <label class="exemption-check"><input id="exemptionDiscovery" type="checkbox"><span>Keşiften Muaf</span></label>
+              <label class="exemption-check"><input id="exemptionGuarantee" type="checkbox"><span>Teminattan Muaf</span></label>
+              <label class="exemption-check"><input id="exemptionActive" type="checkbox" checked><span>Aktif</span></label>
+              <label class="field exemption-desc-field"><span>Açıklama</span><input id="exemptionDescription" type="text" autocomplete="off" placeholder="İsteğe bağlı açıklama"></label>
+              <button id="exemptionSaveBtn" class="btn btn-primary" type="button">Listeye Ekle / Güncelle</button>
+            </div>
+            <div id="exemptionStatus" class="exemption-status muted">Muaf listesi yükleniyor…</div>
+            <div class="table-wrap exemption-table-wrap">
+              <table class="exemption-table">
+                <thead><tr><th>Malzeme Kodu</th><th>Malzeme Tanımı</th><th>Keşif Muaf</th><th>Teminat Muaf</th><th>Aktif</th><th>Açıklama</th><th>İşlem</th></tr></thead>
+                <tbody id="exemptionTableBody"><tr><td colspan="7" class="dashboard-no-data">Muaf listesi yükleniyor…</td></tr></tbody>
+              </table>
+            </div>
+          </article>
+
+          <div class="settings-actions">
+            <div>
+              <strong>Dosya yolları bu ekranda düzenlenemez.</strong>
+              <span class="muted small">“Klasörü Değiştir” Windows klasör seçim penceresini açar ve seçimi otomatik kaydeder. Ağ klasörleri için erişim/yazma yetkinizin bulunması gerekir.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+
+
+  <div id="notificationBackdrop" class="notification-backdrop" hidden></div>
+  <aside id="notificationDrawer" class="notification-drawer" hidden aria-hidden="true">
+    <div class="notification-drawer-head"><div><span class="dashboard-eyebrow">OPERASYON MERKEZİ</span><h2>Bildirim Merkezi</h2><p class="muted">Kritik, işlem bekleyen ve bilgi bildirimleri.</p></div><button id="notificationClose" class="decision-modal-close" type="button">×</button></div>
+    <div class="notification-summary"><button data-notif-filter="CRITICAL"><span>Kritik</span><strong id="notifCriticalCount">0</strong></button><button data-notif-filter="WARNING"><span>İşlem Bekleyen</span><strong id="notifWarningCount">0</strong></button><button data-notif-filter="INFO"><span>Bilgi</span><strong id="notifInfoCount">0</strong></button></div>
+    <div class="notification-toolbar"><div class="notification-filter-row"><button class="active" data-notif-filter="">Tümü</button><button data-notif-filter="HISTORY">Bildirim Geçmişi</button><button data-notif-filter="MB51">MB51</button><button data-notif-filter="KESIF">Keşif</button><button data-notif-filter="PROJE">Proje</button><button data-notif-filter="VERI_KAYNAKLARI">Veri Kaynakları</button></div><div class="notification-toolbar-actions"><button id="notificationClear" class="btn btn-ghost notification-clear-btn" type="button" title="Bilgi ve geçmiş bildirimlerini temizler; aktif kritik/işlem bekleyen uyarılar korunur.">Temizle</button><button id="notificationRefresh" class="btn btn-ghost" type="button">Yenile</button></div></div>
+    <div id="notificationList" class="notification-list"></div>
+  </aside>
+
+  <div id="newTesisProjectModal" class="decision-modal-backdrop" hidden aria-hidden="true">
+    <div class="decision-modal-card tesis-project-create-card" role="dialog" aria-modal="true"><div class="decision-modal-head"><div><span class="dashboard-eyebrow">TESİS</span><h2>Yeni Proje Ekle</h2><p>Yeni proje kaydı için keşif malzemeleri zorunludur.</p></div><button id="newTesisProjectClose" class="decision-modal-close" type="button">×</button></div>
+      <div class="decision-modal-body"><div class="tesis-project-form"><label><span>Depo</span><select id="newProjectDepot"><option value="">Depo seçin</option></select></label><label><span>Proje Kodu (otomatik)</span><input id="newProjectCode" type="text" readonly placeholder="Depo seçildiğinde oluşturulur" title="Kaydetme anında çakışma kontrolü yapılır"></label><label><span>Proje Adı</span><input id="newProjectName" type="text"></label></div><div class="dashboard-card-head"><div><h3>Keşif Bilgileri</h3><p class="muted">Malzeme kodu ve keşif miktarı zorunludur.</p></div><button id="newProjectAddRow" class="btn btn-ghost" type="button">Satır Ekle</button></div><div class="table-wrap"><table class="dashboard-table"><thead><tr><th>Malzeme Kodu</th><th>Malzeme Tanımı</th><th>Birim</th><th>Keşif Miktarı</th><th></th></tr></thead><tbody id="newProjectDiscoveryBody"></tbody></table></div></div>
+      <div class="decision-modal-actions"><button id="newTesisProjectCancel" class="btn btn-ghost" type="button">Vazgeç</button><button id="newTesisProjectSave" class="btn btn-primary" type="button">Projeyi ve Keşfi Kaydet</button></div></div>
+  </div>
+
+  <div id="repeatControlModal" class="repeat-control-backdrop" hidden aria-hidden="true">
+    <div class="repeat-control-card" role="dialog" aria-modal="true" aria-labelledby="repeatControlTitle">
+      <div class="repeat-control-icon">!</div>
+      <div class="repeat-control-copy">
+        <span class="repeat-control-kicker">DAHA ÖNCE KONTROL EDİLDİ</span>
+        <h2 id="repeatControlTitle">Bu rezervasyonu tekrar kontrol etmek istiyor musunuz?</h2>
+        <p id="repeatControlText">Bu rezervasyon için daha önce kaydedilmiş bir kontrol sonucu bulunuyor.</p>
+        <div id="repeatControlMeta" class="repeat-control-meta"></div>
+      </div>
+      <div class="repeat-control-actions">
+        <button id="repeatControlCancel" class="btn btn-ghost" type="button">Vazgeç</button>
+        <button id="repeatControlConfirm" class="btn btn-primary" type="button">Evet, Tekrar Kontrol Et</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="recordDetailModal" class="decision-modal-backdrop record-detail-backdrop" hidden aria-hidden="true">
+    <div class="decision-modal-card record-detail-card" role="dialog" aria-modal="true" aria-labelledby="recordDetailTitle">
+      <div class="decision-modal-head">
+        <div>
+          <span class="decision-modal-kicker">KONTROL KAYDI</span>
+          <h2 id="recordDetailTitle">Kontrol Detayı</h2>
+          <p id="recordDetailSubtitle">Kaydedilmiş kontrol başlığı, malzemeler ve proje dağılımları.</p>
+        </div>
+        <button id="recordDetailClose" class="decision-modal-close" type="button" aria-label="Kapat">×</button>
+      </div>
+      <div id="recordDetailBody" class="decision-modal-body record-detail-body"></div>
+      <div class="decision-modal-foot"><span id="recordDetailRoot" class="muted small"></span><button id="recordDetailDone" class="btn btn-primary" type="button">Kapat</button></div>
+    </div>
+  </div>
+
+  <div id="decisionResultModal" class="decision-modal-backdrop" hidden aria-hidden="true">
+    <div class="decision-modal-card" role="dialog" aria-modal="true" aria-labelledby="decisionModalTitle">
+      <div class="decision-modal-head">
+        <div>
+          <span class="decision-modal-kicker">KONTROL SONUCU</span>
+          <h2 id="decisionModalTitle">Karar Destek Sonucu</h2>
+          <p id="decisionModalSubtitle">Teminat, keşif ve TESİS proje dağılımı birlikte değerlendirilmiştir.</p>
+        </div>
+        <div class="decision-modal-head-actions">
+          <div id="overallStatus"><span class="badge neutral">Henüz kontrol edilmedi</span></div>
+          <button id="decisionModalClose" class="decision-modal-close" type="button" aria-label="Kapat">×</button>
+        </div>
+      </div>
+      <div id="decisionResults" class="decision-modal-body"></div>
+      <div class="decision-modal-foot">
+        <div class="decision-save-meta">
+          <span class="muted small">Bu ekran karar desteği sağlar; <strong>SAP üzerinde onay işlemi yapmaz.</strong></span>
+          <span id="decisionSaveStatus" class="decision-save-status muted" aria-live="polite">Kontrol sonucu henüz kayıt altına alınmadı.</span>
+        </div>
+        <div class="decision-export-actions">
+          <button id="saveDecisionRecord" class="btn btn-save-record" type="button" title="Kontrol sonucunu CSV arşivine kaydeder; SAP onayı değildir.">Kontrolü Onayla ve Kaydet</button>
+          <button id="exportDecisionExcel" class="btn btn-export-excel" type="button">Excel’e Aktar</button>
+          <button id="exportDecisionPdf" class="btn btn-export-pdf" type="button">PDF’e Aktar</button>
+          <button id="exportDecisionJpg" class="btn btn-export-jpg" type="button">JPG’e Aktar</button>
+          <button class="tk-help-trigger" type="button" data-help-key="override" aria-label="Karar sonuçları hakkında bilgi">?</button>
+          <button id="decisionModalDone" class="btn btn-primary" type="button">Kapat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="sourceUpdateModal" class="decision-modal-backdrop source-update-backdrop" hidden aria-hidden="true">
+    <div class="decision-modal-card source-update-card" role="dialog" aria-modal="true" aria-labelledby="sourceUpdateTitle">
+      <div class="decision-modal-head"><div><span class="decision-modal-kicker">YENİ KAYNAK VERİSİ</span><h2 id="sourceUpdateTitle">Yeni kaynak verisi eklendi</h2><p id="sourceUpdateSubtitle">Mevcut sağlıklı veri kullanılmaya devam ediyor.</p></div><button id="sourceUpdateClose" class="decision-modal-close" type="button" aria-label="Kapat">×</button></div>
+      <div class="decision-modal-body"><div id="sourceUpdateSummary" class="source-update-summary"></div><div id="sourceUpdateDetails" class="source-update-details" hidden></div></div>
+      <div class="decision-modal-foot source-update-actions"><button id="sourceUpdateKeep" class="btn btn-ghost" type="button">Eski Veriyle Devam Et</button><button id="sourceUpdateInspect" class="btn btn-ghost" type="button">Değişiklikleri Gör</button><button id="sourceUpdateAccept" class="btn btn-primary" type="button">Yeni Veriye Güncelle</button></div>
+    </div>
+  </div>
+
+  <div id="itemDecisionModal" class="decision-modal-backdrop item-decision-modal-backdrop" hidden aria-hidden="true">
+    <div class="decision-modal-card item-decision-modal-card" role="dialog" aria-modal="true" aria-labelledby="itemDecisionModalTitle">
+      <div class="decision-modal-head">
+        <div>
+          <span class="decision-modal-kicker">KALEM KARARI</span>
+          <h2 id="itemDecisionModalTitle">Kalem Kararı Ver</h2>
+          <p id="itemDecisionModalSubtitle">Rezervasyon kalemi için bağımsız karar, gerekçe ve açıklama girin.</p>
+        </div>
+        <button id="itemDecisionModalClose" class="decision-modal-close" type="button" aria-label="Kapat">×</button>
+      </div>
+      <div class="decision-modal-body item-decision-modal-body">
+        <div id="itemDecisionModalMeta" class="item-decision-modal-meta"></div>
+        <div class="item-decision-modal-form">
+          <label class="field"><span>Kalem Kararı</span><select id="itemDecisionModalDecision"><option value="">Karar seçin</option><option value="ONAYLA">Onayla</option><option value="ONAYLAMA">Onaylama</option><option value="BEKLET">Beklet</option></select></label>
+          <label class="field"><span>Gerekçe</span><select id="itemDecisionModalReason"><option value="">Gerekçe seçin</option><option value="YETERSIZ_KESIF">Yetersiz Keşif</option><option value="ONCELIKLI_DEPO_FIRMA">Öncelikli Depo / Firma Var</option><option value="SONRAKI_SEVK">Sonraki Sevke Bırakıldı</option><option value="MALZEME_IHTIYACI_YOK">Malzeme İhtiyacı Yok</option><option value="KULLANICI_KARARI">Kullanıcı Kararı</option><option value="DIGER">Diğer</option></select></label>
+          <label class="field item-decision-note-field"><span>Açıklama</span><textarea id="itemDecisionModalNote" rows="4" placeholder="İsteğe bağlı açıklama"></textarea></label>
+        </div>
+        <div id="itemDecisionModalHint" class="item-decision-modal-hint">Onaylama veya Beklet kararında gerekçe zorunludur.</div>
+      </div>
+      <div class="decision-modal-foot item-decision-modal-actions">
+        <button id="itemDecisionModalCancel" class="btn btn-ghost" type="button">Vazgeç</button>
+        <button id="itemDecisionModalSave" class="btn btn-primary" type="button">Kararı Uygula</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="projectLifecycleModal" class="decision-modal-backdrop" hidden aria-hidden="true">
+    <div class="decision-modal-card project-lifecycle-card" role="dialog" aria-modal="true" aria-labelledby="projectLifecycleTitle">
+      <div class="decision-modal-head"><div><span class="decision-modal-kicker">TESİS PROJE YÖNETİMİ</span><h2 id="projectLifecycleTitle">Proje Durumunu Düzenle</h2><p id="projectLifecycleSubtitle">Durum değişikliği eski kaydı ezmez; yeni revizyon olayı oluşturur.</p></div><button id="projectLifecycleClose" class="decision-modal-close" type="button">×</button></div>
+      <div class="decision-modal-body"><div id="projectLifecycleMeta" class="source-update-summary"></div><label class="field"><span>Yeni Durum</span><select id="projectLifecycleStatus"><option value="AKTIF">Aktif</option><option value="TAMAMLANDI">Tamamlandı</option><option value="IPTAL">İptal</option><option value="REVIZE">Revize</option></select></label><label class="field"><span>Gerekçe / Revizyon Notu</span><textarea id="projectLifecycleReason" rows="4" placeholder="İptal ve Revize için zorunludur."></textarea></label></div>
+      <div class="decision-modal-foot"><button id="projectLifecycleCancel" class="btn btn-ghost" type="button">Vazgeç</button><button id="projectLifecycleSave" class="btn btn-primary" type="button">Durumu Kaydet</button></div>
+    </div>
+  </div>
+  <div id="refreshOverlay" class="refresh-overlay" hidden aria-live="polite">
+    <div class="refresh-loading-card">
+      <div class="refresh-core">TK</div>
+      <div class="refresh-spinner"></div>
+      <strong>Veriler yenileniyor</strong>
+      <span>Yerel veri kaynakları tekrar okunuyor ve karar modeli hazırlanıyor…</span>
+      <div class="refresh-progress"><i></i></div>
+    </div>
+  </div>
+
+  <div id="toastStack" class="toast-stack" aria-live="polite" aria-atomic="false"></div>
+  <aside id="tkDesktopStatus" class="tk-desktop-status" role="status" aria-live="polite" hidden><span id="tkDesktopStatusIcon" aria-hidden="true">ⓘ</span><div><strong id="tkDesktopStatusTitle">Sistem durumu</strong><p id="tkDesktopStatusMessage"></p></div><button type="button" id="tkDesktopStatusClose" aria-label="Bildirimleri küçült">×</button></aside>
+  <script src="export-utils.js?v=20261116"></script>
+  <script src="app.js?v=20261116"></script>
+  <script src="operations-work.js?v=20261116"></script>
+  <script src="help-ui.js?v=20261116"></script>
+  <script src="ux28j.js?v=20261116"></script>
+  <script src="webgl-themes28l.js?v=20261116"></script>
+  <script src="operations-tables.js?v=20261116"></script>
+  <script src="operations-experience.js?v=20261116"></script>
+  <script src="desktop-status.js?v=20261116"></script>
+  <script>
+    document.addEventListener("contextmenu", function(event) { event.preventDefault(); event.stopImmediatePropagation(); }, true);
+  </script>
+</body>
+</html>

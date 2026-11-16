@@ -1,0 +1,376 @@
+{
+  "ruleset": "CURRENT_CHAT_ONLY",
+  "version": "3.13.0",
+  "principles": {
+    "sap_read_only": true,
+    "app_is_decision_support": true,
+    "sap_approval_button_in_app": false,
+    "column_mapping_by_header": true,
+    "source_column_order_irrelevant": true,
+    "app_opens_with_partial_sources": true,
+    "idle_refresh_seconds": 60,
+    "roles_enabled_now": false
+  },
+  "decision_controls": [
+    "TEMINAT",
+    "KESIF",
+    "TESIS_PROJE_DAGILIMI"
+  ],
+  "teminat": {
+    "scope": "depo",
+    "currency": "TRY",
+    "source_total": "ZMM098",
+    "source_available": "ZMM098 / Rez.Yapılabilir Tutar (Açık Rez.Dahil)",
+    "current_stock_value_source": "ZMM098 Depo Stok Tutarı (Toplam) - yalnız bilgi amaçlı",
+    "existing_reservation_formula": "Kullanılabilir Teminat = ZMM098 Rez.Yapılabilir Tutar (Açık Rez.Dahil)",
+    "manual_request_formula": "Talep Sonrası Kullanılabilir = ZMM098 Açık Rez.Dahil Kullanılabilir - Manuel Talep Parasal Etkisi",
+    "usage_ratio_formula": "(Toplam Teminat - Talep Sonrası/Kullanılabilir Teminat) / Toplam Teminat",
+    "reservation_value_price_source": "MB52 yalnız manuel talep parasal etkisi ve bilgi amaçlı rezervasyon değeri için",
+    "price_key": [
+      "UretimYeri",
+      "MalzemeKodu"
+    ],
+    "mb52_stock_recalculation_for_existing_reservation": false,
+    "mb51_used": false,
+    "movement_415_416_used": false,
+    "reservation_price_scope": "Kaynak üretim yeri + malzeme; başka üretim yerine fallback yapılmaz."
+  },
+  "kesif": {
+    "scope": "malzeme",
+    "units": [
+      "ADT",
+      "M",
+      "MT",
+      "KG"
+    ],
+    "source": "İçerikten tanınan KESIFLER CSV kaynakları",
+    "source_sheets": {
+      "TESIS": "TESİS içerikli CSV",
+      "KET_YB": "KET&YB içerikli CSV",
+      "BAKIM": "BAKIM içerikli CSV",
+      "LED": "LED içerikli CSV"
+    },
+    "planned_field": "Teslim Edilen",
+    "previously_delivered_field": "Verilen Malzeme Toplamı",
+    "remaining_field": "Teslim Edilen - Verilen Fark",
+    "formula": "Kalan Kesif = Teslim Edilen - Verilen Malzeme Toplami",
+    "decision": "Yeni talep doğrudan kalan keşif ile karşılaştırılır.",
+    "mb52_stock_subtracted": false,
+    "mb51_used": false,
+    "duplicate_depot_material_rule": "KET/BAKIM/LED aynı Depo+Malzeme satırları toplanır; pozitif ve negatif kalanlar mahsup edilir.",
+    "same_material_rows_can_be_summed_for_control": true,
+    "raw_rows_are_displayed_separately": true
+  },
+  "tesis": {
+    "manual_project_distribution": true,
+    "distribution_total_must_equal_requested_quantity": true,
+    "project_definitions_source": "TANIMLAR SITE_PROJELER CSV + KESIFLER TESİS CSV",
+    "project_remaining_rule": "Yeni dağıtım, proje bazındaki Teslim Edilen - Verilen Malzeme Toplamı kalanını aşamaz."
+  },
+  "source_stock": {
+    "main_depot_stock_check_in_app": false,
+    "reason": "Rezervasyon numarası oluştuysa SAP kaynak ana depo stok kontrolünü geçmiş kabul edilir."
+  },
+  "mb51": {
+    "authoritative_completed_movements": true,
+    "read_only": true,
+    "used_in_current_decision_engine": false,
+    "future_reporting_source": true,
+    "default_movement_types": [
+      "301",
+      "302",
+      "303",
+      "311",
+      "312",
+      "411",
+      "412",
+      "415",
+      "416",
+      "221",
+      "222",
+      "Z22",
+      "980",
+      "990"
+    ],
+    "reporting_only_types": [
+      "415",
+      "416",
+      "221",
+      "222",
+      "Z22"
+    ],
+    "future_incremental_key": "MalzemeBelgesi",
+    "full_resync_fallback": true
+  },
+  "mb52": {
+    "current_snapshot_only": true,
+    "old_snapshots_retained": false,
+    "read_only": true
+  },
+  "zmm098": {
+    "current_total_defined_guarantee": true,
+    "history_retained": false,
+    "read_only": true
+  },
+  "zmm048": {
+    "reservation_number_unique": true,
+    "material_and_source_target_depots_not_modified_by_app": true,
+    "quantity_can_change_in_sap_source": true,
+    "approval_requires_sap": true,
+    "unapproved_has_no_stock_movement": true
+  },
+  "depot_display": {
+    "order": [
+      "UretimYeri",
+      "DepoYeri",
+      "DepoYeriTanimi",
+      "SozlesmeAdi",
+      "FirmaAdi"
+    ],
+    "show_contract_and_company_only_for_contractor_depots": true,
+    "contractor_depot_type": "Cep Yapım"
+  },
+  "ui": {
+    "loading_tk_logo_shape": "circle",
+    "project_distribution": "material_row_searchable_combobox",
+    "split_remaining_quantity_to_next_row": true
+  },
+  "local_runtime": {
+    "hidden_server_process": true,
+    "use_default_browser": true,
+    "server_auto_stop_when_page_closed": true,
+    "heartbeat_seconds": 3,
+    "idle_shutdown_seconds": null,
+    "close_grace_seconds": 30,
+    "shutdown_policy": "Servis heartbeat kaybında kapanmaz; yalnız açık client-close sinyali sonrası kapanır. Normal API isteği bekleyen kapanmayı iptal eder."
+  },
+  "packageVersion": "3.13.0",
+  "rulesSource": "CURRENT_CHAT_ONLY",
+  "uiRevision": "Tam ekran çalışma düzeni + içerikten otomatik CSV kaynak tanıma",
+  "guaranteeCoverageFormula": "(Rezervasyon Parasal Etkisi + Mevcut Depo Stok Değeri) / Toplam Teminat * 100",
+  "stockValuationRule": "MB52 hedef üretim yeri/depo stok miktarı x aynı üretim yerindeki malzeme birim fiyatı",
+  "tesisDiscoveryRule": "TESİS: seçilen proje için Teslim Edilen = planlanan keşif, Verilen Malzeme Toplamı = önceki teslim, Teslim Edilen - Verilen Fark = mevcut kalan keşif; yeni proje dağıtımı mevcut kalan keşfi aşamaz. MB52 stok miktarı keşiften düşülmez.",
+  "reservationSearch": {
+    "enabled": true,
+    "searchFields": [
+      "Rezervasyon No",
+      "Teslim Alan Üretim Yeri",
+      "Teslim Alan Depo",
+      "Depo Tanımı",
+      "Yüklenici/Firma",
+      "Sözleşme"
+    ],
+    "resultInfo": [
+      "Rezervasyon No",
+      "Durum",
+      "Onay Durumu",
+      "Teslim Alan Depo",
+      "Depo Tanımı",
+      "Yüklenici/Firma",
+      "Sözleşme"
+    ],
+    "maxVisibleResults": 12
+  },
+  "loadingScreen": {
+    "sourceDesign": "loading_animation_uiux_final_bg_updated_breath_demo.html",
+    "background": "assets/loading/loading_uiux_bg.png",
+    "stages": [
+      "Kaynaklar",
+      "Rezervasyonlar",
+      "Stoklar",
+      "Arayüz"
+    ],
+    "activeBreathOnly": true,
+    "backgroundBlurOrColorShift": false,
+    "realProgressBound": true
+  },
+  "manualExcelControl": {
+    "enabled": true,
+    "mode": "parallel_to_ZMM048",
+    "user_selects_source_depot": true,
+    "user_selects_target_depot": true,
+    "paste_columns": [
+      "Malzeme Kodu",
+      "Miktar"
+    ],
+    "duplicate_material_rows": "preserved_in_input_and_aggregated_for_decision",
+    "source_price_key": "Kaynak Uretim Yeri + Malzeme Kodu",
+    "main_depot_stock_check": false,
+    "checks": [
+      "TEMINAT",
+      "KESIF",
+      "TESIS_PROJE_DAGILIMI"
+    ],
+    "material_combobox": {
+      "enabled": true,
+      "searchFields": [
+        "Malzeme Kodu",
+        "Malzeme Tanımı",
+        "Birim"
+      ],
+      "addToPasteList": true,
+      "duplicatesAllowed": true,
+      "maxVisibleResults": 15
+    }
+  },
+  "manualMaterialPicker": {
+    "dynamicSearch": true,
+    "dropdownBrowse": true,
+    "browseScope": "TANIMLAR SITE_MALZEMELER + MB52 benzersiz malzemeler",
+    "searchFields": [
+      "Malzeme Kodu",
+      "Malzeme Tanımı",
+      "Birim"
+    ],
+    "quantityLayout": "desktop 3:1 + 140px add button; responsive"
+  },
+  "control_record_archive": {
+    "enabled": true,
+    "storage": "append_only_csv_per_control",
+    "encoding": "UTF-8 BOM",
+    "delimiter": ";",
+    "root_config": "KAYIT_KLASORU.txt",
+    "default_root": "kayitlar",
+    "folders": [
+      "KONTROL_BASLIK",
+      "KONTROL_MALZEME",
+      "KONTROL_PROJE"
+    ],
+    "control_id": "server_generated_unique",
+    "sap_approval": false,
+    "save_button_meaning": "Kontrol sonucunu onaylayıp kayıt altına alır; SAP onayı değildir.",
+    "same_reservation_can_have_multiple_snapshots": true,
+    "power_bi_folder_import_ready": true
+  },
+  "settingsUI": {
+    "enabled": true,
+    "dataRootFile": "VERI_KLASORU.txt",
+    "recordRootFile": "KAYIT_KLASORU.txt",
+    "editableInBrowser": true
+  },
+  "settingsRevision": "Ayarlar servisi fallback + sürüm tanılama + eski servis çakışma koruması",
+  "dashboard": {
+    "name": "Operasyon İzleme",
+    "sources": [
+      "CSV kontrol kayıt arşivi",
+      "MB51",
+      "ZMM098"
+    ],
+    "ranges": [
+      7,
+      30,
+      90,
+      365,
+      0
+    ],
+    "metrics": [
+      "Kayıtlı Kontrol",
+      "Depo/Proje Kontrol Takibi",
+      "Efektif Kullanılabilir Teminat",
+      "Aylık Net Harcama"
+    ],
+    "sections": [
+      "Kontrol Aktivitesi",
+      "Karar Dağılımı",
+      "Teminat Bilgileri",
+      "Aylık Net Harcamalar",
+      "Malzeme Hareket Akışı",
+      "Depo Bazlı Harcamalar",
+      "Yüklenici / Malzeme Dağılımı",
+      "Proje Dağılımları"
+    ],
+    "monthlyExpenseRule": "MB51 Kayıt Tarihi esas; net parasal harcama = 221 etkisi - 222 ters etkisi - Z22 yüklenici stoğuna dönüş etkisi. Tutar (UPB) işaretleri kullanılır.",
+    "movementFlows": {
+      "mainToContractor": [
+        "301",
+        "302",
+        "311",
+        "312"
+      ],
+      "contractorTransfer": [
+        "411",
+        "412"
+      ],
+      "contractorToPyp": [
+        "415",
+        "416"
+      ],
+      "expense": [
+        "221",
+        "222",
+        "Z22"
+      ],
+      "returns": [
+        "980",
+        "990"
+      ]
+    },
+    "stockTurnover": "KAPSAM DIŞI: Stok devir hızı, ortalama stok ve stokta kalma günü hesaplanmaz.",
+    "guaranteeAuthority": "ZMM098; proje bazında kaynakta olmayan teminat tutarı türetilmez.",
+    "exports": [
+      "Excel .xlsx",
+      "PDF",
+      "JPG"
+    ]
+  },
+  "build": "20261116-v3.13.0-error-fixes",
+  "dashboardFilters": {
+    "period": true,
+    "companyDynamicSearch": true,
+    "depotDynamicSearch": true,
+    "workType": true,
+    "exportRequiresDepot": true,
+    "exports": [
+      "xlsx",
+      "pdf",
+      "jpg"
+    ]
+  },
+  "decisionResultJpgExport": {
+    "enabled": true,
+    "scope": "Kontrol Sonucu",
+    "contains": [
+      "Genel sonuç",
+      "Teminat",
+      "Keşif",
+      "Proje dağılımı",
+      "Hata/Uyarı detayları"
+    ],
+    "filename": "Kontrol_Sonucu_<Rezervasyon|Manuel>_<YYYYMMDD_HHMM>.jpg"
+  },
+  "sourceArchitecture": {
+    "format": "CSV",
+    "filenameDependent": false,
+    "detection": "header_and_content_signature",
+    "encodingOutput": "UTF-8",
+    "acceptedDelimiters": [
+      ";",
+      ",",
+      "TAB",
+      "|"
+    ],
+    "selection": "Aynı kaynak/alt tür için dış klasörde içerik eşleşen en güncel CSV seçilir; dosya adı karar kriteri değildir.",
+    "ambiguousPolicy": "Yetersiz veya birden fazla kaynağa benzer CSV otomatik bağlanmaz ve uyarı üretilir.",
+    "tanımlarRoles": [
+      "SITE_DEPOLAR",
+      "SITE_PROJELER",
+      "SITE_MALZEMELER"
+    ],
+    "kesifRoles": [
+      "TESIS",
+      "KET_YB",
+      "BAKIM",
+      "LED"
+    ]
+  },
+  "exemptionRules": {
+    "source": "csv/MUAF_LISTESI.csv",
+    "scope": [
+      "KESIF",
+      "TEMINAT"
+    ],
+    "discoveryExempt": "Keşif kaydı/yetersizliği hata üretmez; TESİS proje dağılımı zorunluluğu devam eder ve proje keşif kapasitesi muaf satırda kontrol edilmez.",
+    "guaranteeExempt": "Muaf malzemenin tutarı teminat etkisine dahil edilmez; manuel kontrolde muaf malzeme için MB52 fiyat eksikliği teminat hatası üretmez.",
+    "projectDistributionExempt": false
+  }
+}

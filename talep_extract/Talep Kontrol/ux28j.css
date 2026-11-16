@@ -1,0 +1,84 @@
+/* FIX28J • Koyu lacivert marka kimliğini koruyan ortak sunum standardı */
+.tk-ux28j{--tkj-bg:#f3f7fc;--tkj-border:#dce6f0;--tkj-ink:#142742;--tkj-muted:#506581;--tkj-accent:#087d91;--tkj-radius:13px;}
+.tk-ux28j .main{background:var(--tkj-bg);min-height:100vh}
+.tk-ux28j .topbar{background:rgba(255,255,255,.97);border-bottom:1px solid var(--tkj-border);padding:14px 20px!important;gap:12px;min-height:74px!important;margin-bottom:16px;border-radius:0 0 14px 14px}
+.tk-ux28j .topbar h1{font-size:clamp(17px,1.5vw,22px)!important;line-height:1.25;white-space:normal!important;letter-spacing:-.01em}
+.tk-ux28j .top-actions{gap:9px!important;flex-wrap:wrap;justify-content:flex-end}
+.tk-ux28j .top-actions .auto-source-badge{font-size:12px!important;min-height:32px;padding:6px 11px}
+.tk-ux28j .top-actions .user-session-card{min-height:40px;max-width:215px}
+.tk-ux28j .top-actions .tk-top-help{min-height:40px;font-size:13px}
+.tk-ux28j button:focus-visible,.tk-ux28j a:focus-visible,.tk-ux28j select:focus-visible,.tk-ux28j input:focus-visible,.tk-ux28j summary:focus-visible{outline:3px solid #12a5c7!important;outline-offset:3px!important}
+.tk-ux28j .btn,.tk-ux28j button{touch-action:manipulation}
+.tk-ux28j .panel{border-radius:var(--tkj-radius)}
+.tk-ux28j .sidebar-nav{gap:3px!important}
+.tk-ux28j .sidebar .nav-item{min-height:41px;line-height:1.3;padding:10px 12px!important;border-radius:9px;font-size:13px!important;letter-spacing:0!important}
+.tk-ux28j .sidebar .nav-item.nav-item-child{font-size:12px!important;padding-left:22px!important;min-height:39px}
+.tk-ux28j .sidebar .nav-item:not(.active):hover{background:rgba(255,255,255,.1)!important;color:#fff!important}
+.tk-ux28j .sidebar .nav-item.active{background:#25466d;color:#fff;box-shadow:inset 3px 0 #3cc0cf}
+.tk-ux28j .tk-uxj-nav-kicker{font-size:11px;color:#8faecc;letter-spacing:.08em;padding:7px 11px 10px;font-weight:800}
+.tk-ux28j .tk-uxj-nav-group{border-radius:9px}
+.tk-ux28j .tk-uxj-nav-summary{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;min-height:42px;cursor:pointer;border-radius:9px;color:#d6e5f5;font-weight:800;font-size:13px;list-style:none}
+.tk-ux28j .tk-uxj-nav-summary::-webkit-details-marker{display:none}
+.tk-ux28j .tk-uxj-nav-summary:hover,.tk-ux28j details[open]>.tk-uxj-nav-summary{background:rgba(255,255,255,.08);color:#fff}
+.tk-ux28j .tk-uxj-nav-chevron{font-size:19px;transition:transform .2s;color:#8fb6d7}
+.tk-ux28j details[open] .tk-uxj-nav-chevron{transform:rotate(180deg)}
+.tk-ux28j .tk-uxj-nav-children{padding:3px 0 5px 8px;border-left:1px solid #335376;margin-left:16px}
+.tk-ux28j .sidebar-bottom .nav-item-settings{justify-content:flex-start;text-align:left}
+/* İkincil işlemler tek açılır menüde: mevcut buton ID/handlerları korunur. */
+.tk-ux28j .tk-uxj-tools{position:relative}
+.tk-ux28j .tk-uxj-tools-button{min-height:41px;border:1px solid #c7d7e6;background:#fff;border-radius:10px;color:#183857;padding:0 14px;font-size:13px;font-weight:800;cursor:pointer}
+.tk-ux28j .tk-uxj-tools-button:hover{background:#eaf4fa}
+.tk-ux28j .tk-uxj-tools-pop{position:absolute;top:calc(100% + 8px);right:0;min-width:260px;padding:10px;border:1px solid var(--tkj-border);border-radius:14px;background:#fff;box-shadow:0 18px 42px rgba(15,40,70,.19);z-index:1150;display:grid;gap:7px}
+.tk-ux28j .tk-uxj-tools-pop[hidden]{display:none!important}
+.tk-ux28j .tk-uxj-tools-title{font-size:11px;color:var(--tkj-muted);font-weight:900;letter-spacing:.07em;padding:4px 8px}
+.tk-ux28j .tk-uxj-tools-slot{display:flex}.tk-ux28j .tk-uxj-tools-slot>.btn,.tk-ux28j .tk-uxj-tools-slot>.tk-top-guide{width:100%;justify-content:flex-start;min-height:42px;font-size:13px!important}
+.tk-ux28j .tk-uxj-tools-pop .tk-top-inline-tip{justify-self:start}
+/* Karar Destek: navigasyon adımları herhangi bir iş kuralını değiştirmez. */
+.tk-ux28j .tk-uxj-decision-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:4px 0 8px}
+.tk-ux28j .tk-uxj-step{border:1px solid var(--tkj-border);background:#fff;border-radius:12px;min-height:58px;display:flex;align-items:center;gap:12px;padding:10px 14px;text-align:left;color:#294564;font-weight:800;font-size:14px;cursor:pointer}
+.tk-ux28j .tk-uxj-step.selected{border-color:#0d8398;background:#ebf8fa;color:#0c6677}
+.tk-ux28j .tk-uxj-step-no{display:grid;place-items:center;flex:none;border-radius:50%;height:30px;width:30px;background:#e6edf5;color:#244463}
+.tk-ux28j .tk-uxj-step.selected .tk-uxj-step-no{background:#0c8b9c;color:#fff}
+.tk-ux28j .tk-uxj-step-note{color:var(--tkj-muted);font-size:12px;margin:0 0 15px}
+.tk-ux28j #decisionView .reservation-lookup-panel,.tk-ux28j #decisionView .material-plan-panel,.tk-ux28j #decisionView .control-summary-panel{box-shadow:0 3px 13px rgba(20,43,69,.04)}
+.tk-ux28j #decisionView .reservation-search-control input{min-height:44px;font-size:14px!important}
+.tk-ux28j #decisionView .reservation-get-btn,.tk-ux28j #decisionView .reservation-clear-btn,.tk-ux28j #runCheckBtn{min-height:44px;font-size:14px!important}
+/* Veri Merkezi: 4 işlev grubu, mevcut sekmeler ve ID'ler aynen kullanılıyor. */
+.tk-ux28j .tk-uxj-dc-groups{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0 4px;padding:5px;background:#e7eef6;border-radius:13px}
+.tk-ux28j .tk-uxj-group-btn{border:0;background:transparent;min-height:42px;border-radius:10px;color:#36516f;padding:10px 15px;font-size:13px;font-weight:800;cursor:pointer}
+.tk-ux28j .tk-uxj-group-btn.selected{background:#fff;color:#126879;box-shadow:0 2px 8px rgba(20,45,70,.1)}
+.tk-ux28j .dc-tabs{margin:9px 0 16px!important;gap:7px!important}
+.tk-ux28j .dc-tab{min-height:40px;font-size:12px!important;padding:9px 13px!important}
+.tk-ux28j .dc-tab[hidden]{display:none!important}
+.tk-ux28j .tk-uxj-import-stages{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 15px}
+.tk-ux28j .tk-uxj-import-stages>span{border:1px solid #cfdde8;background:#f2f8fc;border-radius:9px;padding:9px 10px;font-size:12px;font-weight:800;color:#294863}
+.tk-ux28j .tk-uxj-import-stages b{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:50%;background:#dceef5;color:#11697c;margin-right:5px}
+.tk-ux28j .tk-uxj-import-stages>.tk-uxj-stage-locked{color:#936431;background:#fdf5ea;border-color:#f3dbb9}
+.tk-ux28j .data-prep-actions select,.tk-ux28j .data-prep-actions input{min-height:42px;font-size:13px!important}
+/* Kurumsal dosyaların formatı değişmeden, yalnız indirme alanı daha anlaşılır. */
+.tk-ux28j .tk-uxj-excel-flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 15px}
+.tk-ux28j .tk-uxj-flow-step{background:#fff;border:1px solid var(--tkj-border);border-radius:12px;padding:12px;display:flex;gap:9px;align-items:center;font-weight:800;font-size:12px;color:#294b6b}
+.tk-ux28j .tk-uxj-flow-no{width:25px;height:25px;border-radius:50%;background:#e1f4f5;color:#087b88;display:grid;place-items:center;flex-shrink:0}
+.tk-ux28j .template-library-item{border:1px solid var(--tkj-border);border-radius:13px;min-height:106px;padding:15px!important;gap:14px}
+.tk-ux28j .template-library-item-detail h3{font-size:16px;line-height:1.35}
+.tk-ux28j .template-library-item-detail p{font-size:13px;line-height:1.5}
+.tk-ux28j .template-library-download{min-height:44px;white-space:nowrap;font-size:13px!important}
+.tk-ux28j .tk-uxj-form-badge{display:inline-block;padding:4px 8px;border-radius:7px;background:#e9f6ec;color:#176b39;font-size:10px;letter-spacing:.045em;font-weight:900;margin-bottom:6px}
+.tk-ux28j .tk-uxj-form-badge.pilot{background:#fff3da;color:#86570e}
+/* Operasyon ve tablolar: ortak kontrol, yazı ve taşma davranışı. */
+.tk-ux28j .work-ops-controls label{font-size:12px!important;letter-spacing:0!important;font-weight:750!important}
+.tk-ux28j .work-ops-controls input,.tk-ux28j .work-ops-controls select{height:43px!important;font-size:13px!important;border-radius:9px}
+.tk-ux28j .work-ops-controls .btn,.tk-ux28j .work-operations-view button[data-report-tab]{min-height:40px;font-size:12px!important}
+.tk-ux28j .work-report26-tabs{gap:7px;overflow-x:auto;flex-wrap:nowrap;padding:4px 2px 9px;scrollbar-width:thin}
+.tk-ux28j .work-report26-tabs>button{white-space:nowrap;flex-shrink:0}
+.tk-ux28j .tk-uxj-data-view .table-wrap,.tk-ux28j .tk-uxj-data-view .work-ops-scroll{overflow-x:auto;scrollbar-width:thin;scrollbar-color:#9bb7d5 #f1f5fa}
+.tk-ux28j .tk-uxj-data-view .dashboard-table thead th,.tk-ux28j #decisionView .planner-table thead th{position:sticky;top:0;z-index:2;background:#eaf0f7;color:#253c5b;font-size:12px!important;font-weight:800!important;white-space:nowrap;padding:11px 12px!important}
+.tk-ux28j .tk-uxj-data-view .dashboard-table tbody td,.tk-ux28j #decisionView .planner-table tbody td{font-size:13px!important;padding:10px 12px!important;line-height:1.45}
+.tk-ux28j .tk-uxj-data-view .dashboard-table tbody tr:hover,.tk-ux28j #decisionView .planner-table tbody tr:hover{background:#f0f7fd}
+.tk-ux28j .tk-uxj-data-view .dashboard-kpi span{font-size:12px!important}
+.tk-ux28j .tk-uxj-data-view .dashboard-kpi strong{font-size:clamp(17px,1.5vw,25px)}
+.tk-ux28j .tk-uxj-data-view .btn{min-height:40px}
+@media(max-width:1190px){.tk-ux28j .topbar{align-items:flex-start!important;flex-wrap:wrap}.tk-ux28j .top-actions{width:100%;justify-content:flex-start}}
+@media(max-width:900px){.tk-ux28j .tk-uxj-excel-flow{grid-template-columns:repeat(2,minmax(0,1fr))}.tk-ux28j .tk-uxj-decision-steps{gap:7px}.tk-ux28j .tk-uxj-step{padding:9px;font-size:12px}.tk-ux28j .work-ops-controls,.tk-ux28j .work-ops-controls:has([data-role="project-filter"]){grid-template-columns:repeat(2,minmax(0,1fr));min-width:0!important}}
+@media(max-width:630px){.tk-ux28j .tk-uxj-decision-steps{grid-template-columns:1fr}.tk-ux28j .tk-uxj-step{min-height:43px}.tk-ux28j .tk-uxj-excel-flow{grid-template-columns:1fr}.tk-ux28j .topbar{padding:10px 2px!important}.tk-ux28j .top-actions{justify-content:flex-start!important}.tk-ux28j .tk-uxj-tools-pop{right:auto;left:0;min-width:min(270px,88vw)}.tk-ux28j .work-ops-controls,.tk-ux28j .work-ops-controls:has([data-role="project-filter"]){grid-template-columns:1fr}.tk-ux28j .tk-uxj-dc-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.tk-ux28j .tk-uxj-group-btn{padding:9px 6px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.tk-ux28j .tk-uxj-nav-chevron{transition:none}}

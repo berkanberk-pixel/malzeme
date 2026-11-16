@@ -1,0 +1,61 @@
+/* FIX28L – Beş WebGL WebUI teması. Yalnız görünüm; iş kuralları etkilenmez. */
+body.tk-webgl-ui{
+  --accent:var(--tkgl-accent);--accent2:var(--tkgl-accent2);
+  --nav:var(--tkgl-nav);--bg:var(--tkgl-main);--line:var(--tkgl-line);
+  --tkj-bg:var(--tkgl-main);--tkj-border:var(--tkgl-line);--tkj-accent:var(--tkgl-accent);
+  --tkgl-shadow:0 8px 28px rgba(17,41,64,.065);
+}
+body[data-webgl-theme="atlas"]{--tkgl-main:#f2f7fa;--tkgl-nav:#0c253f;--tkgl-nav2:#12435c;--tkgl-accent:#008ca8;--tkgl-accent2:#006e89;--tkgl-line:#d3e7ef;--tkgl-light:#e8f7f9;--tkgl-ink:#163b56;--tkgl-hero1:#0a2946;--tkgl-hero2:#075c78;--tkgl-panel-radius:13px}
+body[data-webgl-theme="flow"]{--tkgl-main:#f5f6fd;--tkgl-nav:#172750;--tkgl-nav2:#304487;--tkgl-accent:#2756d5;--tkgl-accent2:#163da7;--tkgl-line:#dce2f4;--tkgl-light:#ebf0ff;--tkgl-ink:#243e80;--tkgl-hero1:#182b64;--tkgl-hero2:#d58b25;--tkgl-panel-radius:14px}
+body[data-webgl-theme="prism"]{--tkgl-main:#f8f6fc;--tkgl-nav:#292047;--tkgl-nav2:#503b7b;--tkgl-accent:#7550ba;--tkgl-accent2:#59369e;--tkgl-line:#e4dcf1;--tkgl-light:#f2ecfa;--tkgl-ink:#51347d;--tkgl-hero1:#362355;--tkgl-hero2:#148d9e;--tkgl-panel-radius:19px}
+body[data-webgl-theme="terrain"]{--tkgl-main:#f1f8f4;--tkgl-nav:#123c38;--tkgl-nav2:#236451;--tkgl-accent:#137f65;--tkgl-accent2:#0c624c;--tkgl-line:#d2e8db;--tkgl-light:#e6f6ed;--tkgl-ink:#1b624c;--tkgl-hero1:#143d3b;--tkgl-hero2:#347d4a;--tkgl-panel-radius:12px}
+body[data-webgl-theme="control"]{--tkgl-main:#f1f3f3;--tkgl-nav:#20292e;--tkgl-nav2:#334247;--tkgl-accent:#536e32;--tkgl-accent2:#3b5320;--tkgl-line:#d5dedd;--tkgl-light:#edf4e5;--tkgl-ink:#354a2e;--tkgl-hero1:#1d292c;--tkgl-hero2:#526a31;--tkgl-panel-radius:8px}
+body.tk-webgl-ui .main{background:var(--tkgl-main)!important;transition:background-color .2s ease}
+body.tk-webgl-ui .sidebar{background:linear-gradient(163deg,var(--tkgl-nav),var(--tkgl-nav2))!important}
+body.tk-webgl-ui .sidebar .nav-item.active{background:var(--tkgl-nav2)!important;box-shadow:inset 3px 0 var(--tkgl-accent)}
+body.tk-webgl-ui .sidebar .tk-uxj-nav-summary:hover,body.tk-webgl-ui .sidebar details[open]>.tk-uxj-nav-summary{background:rgba(255,255,255,.12)}
+body.tk-webgl-ui .brand-mark{background:linear-gradient(145deg,var(--tkgl-accent),var(--tkgl-nav2))!important}
+body.tk-webgl-ui .topbar{border-bottom-color:var(--tkgl-line)!important}
+body.tk-webgl-ui .btn-primary,body.tk-webgl-ui button.btn-primary:not(.work-report26-tabs .btn){background:var(--tkgl-accent);border-color:var(--tkgl-accent)}
+body.tk-webgl-ui .btn-primary:hover:not(:disabled){background:var(--tkgl-accent2);border-color:var(--tkgl-accent2)}
+body.tk-webgl-ui .panel,body.tk-webgl-ui .settings-card,body.tk-webgl-ui .template-library-item{border-color:var(--tkgl-line);border-radius:var(--tkgl-panel-radius);box-shadow:var(--tkgl-shadow)}
+body.tk-webgl-ui .tk-uxj-step.selected,body.tk-webgl-ui .tk-uxj-group-btn.selected{color:var(--tkgl-ink);background:var(--tkgl-light);border-color:var(--tkgl-line)}
+body.tk-webgl-ui .tk-uxj-step.selected .tk-uxj-step-no{background:var(--tkgl-accent)}
+body.tk-webgl-ui .work-report26 .work-report26-tabs>button.btn-primary{background:var(--tkgl-accent)!important;border-color:var(--tkgl-accent)!important;color:#fff!important}
+body.tk-webgl-ui .work-report26 .work-report26-tabs>button.btn:not(.btn-primary){border-color:var(--tkgl-line)}
+body.tk-webgl-ui .auto-source-badge{background:var(--tkgl-light);color:var(--tkgl-ink)}
+/* FIX28M: Theme effect is the heading backdrop, not an extra promotional banner. */
+body.tk-webgl-ui .topbar-title-block.tk-gl-title-host{position:relative;isolation:isolate;overflow:hidden;display:flex;align-items:center;min-height:54px;min-width:280px;padding:12px 18px;border-radius:12px;background:linear-gradient(115deg,var(--tkgl-hero1),var(--tkgl-hero2));box-shadow:0 6px 20px rgba(13,33,54,.13)}
+body.tk-webgl-ui .topbar-title-block.tk-gl-title-host h1{position:relative;z-index:3;color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.25);font-size:clamp(15px,1.35vw,20px)!important;line-height:1.25!important;white-space:normal!important}
+body.tk-webgl-ui .tk-gl-stage{position:absolute;inset:0;z-index:0;background:linear-gradient(115deg,var(--tkgl-hero1),var(--tkgl-hero2));border:0;pointer-events:none}
+body.tk-webgl-ui .tk-gl-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1;pointer-events:none}
+body.tk-webgl-ui .tk-gl-stage:after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(2,17,31,.40),rgba(2,17,31,.1));pointer-events:none}
+.tk-gl-theme-control{position:relative;z-index:1180}
+.tk-gl-theme-trigger{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--tkgl-line);border-radius:10px;min-height:41px;padding:8px 11px;font-size:12px;font-weight:850;color:var(--tkgl-ink);cursor:pointer;white-space:nowrap}
+.tk-gl-theme-trigger:hover{background:var(--tkgl-light)}
+.tk-gl-theme-panel{position:absolute;top:calc(100% + 9px);right:0;min-width:325px;width:min(365px,calc(100vw - 30px));max-height:min(74vh,640px);overflow-y:auto;border:1px solid var(--tkgl-line);border-radius:14px;background:white;box-shadow:0 20px 48px rgba(15,35,60,.2);padding:13px;z-index:1200}
+.tk-gl-theme-panel[hidden]{display:none!important}
+.tk-gl-theme-panel h3{font-size:14px;margin:0 0 5px;color:#20354b}.tk-gl-theme-panel>p{margin:0 0 10px;color:#60748b;font-size:11px}
+.tk-gl-options{display:grid;gap:7px}
+.tk-gl-choice{width:100%;display:flex;gap:11px;align-items:center;text-align:left;border:1px solid #e0e6ec;border-radius:10px;padding:8px;background:white;color:#1e3651;cursor:pointer;min-height:58px}
+.tk-gl-choice:hover,.tk-gl-choice[aria-pressed="true"]{background:#f4f9fc;border-color:var(--tkgl-accent)}
+.tk-gl-choice[aria-pressed="true"]{box-shadow:inset 3px 0 var(--tkgl-accent)}
+.tk-gl-choice .tk-gl-swatch{width:55px;height:36px;border-radius:7px;flex-shrink:0;border:1px solid rgba(0,0,0,.08);background:linear-gradient(140deg,var(--sw1),var(--sw2))}
+.tk-gl-choice b{display:block;font-size:12px}.tk-gl-choice small{display:block;font-size:10px;color:#62748a;margin-top:3px;line-height:1.4}
+.tk-gl-choice .tk-gl-check{margin-left:auto;color:var(--tkgl-accent);font-weight:900;font-size:18px}
+.tk-gl-toggle-row{border-top:1px solid #e4edf2;margin-top:11px;padding:11px 1px 2px;display:flex;gap:9px;align-items:center;font-size:12px;color:#344b5d;cursor:pointer}
+.tk-gl-toggle-row input{accent-color:var(--tkgl-accent);width:16px;height:16px}
+.tk-gl-settings{border:1px solid var(--tkgl-line);border-radius:14px;margin-bottom:18px;background:white;padding:18px}
+.tk-gl-settings h3{font-size:17px;margin:0 0 6px;color:#21384e}.tk-gl-settings p{margin:0 0 16px;font-size:12px;color:#5e7185;line-height:1.55}
+.tk-gl-settings-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.tk-gl-settings-card{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:5px;padding:11px;border:1px solid var(--tkgl-line);border-radius:12px;background:#fff;cursor:pointer;color:#193149;min-height:131px}
+.tk-gl-settings-card[aria-pressed="true"]{outline:2px solid var(--tkgl-accent);background:var(--tkgl-light)}
+.tk-gl-settings-card .tk-gl-settings-swatch{display:block;width:100%;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--sw1),var(--sw2));margin-bottom:4px}
+.tk-gl-settings-card strong{font-size:12px}.tk-gl-settings-card small{font-size:10px;color:#65788a;line-height:1.35}
+.tk-gl-settings-footer{margin-top:13px;font-size:12px;color:#5a6f81}
+.tk-gl-settings-footer strong{color:var(--tkgl-ink)}
+body.tk-webgl-ui .tk-gl-theme-trigger:focus-visible,body.tk-webgl-ui .tk-gl-choice:focus-visible,body.tk-webgl-ui .tk-gl-settings-card:focus-visible{outline:3px solid var(--tkgl-accent)!important;outline-offset:3px}
+@media(max-width:1150px){.tk-gl-settings-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:690px){.tk-gl-settings-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.tk-gl-theme-panel{left:0;right:auto}.tk-gl-theme-trigger{min-height:40px}body.tk-webgl-ui .topbar-title-block.tk-gl-title-host{min-width:0;width:100%}}
+@media(max-width:440px){.tk-gl-theme-panel{left:auto;right:0;width:min(315px,calc(100vw - 20px))}.tk-gl-settings-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){body.tk-webgl-ui *{scroll-behavior:auto!important}}
